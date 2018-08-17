@@ -1,0 +1,43 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Lap_pembayaransewa_m extends CI_Model {
+
+    // public function getPembayaranSewa($tower) {
+
+        // $sql = "select ms.id_sewa,mc.nama_cust,mc.alamat_domisili,mr.no_kamar,mr.no_va_pembayaran,ms.jkw,ms.tgl_from,ms.tgl_to
+// from master_sewa ms 
+// left join master_room mr on ms.id_room = mr.id_room
+// left join master_customer mc on ms.id_cust = mc.id_cust
+// where ms.status_sewa = 1 and mr.id_tower = '$tower'";
+        
+        // $query = $this->db->query($sql);
+        // return $query->result();
+    // }
+
+// }
+ public function getPembayaranSewa($tgl_trans) {
+        $data = array();
+        $this->db->from('trans_sewa');
+        $this->db->where('YEAR(tgl_trans)', $tgl_trans['year']);
+        $this->db->where('MONTH(tgl_trans)', $tgl_trans['month']);
+        $this->db->order_by("tgl_trans", "asc");
+        $result = $this->db->get();
+// ob_clean(); 
+// echo $this->db->last_query();
+// exit();
+        foreach ($result->result() as $row) {
+            $data[] = array(
+                'id_sewa' => $row->id_sewa,
+                'tgl_trans' => $row->tgl_trans,
+                'trans_pokok' => $row->trans_pokok,
+                'trans_pl' => $row->trans_pl
+            );
+        }
+        return $data;
+    }
+}
+/* End of file sec_menu_user_m.php */
+/* Location: ./application/models/sec_menu_user.php */

@@ -1,0 +1,87 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class lap_pembayaransewa extends CI_Controller {
+
+    function __construct() {
+        parent::__construct();
+
+        $this->load->model('home_m');
+        $this->load->model('lap_pembayaransewa_m');
+        $this->load->model('master_lantai_m');
+		  $this->load->library('fpdf');
+		 // $this->load->library('PDF_MC_Table');
+        session_start();
+    }
+
+    public function index() {
+        if ($this->auth->is_logged_in() == false) {
+            $this->login();
+        } else {
+            $data['multilevel'] = $this->user_m->get_data(0, $this->session->userdata('usergroup'));
+            $this->template->set('title', 'Home');
+            $this->template->load('template/template1', 'global/index', $data);
+        }
+    }
+
+    function home() {
+        $menuId = $this->home_m->get_menu_id('lap_pembayaransewa/home');
+        $data['menu_id'] = $menuId[0]->menu_id;
+        $data['menu_parent'] = $menuId[0]->parent;
+        $data['menu_nama'] = $menuId[0]->menu_nama;
+        $data['menu_header'] = $menuId[0]->menu_header;
+        $this->auth->restrict($data['menu_id']);
+        $this->auth->cek_menu($data['menu_id']);
+        // $data['tower'] = $this->master_lantai_m->getTowerpLokasi($this->session->userdata('id_lokasi'));
+
+        if (isset($_POST["btnShow"])) {
+            $this->display();
+        } else {
+            $data['multilevel'] = $this->user_m->get_data(0, $this->session->userdata('usergroup'));
+            $data['menu_all'] = $this->user_m->get_menu_all(0);
+
+            $this->template->set('title', $data['menu_nama']);
+            $this->template->load('template/template3', 'pembayaransewa/lap_pembayaransewa_v', $data);
+        }
+    }
+
+    function display() {
+        $menuId = $this->home_m->get_menu_id('lap_pembayaransewa/home');
+		
+        $data['menu_id'] = $menuId[0]->menu_id;
+        $data['menu_parent'] = $menuId[0]->parent;
+        $data['menu_nama'] = $menuId[0]->menu_nama;
+        $data['menu_header'] = $menuId[0]->menu_header;
+        $this->auth->restrict($data['menu_id']);
+        $this->auth->cek_menu($data['menu_id']);
+
+        $tgl_pembayaran['month'] = $_POST["month"];
+        $tgl_pembayaran['year'] = $_POST["year"];
+		$data['periode'] = $tgl_pembayaran;
+        $data['info'] = $this->lap_pembayaransewa_m->getPembayaranSewa($tgl_pembayaran);
+
+        $data['multilevel'] = $this->user_m->get_data(0, $this->session->userdata('usergroup'));
+        $data['menu_all'] = $this->user_m->get_menu_all(0);
+		// var_dump($data);
+		$this->load->helper('PDF_MC_Table');
+		$this->load->view('lap_pembayaransewa/lap_displaypembayaransewa_v', $data);
+    }
+	
+	function printData(){
+		$tgl_pembayaran['month'] = $_GET["month"];
+        $tgl_pembayaran['year'] = $_GET["year"];
+		$data['periode'] = $tgl_pembayaran;
+        $data['info'] = $this->lap_pembayaransewa_m->getPembayaranSewa($tgl_pembayaran);
+		$this->load->helper('PDF_MC_Table');
+		$this->load->view('pembayaransewa/lap_displaypembayaransewa_v', $data);
+
+
+	
+	}
+
+}
+
+/* End of file main.php */
+/* Location: ./application/controllers/kasumum.php */
