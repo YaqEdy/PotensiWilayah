@@ -5,10 +5,7 @@ if (!defined('BASEPATH'))
 
 class Trans_kk_m extends CI_Model {
     public function getKKAll() {
-        $sql = "SELECT * from master_kk kk "
-                . "left join master_ktp kt on kk.id_kepalakeluarga = kt.id_ktp "
-                . "left join master_kecamatan kc on kt.id_kec = kc.id_kec "
-                . "left join master_kelurahan kl on kt.id_kel = kl.id_kel ";
+        $sql = "SELECT * from vw_t_kk WHERE hub_keluarga=1";
         $query = $this->db->query($sql);
         return $query->result(); // returning rows, not row
     }

@@ -66,6 +66,7 @@ class Trans_kk extends CI_Controller {
         
         $data['kec'] = $this->global_m->getSelectOption('master_kecamatan','','','','','id_kec');
         $data['kel'] = $this->global_m->getSelectOption('master_kelurahan','','','','','id_kel');
+        $data['difabel'] = $this->global_m->getSelectOption('tbl_m_difabel','','','','','id_difabel');
 
         if (isset($_POST["btnSimpan"])) {
             $this->simpan();
@@ -85,7 +86,7 @@ class Trans_kk extends CI_Controller {
         foreach ($rows as $row) {
             $array = array(
                 'no'=>$no,
-                'idKK' => trim($row->id_kk),
+                'idKK' => trim($row->id_master_kk),
                 'idKtp' => trim($row->id_ktp),
                 'namaKtp' => trim($row->nama_ktp),
                 'kec' => trim($row->nama_kec),
@@ -100,15 +101,12 @@ class Trans_kk extends CI_Controller {
         $this->output->set_output(json_encode($data));
     }
 
-    public function ajax_simpan_kk() {
-        $this->load->helper('form', 'url');
+    public function upload($sNama,$sPath){
+        // $fileName = date('YmdHisu');
+        $fileName = $this->global_m->get_data("select uuid() as uuid")[0]->uuid;
 
-        $idtrans_kk = $this->input->post('idtrans_kk');
-        $fileName = date('YmdHis');
-        $path = 'uploads/foto/';
-// print_r($fileName);die();
         $config = array(
-            'upload_path' => './' . $path,
+            'upload_path' => './' . $sPath,
             'file_name' => $fileName,
             'overwrite' => true,
             // 'allowed_types' => '*',
@@ -120,11 +118,26 @@ class Trans_kk extends CI_Controller {
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
-
-        if (!$this->upload->do_upload('foto_ktp')) {
-            $result = array('istatus' => false, 'iremarks' => $this->upload->display_errors());
-        } else {
+        if (!$this->upload->do_upload($sNama)) {
+            $result = array(false,$this->upload->display_errors());
+        }else{
             $resultUpload = $this->upload->data();
+            $result = array(true,$fileName.$resultUpload['file_ext']);
+        }
+        return $result;
+    }
+    public function ajax_simpan_kk() {
+        $this->load->helper('form', 'url');
+
+        $idtrans_kk = $this->input->post('idtrans_kk');
+
+        $path = 'uploads/foto/';
+        $iUploadFoto=$this->upload('foto_ktp',$path);
+        if(!$iUploadFoto[0]){
+            $result = array('istatus' => false, 'iremarks' => $iUploadFoto[1]);
+        } else {
+            $iUploadFotoRumah=$this->upload('foto_rumah',$path);
+
             $iCek = $this->global_m->get_data("select * FROM trans_kk where id_master_kk='$idtrans_kk'");
             if (sizeof($iCek) <= 0) {
                 $data_ktp = array(
@@ -143,21 +156,33 @@ class Trans_kk extends CI_Controller {
                     'status_kawin' => $this->input->post('status_'),
                     'pekerjaan' => $this->input->post('pekerjaan_'),
                     'warga_negara' => $this->input->post('warga_negara_'),
-                    'link_gambar' => $path .$fileName. $resultUpload['file_ext']
+                    'link_gambar' => $path .$iUploadFoto[1],
+                    'status_hidup' => 1
                 );
                 $data_kk = array(
                     // 'idtrans_kk' => $fileName,
                     'id_master_kk' => $this->input->post('noKK'),
                     'id_ktp' => $this->input->post('nik_'),
                     'pendidikan' => $this->input->post('pendidikan_'),
-                    'hub_keluarga' => 1
+                    'hub_keluarga' => 1,
+                    'rumah_path' => $path .$iUploadFotoRumah[1]
                     // 'id_ktp' => date('Y-m-d', strtotime($_POST['id_tglLahir_'])),
                     // 'create_by' => $this->session->userdata('id_user'),
                     // 'create_date' => date('Y-m-d H:i:s')
                 );
+                $data_difabel = array(
+                    'id_ktp' => $this->input->post('nik_'),
+                    'id_m_difabel' => $this->input->post('difabel_')
+                );
+                $data_bantuan = array(
+                    'id_ktp' => $this->input->post('nik_'),
+                    'bantuan_desc' => $this->input->post('bantuan_')
+                );
                 // print_r($data_ktp);die();
                 $result = $this->global_m->simpan('master_ktp', $data_ktp);
                 $result = $this->global_m->simpan('trans_kk', $data_kk);
+                $result = $this->global_m->simpan('tbl_t_difabel', $data_difabel);
+                $result = $this->global_m->simpan('tbl_t_bantuan', $data_bantuan);
             } else {
                 $data_ktp = array(
                     // 'id_ktp' => $this->input->post('nik_'),
@@ -176,7 +201,8 @@ class Trans_kk extends CI_Controller {
                     'pekerjaan' => $this->input->post('id_pekerjaan_'),
                     'warga_negara' => $this->input->post('warga_negara_'),
                     'id_ktp' => $this->input->post('warga_negara_'),
-                    'link_gambar' => $path .$fileName. $resultUpload['file_ext']
+                    'link_gambar' => $path .$fileName. $resultUpload['file_ext'],
+                    'status_hidup' => $this->input->post('status_')
                 );
                 $data_kk = array(
                     // 'idtrans_kk' => $fileName,
@@ -188,13 +214,24 @@ class Trans_kk extends CI_Controller {
                     // 'create_by' => $this->session->userdata('id_user'),
                     // 'create_date' => date('Y-m-d H:i:s')
                 );
-                $result = $this->global_m->ubah('master_ktp', $data, 'id_ktp', $this->input->post('nik_'));
-                $result = $this->global_m->ubah('master_ktp', $data, 'idtrans_kk', $iCek[0]->idtrans_kk);
+                $data_difabel = array(
+                    'id_ktp' => $this->input->post('nik_'),
+                    'id_m_difabel' => $this->input->post('difabel_')
+                );
+                $data_bantuan = array(
+                    'id_ktp' => $this->input->post('nik_'),
+                    'bantuan_desc' => $this->input->post('bantuan_')
+                );
+
+                $result = $this->global_m->ubah('master_ktp', $data_ktp, 'id_ktp', $this->input->post('nik_'));
+                $result = $this->global_m->ubah('master_ktp', $data_kk, 'idtrans_kk', $iCek[0]->idtrans_kk);
+                $result = $this->global_m->ubah('tbl_t_difabel', $data_difabel, 'id_ktp', $this->input->post('nik_'));
+                $result = $this->global_m->ubah('tbl_t_difabel', $data_bantuan, 'id_ktp', $this->input->post('nik_'));
             }
 
 
             if ($result) {
-                $result = array('istatus' => true, 'iremarks' => 'Upload Success.!'); //, 'body'=>'Data Berhasil Disimpan');
+                $result = array('istatus' => true, 'iremarks' => 'Success.!'); //, 'body'=>'Data Berhasil Disimpan');
             } else {
                 $result = array('istatus' => false, 'iremarks' => 'Gagal');
             }

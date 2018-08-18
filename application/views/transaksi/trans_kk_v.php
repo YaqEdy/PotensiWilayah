@@ -296,7 +296,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label>Pendidikan</label>
                                                     <select name="pendidikan_" id="id_pendidikan_" class="select2me">
                                                     <option value="1">SD</option>
@@ -309,13 +309,33 @@
                                                     <option value="8">Profesor</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label>Pekerjaan</label>
                                                     <input id="id_pekerjaan_"  class="form-control input-sm"
                                                            type="text" name="pekerjaan_"/>
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <label>Difabel</label>
+                                                    <?php
+                                                    $data = array();
+                                                    $data[''] = '';
+                                                    foreach ($difabel as $row) :
+                                                        $data[$row['id_difabel']] = $row['nama_difabel'];
+                                                    endforeach;
+                                                    echo form_dropdown('difabel_', $data, '', ' id="id_difabel_" class="form-control input-sm select2me "');
+                                                    ?>
+                                                    <!-- <input id="id_difabel_"  class="form-control input-sm"
+                                                           type="text" name="difabel_"/> -->
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Bantuan</label>
+                                        <input id="id_bantuan_"  class="form-control input-sm"
+                                                type="text" name="bantuan_"/>
                                     </div>
                                 </div>
                                 <!-- HIDDEN INPUT -->
@@ -540,8 +560,30 @@
                                                type="text" name="pekerjaan"/>
                                     </div>
 
+                                </div>                                
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Difabel</label>
+                                        <?php
+                                        $data = array();
+                                        $data[''] = '';
+                                        foreach ($difabel as $row) :
+                                            $data[$row['id_difabel']] = $row['nama_difabel'];
+                                        endforeach;
+                                        echo form_dropdown('difabel', $data, '', ' id="id_difabel" class="form-control input-sm select2me "');
+                                        ?>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Bantuan</label>
+                                        <input id="id_bantuan"  class="form-control input-sm"
+                                               type="text" name="bantuan"/>
+                                    </div>
                                 </div>
                             </div>
+
 
 
                         </div>
