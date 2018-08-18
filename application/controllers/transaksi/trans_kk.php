@@ -2,6 +2,7 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+    date_default_timezone_set('Asia/Jakarta');
 
 class Trans_kk extends CI_Controller {
 
@@ -97,6 +98,108 @@ class Trans_kk extends CI_Controller {
             $no++;
         }
         $this->output->set_output(json_encode($data));
+    }
+
+    public function ajax_simpan_kk() {
+        $this->load->helper('form', 'url');
+
+        $idtrans_kk = $this->input->post('idtrans_kk');
+        $fileName = date('YmdHis');
+        $path = 'uploads/foto/';
+// print_r($fileName);die();
+        $config = array(
+            'upload_path' => './' . $path,
+            'file_name' => $fileName,
+            'overwrite' => true,
+            // 'allowed_types' => '*',
+            'allowed_types'=>'gif|jpg|png|jpeg',
+            'max_size' => 0,
+            'max_width' => 0,
+            'max_height' => 0
+        );
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('foto_ktp')) {
+            $result = array('istatus' => false, 'iremarks' => $this->upload->display_errors());
+        } else {
+            $resultUpload = $this->upload->data();
+            $iCek = $this->global_m->get_data("select * FROM trans_kk where id_master_kk='$idtrans_kk'");
+            if (sizeof($iCek) <= 0) {
+                $data_ktp = array(
+                    'id_ktp' => $this->input->post('nik_'),
+                    'nama_ktp' => $this->input->post('nama_'),
+                    'tempat_lahir' => $this->input->post('tmpt_lahir_'),
+                    'tanggal_lahir' => date('Y-m-d', strtotime($_POST['tglLahir_'])),
+                    'jekel' => $this->input->post('jekel_'),
+                    'gol_darah' => $this->input->post('gol_darah_'),
+                    'alamat' => $this->input->post('alamat_'),
+                    'rt' => $this->input->post('rt_'),
+                    'rw' => $this->input->post('rw_'),
+                    'id_kel' => $this->input->post('kel_'),
+                    'id_kec' => $this->input->post('kec_'),
+                    'agama' => $this->input->post('agama_'),
+                    'status_kawin' => $this->input->post('status_'),
+                    'pekerjaan' => $this->input->post('pekerjaan_'),
+                    'warga_negara' => $this->input->post('warga_negara_'),
+                    'link_gambar' => $path .$fileName. $resultUpload['file_ext']
+                );
+                $data_kk = array(
+                    // 'idtrans_kk' => $fileName,
+                    'id_master_kk' => $this->input->post('noKK'),
+                    'id_ktp' => $this->input->post('nik_'),
+                    'pendidikan' => $this->input->post('pendidikan_'),
+                    'hub_keluarga' => 1
+                    // 'id_ktp' => date('Y-m-d', strtotime($_POST['id_tglLahir_'])),
+                    // 'create_by' => $this->session->userdata('id_user'),
+                    // 'create_date' => date('Y-m-d H:i:s')
+                );
+                // print_r($data_ktp);die();
+                $result = $this->global_m->simpan('master_ktp', $data_ktp);
+                $result = $this->global_m->simpan('trans_kk', $data_kk);
+            } else {
+                $data_ktp = array(
+                    // 'id_ktp' => $this->input->post('nik_'),
+                    'nama_ktp' => $this->input->post('nama_'),
+                    'tempat_lahir' => $this->input->post('tmpt_lahir_'),
+                    'tanggal_lahir' => date('Y-m-d', strtotime($_POST['tglLahir_'])),
+                    'jekel' => $this->input->post('jekel_'),
+                    'gol_darah' => $this->input->post('gol_darah_'),
+                    'alamat' => $this->input->post('alamat_'),
+                    'rt' => $this->input->post('rt_'),
+                    'rw' => $this->input->post('rw_'),
+                    'id_kel' => $this->input->post('kel_'),
+                    'id_kec' => $this->input->post('kec_'),
+                    'agama' => $this->input->post('agama_'),
+                    'status_kawin' => $this->input->post('status_'),
+                    'pekerjaan' => $this->input->post('id_pekerjaan_'),
+                    'warga_negara' => $this->input->post('warga_negara_'),
+                    'id_ktp' => $this->input->post('warga_negara_'),
+                    'link_gambar' => $path .$fileName. $resultUpload['file_ext']
+                );
+                $data_kk = array(
+                    // 'idtrans_kk' => $fileName,
+                    'id_master_kk' => $this->input->post('noKK'),
+                    'id_ktp' => $this->input->post('nik_'),
+                    'pendidikan' => $this->input->post('pendidikan_'),
+                    'hub_keluarga' => 1
+                    // 'id_ktp' => date('Y-m-d', strtotime($_POST['id_tglLahir_'])),
+                    // 'create_by' => $this->session->userdata('id_user'),
+                    // 'create_date' => date('Y-m-d H:i:s')
+                );
+                $result = $this->global_m->ubah('master_ktp', $data, 'id_ktp', $this->input->post('nik_'));
+                $result = $this->global_m->ubah('master_ktp', $data, 'idtrans_kk', $iCek[0]->idtrans_kk);
+            }
+
+
+            if ($result) {
+                $result = array('istatus' => true, 'iremarks' => 'Upload Success.!'); //, 'body'=>'Data Berhasil Disimpan');
+            } else {
+                $result = array('istatus' => false, 'iremarks' => 'Gagal');
+            }
+        }
+        echo json_encode($result);
     }
 
     function getDescProduk() {

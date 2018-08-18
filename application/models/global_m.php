@@ -37,6 +37,37 @@ class Global_m extends CI_Model {
             return false;
         }
     }
+    public function get_data($sql) {
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    public function simpan($tabel, $data) {
+        $this->db->trans_begin();
+        $model = $this->db->insert($tabel, $data);
+//        echo $this->db->last_query(); die();
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            return true;
+        }
+    }
+    function ubah($tabel, $data, $id_kolom, $id_data) {
+        $this->db->trans_begin();
+        $query1 = $this->db->where($id_kolom, $id_data);
+        $query2 = $this->db->update($tabel, $data);
+
+        // echo $this->db->last_query(); die('');
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            return true;
+        }
+    }
+
 
 }
 
