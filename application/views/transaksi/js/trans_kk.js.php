@@ -184,15 +184,17 @@ var iDel="";
             tr += '<td><input type="text" class="form-control input-sm" id="id_status' + i + '" name="status' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_pendidikan' + i + '" name="pendidikan' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' + i + '" name="pekerjaan' + i + '" readonly="true" value="' + $('#id_pekerjaan').val() + '" ></td>';
+            tr += '<td><input type="text" class="form-control input-sm" id="id_hub_kel' + i + '" name="hub_kel' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_difabel' + i + '" name="difabel' + i + '" readonly="true" value="' + $('#id_difabel').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_bantuan' + i + '" name="bantuan' + i + '" readonly="true" value="' + $('#id_bantuan').val() + '" ></td>';
 
             tr += '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' + i + '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
             
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' + i + '" name="jekel' + i + '" readonly="true" value="' + $('#id_jekel').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_agama_' + i + '" name="agama' + i + '" readonly="true" value="' + $('#id_agama').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_status_' + i + '" name="status' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' + i + '" name="pendidikan' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' + i + '" name="jekel_' + i + '" readonly="true" value="' + $('#id_jekel').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_agama_' + i + '" name="agama_' + i + '" readonly="true" value="' + $('#id_agama').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_status_' + i + '" name="status_' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' + i + '" name="pendidikan_' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' + i + '" name="hub_kel_' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_difabel_' + i + '" name="difabel_' + i + '" readonly="true" value="' + $('#id_difabel').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_bantuan_' + i + '" name="bantuan_' + i + '" readonly="true" value="' + $('#id_bantuan').val().split(',')[0] + '" ></td>';
             

@@ -131,9 +131,6 @@ class Trans_kk extends CI_Controller {
         $this->load->helper('form', 'url');
         $istatus=false;
 
-        $this->saveAnggotaKel();
-        print_r(count($iDel_data));die();
-
         $idtrans_kk = $this->input->post('idtrans_kk');
 
         $path = 'uploads/foto/';
@@ -234,12 +231,18 @@ class Trans_kk extends CI_Controller {
                 $result = $this->global_m->ubah('trans_kk', $data_kk, 'idtrans_kk', $iCek[0]->idtrans_kk);
                 $result = $this->global_m->ubah('tbl_t_difabel', $data_difabel, 'id_ktp', $this->input->post('nik_'));
                 $result = $this->global_m->ubah('tbl_t_bantuan', $data_bantuan, 'id_ktp', $this->input->post('nik_'));
+
             $istatus=true;
             $iremarks="Update Success.!";
         }
 
             if ($result) {
-                $result = array('istatus' => $istatus, 'iremarks' => $iremarks); //, 'body'=>'Data Berhasil Disimpan');
+                $anggotaKel=$this->saveAnggotaKel();
+                if($anggotaKel[0]){
+                    $result = array('istatus' => $istatus, 'iremarks' => $iremarks); //, 'body'=>'Data Berhasil Disimpan');
+                }else{
+                    $result = array('istatus' => $anggotaKel[0], 'iremarks' => $anggotaKel[1]); //, 'body'=>'Data Berhasil Disimpan');
+                }
             } else {
                 $result = array('istatus' => $istatus, 'iremarks' => $iremarks);
             }
@@ -251,39 +254,65 @@ class Trans_kk extends CI_Controller {
         $iDel_data=explode(",", $this->input->get('sDel'));
         $iAnggotaKel=$this->input->get('sLength');
         if($iAnggotaKel>0){
-            for($i=0;$i<$iAnggotaKel;$i++){
-                if(count($iDel_data)>0){
-                    for($a=0;$a<count($iDel_data);$a++){
-                        if($i!=$iDel_data[$a]){
-                            $data_anggota_kk = array(
-                                'id_ktp' => $this->input->post('nik'+$i),
-                                'nama_ktp' => $this->input->post('nama'+$i),
-                                'tempat_lahir' => $this->input->post('tmpt_lahir'+$i),
-                                'tanggal_lahir' => date('Y-m-d', strtotime($_POST['tglLahir'+$i])),
-                                'jekel' => $this->input->post('jekel'+$i),
-                                'gol_darah' => $this->input->post('gol_darah'+$i),
-                                'alamat' => $this->input->post('alamat'+$i),
-                                'rt' => $this->input->post('rt'+$i),
-                                'rw' => $this->input->post('rw'+$i),
-                                'id_kel' => $this->input->post('kel'+$i),
-                                'id_kec' => $this->input->post('kec'+$i),
-                                'agama' => $this->input->post('agama'+$i),
-                                'status_kawin' => $this->input->post('status'+$i),
-                                'pekerjaan' => $this->input->post('pekerjaan'+$i),
-                                'warga_negara' => $this->input->post('warga_negara'+$i),
-                                'link_gambar' => $path .$iUploadFoto[1],
+            for($i=1;$i<=$iAnggotaKel;$i++){
+                // if(count($iDel_data)>0){
+                //     for($a=0;$a<count($iDel_data);$a++){
+                //         if($i!=$iDel_data[$a]){
+                            $data_anggota_ktp = array(
+                                'id_ktp' => $this->input->post('nik'.$i),
+                                'nama_ktp' => $this->input->post('nama'.$i),
+                                'tempat_lahir' => $this->input->post('tmpt_lahir'.$i),
+                                'tanggal_lahir' => date('Y-m-d', strtotime($this->input->post('tgl_lahir'.$i))),
+                                'jekel' => $this->input->post('jekel_'.$i),
+                                'gol_darah' => $this->input->post('gol_darah'.$i),
+                                'alamat' => $this->input->post('alamat_'),
+                                'rt' => $this->input->post('rt_'),
+                                'rw' => $this->input->post('rw_'),
+                                'id_kel' => $this->input->post('kel_'),
+                                'id_kec' => $this->input->post('kec_'),
+                                'agama' => $this->input->post('agama_'.$i),
+                                'status_kawin' => $this->input->post('status_'.$i),
+                                'pekerjaan' => $this->input->post('pekerjaan'.$i),
+                                // 'warga_negara' => $this->input->post('warga_negara'.$i),
+                                // 'link_gambar' => $path .$iUploadFoto[1],
                                 'status_hidup' => 1
                             );                                        
-                            print_r($data_anggota_kk);
+                            $data_anggota_kk = array(
+                                // 'idtrans_kk' => $fileName,
+                                'id_master_kk' => $this->input->post('noKK'),
+                                'id_ktp' => $this->input->post('nik'.$i),
+                                'pendidikan' => $this->input->post('pendidikan_'.$i),
+                                'hub_keluarga' => $this->input->post('hub_kel_'.$i)
+                                // 'rumah_path' => $path .$iUploadFotoRumah[1]
+                                // 'id_ktp' => date('Y-m-d', strtotime($_POST['id_tglLahir_'])),
+                                // 'create_by' => $this->session->userdata('id_user'),
+                                // 'create_date' => date('Y-m-d H:i:s')
+                            );
+                            $data_anggota_difabel = array(
+                                'id_ktp' => $this->input->post('nik'.$i),
+                                'id_m_difabel' => $this->input->post('difabel_'.$i)
+                            );
+                            $data_anggota_bantuan = array(
+                                'id_ktp' => $this->input->post('nik'.$i),
+                                'bantuan_desc' => $this->input->post('bantuan_'.$i)
+                            );
+                            // print_r($data_anggota_bantuan);die();
                             // $result = $this->global_m->simpan('master_ktp', $data_anggota_kk);
-                        }
-                    }    
-                }else{
-
-                }
+                            $result = $this->global_m->simpan('master_ktp', $data_anggota_ktp);
+                            $result = $this->global_m->simpan('trans_kk', $data_anggota_kk);
+                            $result = $this->global_m->simpan('tbl_t_difabel', $data_anggota_difabel);
+                            $result = $this->global_m->simpan('tbl_t_bantuan', $data_anggota_bantuan);
+                            if ($result) {
+                                $result = array(true, 'Insert Anggota Keluarga Success.!'); //, 'body'=>'Data Berhasil Disimpan');
+                            } else {
+                                $result = array(false, 'Insert Anggota Keluarga Gagal.!');
+                            }
+                 //         }
+                //     }    
+                // }
             }
         }
-        return true;
+        return $result;
     }
 
     function getDescProduk() {
