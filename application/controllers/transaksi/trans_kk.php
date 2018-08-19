@@ -102,6 +102,47 @@ class Trans_kk extends CI_Controller {
         $this->output->set_output(json_encode($data));
     }
 
+    public function ajax_getDetailKK(){
+        $idKK = $this->input->get('sKK');
+        $idKTP = $this->input->get('sKTP');
+        $iDataKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK' and id_ktp='$idKTP'");
+        $iDataAnggotaKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK' and id_ktp!='$idKTP'");
+        $i=0;
+        $tr='';
+        foreach ($iDataAnggotaKK as $row) {        
+            // print_r($row->id_master_kk);die();
+            $tr .= '<tr class="listdata" id="tr'. $i++. '">';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_nik' . $i . '" name="nik' . $i . '" readonly="true" value="' .$row->id_ktp. '"></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_nama' . $i . '" name="nama' . $i . '" readonly="true" value="' .$row->nama_ktp. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_tmpt_lahir' . $i . '" name="tmpt_lahir' . $i . '" readonly="true" value="' .$row->tempat_lahir. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_tgl_lahir' . $i . '" name="tgl_lahir' . $i . '" readonly="true" value="' .$row->tanggal_lahir. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_jekel' . $i . '" name="jekel' . $i . '" readonly="true" value="' .$row->jekel==0?"Pria":"Perempuan". '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_gol_darah' . $i . '" name="gol_darah' . $i . '" readonly="true" value="' .$row->gol_darah. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_agama' . $i . '" name="agama' . $i . '" readonly="true" value="' .$row->nama_agama. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_status' . $i . '" name="status' . $i . '" readonly="true" value="' .$row->nama_nikah. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_pendidikan' . $i . '" name="pendidikan' . $i . '" readonly="true" value="' .$row->nama_pend. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' . $i . '" name="pekerjaan' . $i . '" readonly="true" value="' .$row->pekerjaan. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_hub_kel' . $i . '" name="hub_kel' . $i . '" readonly="true" value="' .$row->nama_hub_kel. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_difabel' . $i . '" name="difabel' . $i . '" readonly="true" value="' .$row->nama_difabel. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_bantuan' . $i . '" name="bantuan' . $i . '" readonly="true" value="' .$row->bantuan_desc. '" ></td>';
+
+            $tr .= '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' . $i . '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
+            
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' . $i . '" name="jekel_' . $i . '" readonly="true" value="' .$row->jekel. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_agama_' . $i . '" name="agama_' . $i . '" readonly="true" value="' .$row->agama. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_status_' . $i . '" name="status_' . $i . '" readonly="true" value="' .$row->status_kawin. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' . $i . '" name="pendidikan_' . $i . '" readonly="true" value="' .$row->pendidikan. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' . $i . '" name="hub_kel_' . $i . '" readonly="true" value="' .$row->hub_keluarga. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_difabel_' . $i . '" name="difabel_' . $i . '" readonly="true" value="' .$row->id_m_difabel. '" ></td>';
+            
+            $tr .= '</tr>';
+        }
+
+        $result = array('KK' => $iDataKK, 'anggotaKK' => $tr); //, 'body'=>'Data Berhasil Disimpan');
+
+        echo json_encode($result);
+    }
+
     public function upload($sNama,$sPath){
         // $fileName = date('YmdHisu');
         $fileName = $this->global_m->get_data("select uuid() as uuid")[0]->uuid;
@@ -131,7 +172,7 @@ class Trans_kk extends CI_Controller {
         $this->load->helper('form', 'url');
         $istatus=false;
 
-        $idtrans_kk = $this->input->post('idtrans_kk');
+        $id_master_kk = $this->input->post('noKK');
 
         $path = 'uploads/foto/';
         $iUploadFoto=$this->upload('foto_ktp',$path);
@@ -140,7 +181,7 @@ class Trans_kk extends CI_Controller {
         } else {
             $iUploadFotoRumah=$this->upload('foto_rumah',$path);
 
-            $iCek = $this->global_m->get_data("select * FROM trans_kk where id_master_kk='$idtrans_kk' or id_ktp='".$this->input->post('nik_')."'");
+            $iCek = $this->global_m->get_data("select * FROM trans_kk where id_master_kk='$id_master_kk' or id_ktp='".$this->input->post('nik_')."'");
             if (sizeof($iCek) <= 0) {
                 $data_ktp = array(
                     'id_ktp' => $this->input->post('nik_'),

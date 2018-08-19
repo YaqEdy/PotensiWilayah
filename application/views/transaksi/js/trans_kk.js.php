@@ -181,6 +181,159 @@ var iDel="";
     }
 
 // ini yang dipakai
+var TableManaged = function () {
+
+var initTable1 = function () {
+
+    var table = $('#idTabelPO');
+
+    // begin first table
+    table.dataTable({
+        "ajax": "<?php echo base_url("/transaksi/trans_kk/getKKAll"); ?>",
+        "columns": [
+            {"data": "no"},
+            {"data": "idKK"},
+            {"data": "idKtp"},
+            {"data": "namaKtp"},
+            {"data": "kec"},
+            {"data": "kel"},
+            {"data": "rw"},
+            {"data": "rt"},
+            {"data": "jmlAgt"}
+
+        ],
+        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No data available in table",
+            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "infoEmpty": "No entries found",
+            "infoFiltered": "(filtered1 from _MAX_ total entries)",
+            "lengthMenu": "Show _MENU_ entries",
+            "search": "Search:",
+            "zeroRecords": "No matching records found"
+        },
+        "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+
+        "lengthMenu": [
+            [5, 10, 15, 20, -1],
+            [5, 10, 15, 20, "All"] // change per page values here
+        ],
+        // set the initial value
+        "pageLength": 5,
+        "pagingType": "bootstrap_full_number",
+        "language": {
+            "search": "Cari: ",
+            "lengthMenu": "  _MENU_ records",
+            "paginate": {
+                "previous": "Prev",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
+        "columnDefs": [{// set default column settings
+                'orderable': true,
+                "searchable": true,
+                'targets': [0]
+            }],
+        "order": [
+            [0, "asc"]
+        ] // set first column as a default sort by asc
+    });
+    $('#id_Reload').click(function () {
+        table.api().ajax.reload();
+    });
+
+    var tableWrapper = jQuery('#example_wrapper');
+
+    table.find('.group-checkable').change(function () {
+        var set = jQuery(this).attr("data-set");
+        var checked = jQuery(this).is(":checked");
+        jQuery(set).each(function () {
+            if (checked) {
+                $(this).attr("checked", true);
+                $(this).parents('tr').addClass("active");
+            } else {
+                $(this).attr("checked", false);
+                $(this).parents('tr').removeClass("active");
+            }
+        });
+        jQuery.uniform.update(set);
+    });
+
+    table.on('change', 'tbody tr .checkboxes', function () {
+        $(this).parents('tr').toggleClass("active");
+    });
+    table.on('click', 'tbody tr', function () {
+        var idKK = $(this).find("td").eq(1).html();
+        var idKtp = $(this).find("td").eq(2).html();
+        getDetailKK(idKK,idKtp);
+        // $('#id_kelId').val(idKel);
+        // getDescKel(idKel);
+        $("#navitab_2_2").trigger('click');
+        //$('#').val();
+        $('#btnCloseModalDataUser').trigger('click');
+        $('#id_btnSimpan').attr('disabled', true);
+        $('#id_btnUbah').attr("disabled", false);
+        $('#id_btnHapus').attr("disabled", false);
+        $('#id_namaKel').focus();
+
+    });
+
+    tableWrapper.find('.dataTables_length select').addClass("form-control input-xsmall input-inline"); // modify table per page dropdown
+}
+
+return {
+    //main function to initiate the module
+    init: function () {
+        if (!jQuery().dataTable) {
+            return;
+        }
+        initTable1();
+    }
+};
+}();
+
+function getDetailKK(iKK,iKTP){
+    $.ajax({
+        url: "<?php echo base_url("transaksi/trans_kk/ajax_getDetailKK"); ?>?sKK="+iKK+"&sKTP="+iKTP, // json datasource
+        type: "POST",
+        dataType: "json",
+        // data: sKK=iKK,sKTP=iKTP,
+        success: function (e) {
+            console.log(e.KK[0]);
+            $("#id_noKK").val(e.KK[0].id_master_kk);
+            $("#id_nik_").val(e.KK[0].id_ktp);
+            $("#id_nama_").val(e.KK[0].nama_ktp);
+            $("#id_tmpt_lahir_").val(e.KK[0].tempat_lahir);
+            $("#id_tglLahir_").val(e.KK[0].tanggal_lahir);
+            $("#jekel_").val(e.KK[0].jekel);
+            $("#gol_darah_").val(e.KK[0].gol_darah);
+            $("#id_alamat_").val(e.KK[0].alamat);
+            $("#id_rt_").val(e.KK[0].rt);
+            $("#id_rw_").val(e.KK[0].rw);
+            $("#id_kec_").val(e.KK[0].id_kec);
+            $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.KK[0].link_gambar);
+            $("#gambar_foto_rumah").attr('src','<?php echo base_url(); ?>'+ e.KK[0].rumah_path);
+            $("#id_agama_").val(e.KK[0].agama);
+            $("#id_status_").val(e.KK[0].status_kawin);
+            $("#id_warga_negara_").val(e.KK[0].warga_negara);
+            $("#id_pendidikan_").val(e.KK[0].pendidikan);
+            $("#id_pekerjaan_").val(e.KK[0].pekerjaan);
+            $("#id_difabel_").val(e.KK[0].id_t_difabel);
+            $("#id_bantuan_").val(e.KK[0].bantuan_desc);
+
+            $('#id_body_data').append(e.anggotaKK);
+        }
+    });
+}
+
 function readURL(input,sparam) {
 
 if (input.files && input.files[0]) {
@@ -261,7 +414,7 @@ readURL(this,'foto_rumah');
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' + i + '" name="pendidikan_' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' + i + '" name="hub_kel_' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_difabel_' + i + '" name="difabel_' + i + '" readonly="true" value="' + $('#id_difabel').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_bantuan_' + i + '" name="bantuan_' + i + '" readonly="true" value="' + $('#id_bantuan').val().split(',')[0] + '" ></td>';
+            // tr += '<td hidden><input type="text" class="form-control input-sm" id="id_bantuan_' + i + '" name="bantuan_' + i + '" readonly="true" value="' + $('#id_bantuan').val().split(',')[0] + '" ></td>';
             
             tr += '</tr>';
 
@@ -295,124 +448,6 @@ readURL(this,'foto_rumah');
         }
     }
 
-    var TableManaged = function () {
-
-        var initTable1 = function () {
-
-            var table = $('#idTabelPO');
-
-            // begin first table
-            table.dataTable({
-                "ajax": "<?php echo base_url("/transaksi/trans_kk/getKKAll"); ?>",
-                "columns": [
-                    {"data": "no"},
-                    {"data": "idKK"},
-                    {"data": "idKtp"},
-                    {"data": "namaKtp"},
-                    {"data": "kec"},
-                    {"data": "kel"},
-                    {"data": "rw"},
-                    {"data": "rt"},
-                    {"data": "jmlAgt"}
-
-                ],
-                // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-                "language": {
-                    "aria": {
-                        "sortAscending": ": activate to sort column ascending",
-                        "sortDescending": ": activate to sort column descending"
-                    },
-                    "emptyTable": "No data available in table",
-                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                    "infoEmpty": "No entries found",
-                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                    "lengthMenu": "Show _MENU_ entries",
-                    "search": "Search:",
-                    "zeroRecords": "No matching records found"
-                },
-                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
-
-
-                "lengthMenu": [
-                    [5, 10, 15, 20, -1],
-                    [5, 10, 15, 20, "All"] // change per page values here
-                ],
-                // set the initial value
-                "pageLength": 5,
-                "pagingType": "bootstrap_full_number",
-                "language": {
-                    "search": "Cari: ",
-                    "lengthMenu": "  _MENU_ records",
-                    "paginate": {
-                        "previous": "Prev",
-                        "next": "Next",
-                        "last": "Last",
-                        "first": "First"
-                    }
-                },
-                "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
-                "columnDefs": [{// set default column settings
-                        'orderable': true,
-                        "searchable": true,
-                        'targets': [0]
-                    }],
-                "order": [
-                    [0, "asc"]
-                ] // set first column as a default sort by asc
-            });
-            $('#id_Reload').click(function () {
-                table.api().ajax.reload();
-            });
-
-            var tableWrapper = jQuery('#example_wrapper');
-
-            table.find('.group-checkable').change(function () {
-                var set = jQuery(this).attr("data-set");
-                var checked = jQuery(this).is(":checked");
-                jQuery(set).each(function () {
-                    if (checked) {
-                        $(this).attr("checked", true);
-                        $(this).parents('tr').addClass("active");
-                    } else {
-                        $(this).attr("checked", false);
-                        $(this).parents('tr').removeClass("active");
-                    }
-                });
-                jQuery.uniform.update(set);
-            });
-
-            table.on('change', 'tbody tr .checkboxes', function () {
-                $(this).parents('tr').toggleClass("active");
-            });
-            table.on('click', 'tbody tr', function () {
-                var idKel = $(this).find("td").eq(0).html();
-
-                // $('#id_kelId').val(idKel);
-                // getDescKel(idKel);
-                $("#navitab_2_2").trigger('click');
-                //$('#').val();
-                $('#btnCloseModalDataUser').trigger('click');
-                $('#id_btnSimpan').attr('disabled', true);
-                $('#id_btnUbah').attr("disabled", false);
-                $('#id_btnHapus').attr("disabled", false);
-                $('#id_namaKel').focus();
-
-            });
-
-            tableWrapper.find('.dataTables_length select').addClass("form-control input-xsmall input-inline"); // modify table per page dropdown
-        }
-
-
-        return {
-            //main function to initiate the module
-            init: function () {
-                if (!jQuery().dataTable) {
-                    return;
-                }
-                initTable1();
-            }
-        };
-    }();
     function kosongAmbil() {
         $('#id_bayarAmbil').prop("checked", true);
         $('#id_bonAmbil').prop("checked", true);

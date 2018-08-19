@@ -98,7 +98,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <h2>Kepala keluarga</h2>
-                                            <input id="idtrans_kk" class="form-control" type="hidden" name="idtrans_kk" value=""/>
+                                            <!-- <input id="idtrans_kk" class="form-control" type="hidden" name="idtrans_kk" value=""/> -->
 
                                         </div>
                                         <div class="form-group">
