@@ -1,4 +1,5 @@
 <script>
+var iDel="";
     App.isAngularJsApp() === !1 && jQuery(document).ready(function () {
         ComponentsDateTimePickers.init();
         ComponentsSelect2.init();
@@ -7,6 +8,7 @@
             $(this).next();
         });
         TableManaged.init();
+
     });
     $(document).keyup(function (e) {
         if (e.which === 36) {
@@ -182,13 +184,18 @@
             tr += '<td><input type="text" class="form-control input-sm" id="id_status' + i + '" name="status' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_pendidikan' + i + '" name="pendidikan' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' + i + '" name="pekerjaan' + i + '" readonly="true" value="' + $('#id_pekerjaan').val() + '" ></td>';
-            
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_jekel' + i + '" name="jekel' + i + '" readonly="true" value="' + $('#id_jekel').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_agama' + i + '" name="agama' + i + '" readonly="true" value="' + $('#id_agama').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_status' + i + '" name="status' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan' + i + '" name="pendidikan' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
-            
+            tr += '<td><input type="text" class="form-control input-sm" id="id_difabel' + i + '" name="difabel' + i + '" readonly="true" value="' + $('#id_difabel').val().split(',')[1] + '" ></td>';
+            tr += '<td><input type="text" class="form-control input-sm" id="id_bantuan' + i + '" name="bantuan' + i + '" readonly="true" value="' + $('#id_bantuan').val() + '" ></td>';
+
             tr += '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' + i + '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
+            
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' + i + '" name="jekel' + i + '" readonly="true" value="' + $('#id_jekel').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_agama_' + i + '" name="agama' + i + '" readonly="true" value="' + $('#id_agama').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_status_' + i + '" name="status' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' + i + '" name="pendidikan' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_difabel_' + i + '" name="difabel_' + i + '" readonly="true" value="' + $('#id_difabel').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_bantuan_' + i + '" name="bantuan_' + i + '" readonly="true" value="' + $('#id_bantuan').val().split(',')[0] + '" ></td>';
+            
             tr += '</tr>';
 
             $('#id_body_data').append(tr);
@@ -199,12 +206,18 @@
     function hapusBaris(noRow) {
         if (document.getElementById(noRow) != null) {
             $('#' + noRow).remove();
+            if(iDel==""){
+                iDel = noRow.substring(noRow.lastIndexOf('r') + 1);
+            }else{
+                iDel =iDel+","+ noRow.substring(noRow.lastIndexOf('r') + 1);
+            }
+            console.log(iDel);
         }
     }
 
-    $('#id_btnBatalCpa').click(function () {
-        kosongDetail();
-    });
+    // $('#id_btnBatalCpa').click(function () {
+    //     kosongDetail();
+    // });
     function ajaxSubmitAdvance() {
         ajaxModal();
         $.ajax({
@@ -222,9 +235,11 @@
     }
 
     $('#id_formKK').submit(function (event) {
+        var iLength=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        // console.log(rows,'::',row2);
         event.preventDefault();
         $.ajax({
-            url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>", // json datasource
+            url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sDel="+iDel+"&sLength="+iLength, // json datasource
             type: 'POST',
             data: new FormData(this),
             async: false,

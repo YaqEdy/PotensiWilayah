@@ -357,7 +357,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-body">
-                                        <table class="table table-striped table-hover table-bordered" id="id_tabelPerkCflow">
+                                        <table class="table table-striped table-hover table-bordered" id="id_tabelAnggotaKel" name="tabelAnggotaKel">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -390,9 +390,22 @@
                                                     <th>
                                                         Pekerjaan
                                                     </th>
+                                                    <th>
+                                                        Difabel
+                                                    </th>
+                                                    <th>
+                                                        Bantuan
+                                                    </th>
                                                     <th width="5%">
                                                         Act
                                                     </th>
+
+                                                    <th hidden></th>
+                                                    <th hidden></th>
+                                                    <th hidden></th>
+                                                    <th hidden></th>
+                                                    <th hidden></th>
+                                                    <th hidden></th>
 
                                                 </tr>
 
@@ -571,16 +584,31 @@
                                         $data = array();
                                         $data[''] = '';
                                         foreach ($difabel as $row) :
-                                            $data[$row['id_difabel']] = $row['nama_difabel'];
+                                            $data[$row['id_difabel'].','.$row['nama_difabel']] = $row['nama_difabel'];
                                         endforeach;
                                         echo form_dropdown('difabel', $data, '', ' id="id_difabel" class="form-control input-sm select2me "');
                                         ?>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Bantuan</label>
-                                        <input id="id_bantuan"  class="form-control input-sm"
-                                               type="text" name="bantuan"/>
+                                        <label>Hubungan Keluarga</label>
+                                        <?php
+                                        $data = array();
+                                        $data[''] = '';
+                                        foreach ($hub_kel as $row) :
+                                            $data[$row['id_hub_kel'].','.$row['nama_hub_kel']] = $row['nama_hub_kel'];
+                                        endforeach;
+                                        echo form_dropdown('hub_kel', $data, '', ' id="id_hub_kel" class="form-control input-sm select2me "');
+                                        ?>
+
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label>Bantuan</label>
+                                    <input id="id_bantuan"  class="form-control input-sm"
+                                            type="text" name="bantuan"/>
                                 </div>
                             </div>
 
