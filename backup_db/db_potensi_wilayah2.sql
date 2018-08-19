@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: db_potensi_wilayah2
 Target Host: localhost
 Target Database: db_potensi_wilayah2
-Date: 8/19/2018 2:45:29 PM
+Date: 8/19/2018 9:33:00 PM
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -490,6 +490,15 @@ CREATE TABLE `setting_laporan` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
+-- Table structure for tbl_m_agama
+-- ----------------------------
+CREATE TABLE `tbl_m_agama` (
+  `id_agama` tinyint(1) NOT NULL,
+  `nama_agama` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_agama`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
 -- Table structure for tbl_m_difabel
 -- ----------------------------
 CREATE TABLE `tbl_m_difabel` (
@@ -505,6 +514,24 @@ CREATE TABLE `tbl_r_hub_kel` (
   `id_hub_kel` tinyint(1) NOT NULL,
   `nama_hub_kel` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_hub_kel`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for tbl_r_pendidikan
+-- ----------------------------
+CREATE TABLE `tbl_r_pendidikan` (
+  `id_pend` tinyint(1) NOT NULL,
+  `nama_pend` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_pend`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for tbl_r_status_nikah
+-- ----------------------------
+CREATE TABLE `tbl_r_status_nikah` (
+  `id_nikah` tinyint(1) NOT NULL,
+  `nama_nikah` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_nikah`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -685,7 +712,7 @@ CREATE TABLE `web_temp_perkiraan` (
 -- ----------------------------
 -- View structure for vw_t_kk
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_kk` AS select `a`.`idtrans_kk` AS `idtrans_kk`,`a`.`id_master_kk` AS `id_master_kk`,`a`.`id_ktp` AS `id_ktp`,`a`.`pendidikan` AS `pendidikan`,`a`.`hub_keluarga` AS `hub_keluarga`,`f`.`nama_hub_kel` AS `nama_hub_kel`,`a`.`no_paspor` AS `no_paspor`,`a`.`no_kitap` AS `no_kitap`,`a`.`ayah` AS `ayah`,`a`.`ibu` AS `ibu`,`a`.`rumah_path` AS `rumah_path`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`g`.`nama_kel` AS `nama_kel`,`b`.`id_kec` AS `id_kec`,`h`.`nama_kec` AS `nama_kec`,`b`.`agama` AS `agama`,`b`.`status_kawin` AS `status_kawin`,`b`.`pekerjaan` AS `pekerjaan`,`b`.`warga_negara` AS `warga_negara`,`b`.`link_gambar` AS `link_gambar`,`b`.`status_hidup` AS `status_hidup`,`c`.`id_t_difabel` AS `id_t_difabel`,`c`.`id_m_difabel` AS `id_m_difabel`,`d`.`nama_difabel` AS `nama_difabel`,`e`.`bantuan_desc` AS `bantuan_desc`,(select count(1) from `trans_kk` `z` where (`z`.`id_master_kk` = `a`.`id_master_kk`)) AS `jml_anggota_keluarga` from (((((((`trans_kk` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) left join `tbl_t_difabel` `c` on((`a`.`id_ktp` = `c`.`id_ktp`))) left join `tbl_m_difabel` `d` on((`c`.`id_m_difabel` = `d`.`id_difabel`))) left join `tbl_t_bantuan` `e` on((`a`.`id_ktp` = `e`.`id_ktp`))) left join `tbl_r_hub_kel` `f` on((`a`.`hub_keluarga` = `f`.`id_hub_kel`))) left join `master_kelurahan` `g` on((`b`.`id_kel` = `g`.`id_kel`))) left join `master_kecamatan` `h` on((`b`.`id_kec` = `h`.`id_kec`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_kk` AS select `a`.`idtrans_kk` AS `idtrans_kk`,`a`.`id_master_kk` AS `id_master_kk`,`a`.`id_ktp` AS `id_ktp`,`a`.`pendidikan` AS `pendidikan`,`k`.`nama_pend` AS `nama_pend`,`a`.`hub_keluarga` AS `hub_keluarga`,`f`.`nama_hub_kel` AS `nama_hub_kel`,`a`.`no_paspor` AS `no_paspor`,`a`.`no_kitap` AS `no_kitap`,`a`.`ayah` AS `ayah`,`a`.`ibu` AS `ibu`,`a`.`rumah_path` AS `rumah_path`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`g`.`nama_kel` AS `nama_kel`,`b`.`id_kec` AS `id_kec`,`h`.`nama_kec` AS `nama_kec`,`b`.`agama` AS `agama`,`i`.`nama_agama` AS `nama_agama`,`b`.`status_kawin` AS `status_kawin`,`j`.`nama_nikah` AS `nama_nikah`,`b`.`pekerjaan` AS `pekerjaan`,`b`.`warga_negara` AS `warga_negara`,`b`.`link_gambar` AS `link_gambar`,`b`.`status_hidup` AS `status_hidup`,`c`.`id_t_difabel` AS `id_t_difabel`,`c`.`id_m_difabel` AS `id_m_difabel`,`d`.`nama_difabel` AS `nama_difabel`,`e`.`bantuan_desc` AS `bantuan_desc`,(select count(1) from `trans_kk` `z` where (`z`.`id_master_kk` = `a`.`id_master_kk`)) AS `jml_anggota_keluarga` from ((((((((((`trans_kk` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) left join `tbl_t_difabel` `c` on((`a`.`id_ktp` = `c`.`id_ktp`))) left join `tbl_m_difabel` `d` on((`c`.`id_m_difabel` = `d`.`id_difabel`))) left join `tbl_t_bantuan` `e` on((`a`.`id_ktp` = `e`.`id_ktp`))) left join `tbl_r_hub_kel` `f` on((`a`.`hub_keluarga` = `f`.`id_hub_kel`))) left join `master_kelurahan` `g` on((`b`.`id_kel` = `g`.`id_kel`))) left join `master_kecamatan` `h` on((`b`.`id_kec` = `h`.`id_kec`))) left join `tbl_m_agama` `i` on((`b`.`agama` = `i`.`id_agama`))) left join `tbl_r_status_nikah` `j` on((`b`.`status_kawin` = `j`.`id_nikah`))) left join `tbl_r_pendidikan` `k` on((`a`.`pendidikan` = `k`.`id_pend`)));
 
 -- ----------------------------
 -- Records 
@@ -1806,6 +1833,12 @@ INSERT INTO `sec_usergroup` VALUES ('5', 'Distribusi');
 INSERT INTO `sec_usergroup` VALUES ('6', 'QC');
 INSERT INTO `sec_usergroup` VALUES ('7', 'PO Maker');
 INSERT INTO `setting_laporan` VALUES ('1', 'MEGA JAYA LAUNDRY', 'Taman Wisma Asri 2', 'Jl. Hidrida Raya Blok DD 25 No. 11 - Bekasi Utara');
+INSERT INTO `tbl_m_agama` VALUES ('0', 'Islam');
+INSERT INTO `tbl_m_agama` VALUES ('1', 'Khatolik');
+INSERT INTO `tbl_m_agama` VALUES ('2', 'Kristen');
+INSERT INTO `tbl_m_agama` VALUES ('3', 'Hindu');
+INSERT INTO `tbl_m_agama` VALUES ('4', 'Budha');
+INSERT INTO `tbl_m_agama` VALUES ('5', 'Lain-lain');
 INSERT INTO `tbl_m_difabel` VALUES ('000000', '-');
 INSERT INTO `tbl_m_difabel` VALUES ('000001', 'Buta');
 INSERT INTO `tbl_m_difabel` VALUES ('000002', 'Bisu');
@@ -1814,6 +1847,18 @@ INSERT INTO `tbl_m_difabel` VALUES ('000004', 'Lumpuh');
 INSERT INTO `tbl_r_hub_kel` VALUES ('1', 'KEPALA KELUARGA');
 INSERT INTO `tbl_r_hub_kel` VALUES ('2', 'ISTRI');
 INSERT INTO `tbl_r_hub_kel` VALUES ('3', 'ANAK');
+INSERT INTO `tbl_r_pendidikan` VALUES ('1', 'SD');
+INSERT INTO `tbl_r_pendidikan` VALUES ('2', 'SMP');
+INSERT INTO `tbl_r_pendidikan` VALUES ('3', 'SMA/SMK');
+INSERT INTO `tbl_r_pendidikan` VALUES ('4', 'D3');
+INSERT INTO `tbl_r_pendidikan` VALUES ('5', 'S1');
+INSERT INTO `tbl_r_pendidikan` VALUES ('6', 'S2');
+INSERT INTO `tbl_r_pendidikan` VALUES ('7', 'S3');
+INSERT INTO `tbl_r_pendidikan` VALUES ('8', 'Profesor');
+INSERT INTO `tbl_r_status_nikah` VALUES ('0', 'Tdk/Blm Kawin');
+INSERT INTO `tbl_r_status_nikah` VALUES ('1', 'Kawin');
+INSERT INTO `tbl_r_status_nikah` VALUES ('2', 'Duda');
+INSERT INTO `tbl_r_status_nikah` VALUES ('3', 'Janda');
 INSERT INTO `tbl_t_bantuan` VALUES ('5', '1111111111', 'kursi roda', null, null, null, null);
 INSERT INTO `tbl_t_bantuan` VALUES ('6', '3333333333', ' roda kursi yaaa', null, null, null, null);
 INSERT INTO `tbl_t_bantuan` VALUES ('7', '8888888888', 'gak ada', null, null, null, null);

@@ -319,6 +319,7 @@ function getDetailKK(iKK,iKTP){
             $("#id_rt_").val(e.KK[0].rt);
             $("#id_rw_").val(e.KK[0].rw);
             $("#id_kec_").val(e.KK[0].id_kec);
+            $("#id_kel_").val(e.KK[0].id_kel);
             $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.KK[0].link_gambar);
             $("#gambar_foto_rumah").attr('src','<?php echo base_url(); ?>'+ e.KK[0].rumah_path);
             $("#id_agama_").val(e.KK[0].agama);
