@@ -300,6 +300,14 @@ return {
 };
 }();
 
+function formClear(e){
+// $(this).closest('form').find("input[type=text], textarea").val("");
+    $("#"+e).find("input[type=text], textarea, select").val("");
+    $("#"+e).find("img").attr("src","");
+    $('#id_body_data').empty();    
+    $('#id_btnSimpan').attr('disabled', false);
+    $('#id_btnUbah').attr("disabled", true);
+}
 function getDetailKK(iKK,iKTP){
     $.ajax({
         url: "<?php echo base_url("transaksi/trans_kk/ajax_getDetailKK"); ?>?sKK="+iKK+"&sKTP="+iKTP, // json datasource

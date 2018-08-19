@@ -36,7 +36,7 @@
                             Data Kartu Keluarga </a>
                     </li>
                     <li class="linav" id="linav2">
-                        <a href="#tab_2_2" data-toggle="tab" id="navitab_2_2" class="anavitab">
+                        <a href="#tab_2_2" data-toggle="tab" id="navitab_2_2" class="anavitab" onclick="formClear('id_formKK')">
                             Form Input Kartu Keluarga </a>
                     </li>
 
@@ -428,6 +428,9 @@
                                     <div class="form-actions ">
                                         <button type="submit" name="btnSimpan" class="btn blue" id="id_btnSimpan">
                                             <!--<i class="fa fa-check"></i>--> Simpan
+                                        </button>
+                                        <button type="submit" name="btnSimpan" class="btn blue" id="id_btnUbah">
+                                            <!--<i class="fa fa-check"></i>--> Update
                                         </button>
                                         <button type="button" name="btnCetak" class="btn yellow" id="id_btnCetakStruk">Cetak
                                         </button>
