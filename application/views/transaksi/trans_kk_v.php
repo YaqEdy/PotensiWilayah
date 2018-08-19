@@ -606,10 +606,12 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6">
-                                    <label>Bantuan</label>
-                                    <input id="id_bantuan"  class="form-control input-sm"
-                                            type="text" name="bantuan"/>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Bantuan</label>
+                                        <input id="id_bantuan"  class="form-control input-sm"
+                                                type="text" name="bantuan"/>
+                                    </div>
                                 </div>
                             </div>
 
