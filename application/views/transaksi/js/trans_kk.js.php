@@ -161,6 +161,71 @@ var iDel="";
         }
     });
 
+    // $('#id_btnBatalCpa').click(function () {
+    //     kosongDetail();
+    // });
+    function ajaxSubmitAdvance() {
+        ajaxModal();
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "<?php echo base_url(); ?>transaksi/trans_kk/simpan",
+            data: dataString,
+            success: function (data) {
+                $('#id_btnSimpan').attr("disabled", true);
+                UIToastr.init(data.tipePesan, data.pesan);
+                $('#id_idMaster').val(data.idMaster);
+                $('#id_Reload').trigger('click');
+            }
+        });
+    }
+
+// ini yang dipakai
+function readURL(input,sparam) {
+
+if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        $('#gambar_'+sparam).attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+}
+}
+
+$("#foto_ktp").change(function () {
+readURL(this,'foto_ktp');
+});
+$("#foto_rumah").change(function () {
+readURL(this,'foto_rumah');
+});
+
+    $('#id_formKK').submit(function (event) {
+        var iLength=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        // console.log(rows,'::',row2);
+        event.preventDefault();
+        $.ajax({
+            url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sDel="+iDel+"&sLength="+iLength, // json datasource
+            type: 'POST',
+            data: new FormData(this),
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function (e) {
+                console.log(e);
+                if (e.istatus == true) {
+                    alert(e.iremarks);
+                    // $("#btnCloseUpload").trigger("click");
+                    // $('#table_gridOutRequest').DataTable().ajax.reload();
+                }
+            }
+        });
+
+    });
+
     $('#id_btnAddCpa').click(function () {
         var i = $('#idTxtTempLoop').val();
         if ($('#id_nik').val() == '' || $('#id_nama').val() == ''
@@ -217,70 +282,10 @@ var iDel="";
         }
     }
 
-    // $('#id_btnBatalCpa').click(function () {
-    //     kosongDetail();
-    // });
-    function ajaxSubmitAdvance() {
-        ajaxModal();
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "<?php echo base_url(); ?>transaksi/trans_kk/simpan",
-            data: dataString,
-            success: function (data) {
-                $('#id_btnSimpan').attr("disabled", true);
-                UIToastr.init(data.tipePesan, data.pesan);
-                $('#id_idMaster').val(data.idMaster);
-                $('#id_Reload').trigger('click');
-            }
-        });
-    }
+// end ini yg dipakai
 
-    $('#id_formKK').submit(function (event) {
-        var iLength=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-        // console.log(rows,'::',row2);
-        event.preventDefault();
-        $.ajax({
-            url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sDel="+iDel+"&sLength="+iLength, // json datasource
-            type: 'POST',
-            data: new FormData(this),
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "JSON",
-            success: function (e) {
-                console.log(e);
-                if (e.istatus == true) {
-                    alert(e.iremarks);
-                    // $("#btnCloseUpload").trigger("click");
-                    // $('#table_gridOutRequest').DataTable().ajax.reload();
-                }
-            }
-        });
 
-        // var jmlCpa = $('#idTxtTempLoop').val();
-        // if (jmlCpa == 0) {
-        //     alert("Masukkan produk!");
-        //     $('.linav').removeClass("active");
-        //     $('#linav2').addClass("active in");
-        //     $('.anavitab').attr("aria-expanded", "false");
-        //     $('#navitab_2_2').attr("aria-expanded", "true");
-        //     $('.tab-pane').removeClass("active in");
-        //     $('#tab_2_2').addClass("active in");
-        //     return false;
-        // }
-        // var aksiBtn = $('#idTmpAksiBtn').val();
-        // if (aksiBtn == '1') {
-        //     var r = confirm('Anda yakin menyimpan data ini?');
-        //     if (r == true) {
-        //         ajaxSubmitAdvance();
-        //         event.preventDefault();
-        //     } else {//if(r)
-        //         return false;
-        //     }
-        // }
-    });
+
     function cetak() {
         var masterId = $('#id_idMaster').val();
         if (masterId == '') {

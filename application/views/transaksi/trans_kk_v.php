@@ -223,17 +223,17 @@
                                                     <label>Foto</label>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 150px; height: 170px;">
-                                                            <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambarnya" alt="" />    
+                                                            <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambar_foto_ktp" alt="" />    
 
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail hidden" style="max-width: 250px; max-height: 200px;"> </div>
                                                             <div>
                                                                 <span class="btn default btn-file">
-                                                                    <span class="fileinput-new"> Pilih Foto </span>
+                                                                    <span class="fileinput-new"> Pilih /</span>
                                                                     <span class="fileinput-exists"> Ubah Foto </span>
                                                                     <input type="file" id="foto_ktp" name="foto_ktp" > </span>
-                                                                <input type="hidden" name="unlinkimg" value="">
-                                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto </a>
+                                                                <!-- <input type="hidden" name="unlinkimg" value="">
+                                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto </a> -->
                                                             </div>
                                                     </div>
                                                 </div>
@@ -243,23 +243,24 @@
                                                     <label>Foto Rumah</label>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 225px; height: 170px;">
-                                                            <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambar_rumah" alt="" />    
+                                                            <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambar_foto_rumah" alt="" />    
 
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail hidden" style="max-width: 250px; max-height: 200px;"> </div>
                                                             <div>
                                                                 <span class="btn default btn-file">
-                                                                    <span class="fileinput-new"> Pilih Foto </span>
-                                                                    <span class="fileinput-exists"> Ubah Foto </span>
+                                                                    <span class="fileinput-new"> Pilih /</span>
+                                                                    <span class="fileinput-exists"> Ubah Foto Rumah </span>
                                                                     <input type="file" id="foto_rumah" name="foto_rumah" > </span>
-                                                                <input type="hidden" name="unlinkimg" value="">
-                                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto Rumah</a>
+                                                                <!-- <input type="hidden" name="unlinkimg" value="">
+                                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto Rumah</a> -->
                                                             </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                        <br><br>
                                             <h4>&nbsp;</h4>
                                         </div>
                                         <div class="form-group">
