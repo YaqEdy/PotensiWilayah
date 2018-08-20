@@ -1,5 +1,5 @@
 <script>
-var iLength;
+var iLength=0;
     App.isAngularJsApp() === !1 && jQuery(document).ready(function () {
         ComponentsDateTimePickers.init();
         ComponentsSelect2.init();
@@ -364,9 +364,9 @@ readURL(this,'foto_rumah');
 });
 
     $('#id_formKK').submit(function (event) {
-        var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-            iLength=iLength+iLength1;
-        // console.log(rows,'::',row2);
+        // var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            // iLength=iLength+iLength1;
+        console.log(iLength);
         event.preventDefault();
         $.ajax({
             url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sLength="+iLength, // json datasource
@@ -399,7 +399,12 @@ readURL(this,'foto_rumah');
             alert("Data harus diisi semua.");
         } else {
             var i = parseInt($('#idTxtTempLoop').val());
-            i = i + 1;
+            var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            if(iLength1>0){
+                i = iLength1 + 1;
+            }else{
+                i = i + 1;
+            }
 
             tr = '<tr class="listdata" id="tr' + i + '">';
             tr += '<td><input type="text" class="form-control input-sm" id="id_nik' + i + '" name="nik' + i + '" readonly="true" value="' + $('#id_nik').val() + '"></td>';
