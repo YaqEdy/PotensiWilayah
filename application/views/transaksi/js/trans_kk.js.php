@@ -1,5 +1,5 @@
 <script>
-var iDel="";
+var iLength;
     App.isAngularJsApp() === !1 && jQuery(document).ready(function () {
         ComponentsDateTimePickers.init();
         ComponentsSelect2.init();
@@ -364,11 +364,12 @@ readURL(this,'foto_rumah');
 });
 
     $('#id_formKK').submit(function (event) {
-        var iLength=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            iLength=iLength+iLength1;
         // console.log(rows,'::',row2);
         event.preventDefault();
         $.ajax({
-            url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sDel="+iDel+"&sLength="+iLength, // json datasource
+            url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sLength="+iLength, // json datasource
             type: 'POST',
             data: new FormData(this),
             async: false,
@@ -430,7 +431,8 @@ readURL(this,'foto_rumah');
             $('#id_body_data').append(tr);
             $('#idTxtTempLoop').val(i);
             // kosongDetail();
-        }
+            iLength=i;
+            }
     });
     function hapusBaris(noRow) {
         if (document.getElementById(noRow) != null) {

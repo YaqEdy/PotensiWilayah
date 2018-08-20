@@ -392,6 +392,9 @@
                                                         Pekerjaan
                                                     </th>
                                                     <th>
+                                                        Hubungan Keluarga
+                                                    </th>
+                                                    <th>
                                                         Difabel
                                                     </th>
                                                     <th>

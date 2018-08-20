@@ -110,13 +110,18 @@ class Trans_kk extends CI_Controller {
         $i=0;
         $tr='';
         foreach ($iDataAnggotaKK as $row) {        
+            if($row->jekel==0){
+                $ijenkel="Pria";
+            }else{
+                $ijenkel="Wanita";                
+            }
             // print_r($row->id_master_kk);die();
             $tr .= '<tr class="listdata" id="tr'. $i++. '">';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_nik' . $i . '" name="nik' . $i . '" readonly="true" value="' .$row->id_ktp. '"></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_nama' . $i . '" name="nama' . $i . '" readonly="true" value="' .$row->nama_ktp. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_tmpt_lahir' . $i . '" name="tmpt_lahir' . $i . '" readonly="true" value="' .$row->tempat_lahir. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_tgl_lahir' . $i . '" name="tgl_lahir' . $i . '" readonly="true" value="' .$row->tanggal_lahir. '" ></td>';
-            $tr .= '<td><input type="text" class="form-control input-sm" id="id_jekel' . $i . '" name="jekel' . $i . '" readonly="true" value="' .$row->jekel==0?"Pria":"Perempuan". '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_jekel' . $i . '" name="jekel' . $i . '" readonly="true" value="' .$ijenkel. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_gol_darah' . $i . '" name="gol_darah' . $i . '" readonly="true" value="' .$row->gol_darah. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_agama' . $i . '" name="agama' . $i . '" readonly="true" value="' .$row->nama_agama. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_status' . $i . '" name="status' . $i . '" readonly="true" value="' .$row->nama_nikah. '" ></td>';
@@ -292,13 +297,15 @@ class Trans_kk extends CI_Controller {
     }
 
     function saveAnggotaKel(){
-        $iDel_data=explode(",", $this->input->get('sDel'));
+        // $iDel_data=explode(",", $this->input->get('sDel'));
         $iAnggotaKel=$this->input->get('sLength');
         if($iAnggotaKel>0){
             for($i=1;$i<=$iAnggotaKel;$i++){
+                print_r($this->input->post('nik'.$i));die();
                 // if(count($iDel_data)>0){
                 //     for($a=0;$a<count($iDel_data);$a++){
                 //         if($i!=$iDel_data[$a]){
+                    if($this->input->post('nik'.$i)!=""){
                             $data_anggota_ktp = array(
                                 'id_ktp' => $this->input->post('nik'.$i),
                                 'nama_ktp' => $this->input->post('nama'.$i),
@@ -343,7 +350,8 @@ class Trans_kk extends CI_Controller {
                             $result = $this->global_m->simpan('trans_kk', $data_anggota_kk);
                             $result = $this->global_m->simpan('tbl_t_difabel', $data_anggota_difabel);
                             $result = $this->global_m->simpan('tbl_t_bantuan', $data_anggota_bantuan);
-                            if ($result) {
+                        }
+                        if ($result) {
                                 $result = array(true, 'Insert Anggota Keluarga Success.!'); //, 'body'=>'Data Berhasil Disimpan');
                             } else {
                                 $result = array(false, 'Insert Anggota Keluarga Gagal.!');
