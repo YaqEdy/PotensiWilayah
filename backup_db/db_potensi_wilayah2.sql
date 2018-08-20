@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: db_potensi_wilayah2
 Target Host: localhost
 Target Database: db_potensi_wilayah2
-Date: 8/19/2018 9:33:00 PM
+Date: 8/20/2018 10:14:15 PM
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -546,7 +546,7 @@ CREATE TABLE `tbl_t_bantuan` (
   `last_update_by` varchar(50) DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
   PRIMARY KEY (`id_bantuan`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for tbl_t_difabel
@@ -556,7 +556,7 @@ CREATE TABLE `tbl_t_difabel` (
   `id_ktp` char(25) DEFAULT NULL,
   `id_m_difabel` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id_t_difabel`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for trans_cm
@@ -612,7 +612,7 @@ CREATE TABLE `trans_kk` (
   `ibu` varchar(45) DEFAULT '',
   `rumah_path` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idtrans_kk`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for utility_db
@@ -1369,9 +1369,10 @@ INSERT INTO `master_komunitas` VALUES ('000003', 'KOmunitas Motor Harley Klungku
 INSERT INTO `master_komunitas` VALUES ('000004', 'Komunitas Mobil Jadul', 'Nusapenida', '5105010', '5105010007', 'Komang karet', '', '000003');
 INSERT INTO `master_ktp` VALUES ('1111111111', 'rdtr', 'tcf', '2018-08-18', '0', '0', 'Bekasi Barat', '7', '9', '5105010002', '5105010', '0', '0', '0', '0', 'uploads/foto/', '1');
 INSERT INTO `master_ktp` VALUES ('3333333333', 'kiki', 'Bekasi', '2018-08-18', '1', '3', 'Bekasi', '9', '10', '5105010003', '5105020', '0', '0', 'Testing...', '0', 'uploads/foto/50880377-a2fb-11e8-b821-782bcbdbdcb7.jpg', '1');
-INSERT INTO `master_ktp` VALUES ('7777777777', 'istri 1', 'bekasi bekasi', '2018-08-19', '1', 'A', 'Bekasi Barat yooo', '9', '9', '5105010002', '5105010', '0', '1', 'momong', '', null, '1');
-INSERT INTO `master_ktp` VALUES ('77777777771', 'anak 1', 'bekasi bekasi', '2018-08-19', '1', 'A', 'Bekasi Barat yooo', '9', '9', '5105010002', '5105010', '0', '1', 'momong', '', null, '1');
-INSERT INTO `master_ktp` VALUES ('8888888888', 'yuyu', 'bekasi barat', '2018-08-19', '0', '0', 'Bekasi Barat yooo', '9', '9', '5105010002', '5105010', '0', '0', 'opopopopopo', '0', 'uploads/foto/2c91ac0b-a383-11e8-b821-782bcbdbdcb7.jpg', '1');
+INSERT INTO `master_ktp` VALUES ('7777777777', 'istri 1', 'bekasi bekasi', '2018-08-19', '1', 'A', 'Bekasi Barat yooo', '9', '9', '5105010003', '5105020', '0', '1', 'momong', '', null, '1');
+INSERT INTO `master_ktp` VALUES ('77777777771', 'anak 1', 'bekasi bekasi', '2018-08-19', '0', 'A', 'Bekasi Barat yooo', '9', '9', '5105010003', '5105020', '0', '1', 'momong', '', null, '1');
+INSERT INTO `master_ktp` VALUES ('8888888888', 'yuyu', 'bekasi barat', '2018-08-19', '0', '0', 'Bekasi Barat yooo', '9', '9', '5105010003', '5105020', '0', '0', 'opopopopopo', '0', 'uploads/foto/2cbd4c6e-a383-11e8-b821-782bcbdbdcb7.jpg', '1');
+INSERT INTO `master_ktp` VALUES ('9991', 'uuuu', 'bbbb', '2018-08-20', '0', 'O', 'Bekasi Barat yooo', '9', '9', '5105010003', '5105020', '0', '0', 'jbi', '', null, '1');
 INSERT INTO `master_layanan` VALUES ('1', 'Cuci Setrika Biasa');
 INSERT INTO `master_layanan` VALUES ('2', 'Cuci Setrika Express');
 INSERT INTO `master_layanan` VALUES ('3', 'Setrika Aja Biasa');
@@ -1861,19 +1862,22 @@ INSERT INTO `tbl_r_status_nikah` VALUES ('2', 'Duda');
 INSERT INTO `tbl_r_status_nikah` VALUES ('3', 'Janda');
 INSERT INTO `tbl_t_bantuan` VALUES ('5', '1111111111', 'kursi roda', null, null, null, null);
 INSERT INTO `tbl_t_bantuan` VALUES ('6', '3333333333', ' roda kursi yaaa', null, null, null, null);
-INSERT INTO `tbl_t_bantuan` VALUES ('7', '8888888888', 'gak ada', null, null, null, null);
-INSERT INTO `tbl_t_bantuan` VALUES ('8', '7777777777', 'gak ada booo', null, null, null, null);
-INSERT INTO `tbl_t_bantuan` VALUES ('9', '77777777771', 'gak ada booo 1', null, null, null, null);
+INSERT INTO `tbl_t_bantuan` VALUES ('7', '8888888888', 'gak ada yaa tes 12345', null, null, null, null);
+INSERT INTO `tbl_t_bantuan` VALUES ('8', '7777777777', '0', null, null, null, null);
+INSERT INTO `tbl_t_bantuan` VALUES ('9', '77777777771', '0', null, null, null, null);
+INSERT INTO `tbl_t_bantuan` VALUES ('10', '9991', '0', null, null, null, null);
 INSERT INTO `tbl_t_difabel` VALUES ('5', '1111111111', '4');
 INSERT INTO `tbl_t_difabel` VALUES ('6', '3333333333', '4');
 INSERT INTO `tbl_t_difabel` VALUES ('7', '8888888888', '0');
 INSERT INTO `tbl_t_difabel` VALUES ('8', '7777777777', '0');
 INSERT INTO `tbl_t_difabel` VALUES ('9', '77777777771', '0');
+INSERT INTO `tbl_t_difabel` VALUES ('10', '9991', '0');
 INSERT INTO `trans_kk` VALUES ('9', '12345', '1111111111', '1', '1', '', '', '', '', 'uploads/foto/68d8006a-a2f6-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('10', '12345678', '3333333333', '1', '1', '', '', '', '', 'uploads/foto/50942106-a2fb-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('11', '999999999', '8888888888', '1', '1', '', '', '', '', 'uploads/foto/2cbd4c6e-a383-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('12', '999999999', '7777777777', '2', '2', '', '', '', '', null);
 INSERT INTO `trans_kk` VALUES ('13', '999999999', '77777777771', '2', '3', '', '', '', '', null);
+INSERT INTO `trans_kk` VALUES ('14', '999999999', '9991', '1', '2', '', '', '', '', null);
 INSERT INTO `utility_db` VALUES ('1', 'backup-on-2016-06-25-07-03.sql', 'backup_db/backup-on-2016-06-25-07-03.sql', '2016-06-25', '07:03:30');
 INSERT INTO `utility_db` VALUES ('2', 'backup-on-2016-08-10-05-48.sql', 'backup_db/backup-on-2016-08-10-05-48.sql', '2016-08-10', '05:48:10');
 INSERT INTO `utility_db` VALUES ('3', 'backup-on-2016-08-15-11-25.sql', 'backup_db/backup-on-2016-08-15-11-25.sql', '2016-08-15', '11:25:41');
