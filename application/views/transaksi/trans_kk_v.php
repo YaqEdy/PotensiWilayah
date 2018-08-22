@@ -404,6 +404,7 @@
                                                     <th hidden></th>
                                                     <th hidden></th>
                                                     <th hidden></th>
+                                                    <th hidden></th>
 
                                                 </tr>
 
@@ -605,6 +606,7 @@
                                 <label>Foto</label>
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail" style="width: 150px; height: 170px;">
+                                        <div id="imgKTP"></div>
                                         <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambar_foto_ktp" alt="" />    
 
                                     </div>

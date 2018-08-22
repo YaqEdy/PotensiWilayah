@@ -343,10 +343,13 @@ function getDetailKK(iKK,iKTP){
         },
         complete:function(e){
             // tampilan gambar 
-            // var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-            // for(var i=0;i<iCount;i++){
-            //     $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.KK[0].link_gambar);
-            // }
+            var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            for(var i=0;i<iCount;i++){
+                var iImg=$("#id_link_gambar"+i).val();
+                $("#gambar_foto_ktp"+i).attr('src','<?php echo base_url(); ?>'+iImg);
+                $('.foto_ktp'+(i-1)).hide();
+                $('#fileFoto').append('<input type="file" id="foto_ktp'+i+'" name="foto_ktp'+i+'" class="foto_ktp'+i+'" >');
+            }
         }
     });
 }
@@ -361,6 +364,8 @@ $('#id_btnModalTambah').click(function(){
     }
     $('.foto_ktp'+(iCount-1)).hide();
     $('#fileFoto').append('<input type="file" id="foto_ktp'+iCount+'" name="foto_ktp'+iCount+'" class="foto_ktp'+iCount+'" >');
+    $('.gambar_foto_ktp'+(iCount-1)).hide();
+    $('#imgKTP').append('<img src="" id="gambar_foto_ktp'+iCount+'" class="gambar_foto_ktp'+iCount+'" alt="" />');
     
 });
 

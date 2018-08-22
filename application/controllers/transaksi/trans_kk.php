@@ -139,6 +139,7 @@ class Trans_kk extends CI_Controller {
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' . $i . '" name="pendidikan_' . $i . '" readonly="true" value="' .$row->pendidikan. '" ></td>';
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' . $i . '" name="hub_kel_' . $i . '" readonly="true" value="' .$row->hub_keluarga. '" ></td>';
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_warga_negara_' . $i . '" name="warga_negara_' . $i . '" readonly="true" value="' .$row->warga_negara_. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_link_gambar' . $i . '" name="link_gambar' . $i . '" readonly="true" value="' .$row->link_gambar. '" ></td>';
             
             $tr .= '</tr>';
         }
@@ -217,7 +218,7 @@ class Trans_kk extends CI_Controller {
                                 'pekerjaan' => $this->input->post('pekerjaan'.$i),
                                 'warga_negara' => $this->input->post('warga_negara_'.$i),
                                 // 'link_gambar' => $path,
-                                'link_gambar' => $path .$iUploadFoto[1],
+                                'link_gambar' => $iUploadFoto[1],
                                 'status_hidup' => 1
                             );                                        
                             $data_anggota_kk = array(
@@ -226,7 +227,7 @@ class Trans_kk extends CI_Controller {
                                 'id_ktp' => $this->input->post('nik'.$i),
                                 'pendidikan' => $this->input->post('pendidikan_'.$i),
                                 'hub_keluarga' => $this->input->post('hub_kel_'.$i),
-                                'rumah_path' => $path .$iUploadFotoRumah[1]
+                                'rumah_path' => $iUploadFotoRumah[1]
                                 // 'id_ktp' => date('Y-m-d', strtotime($_POST['id_tglLahir_'])),
                                 // 'create_by' => $this->session->userdata('id_user'),
                                 // 'create_date' => date('Y-m-d H:i:s')
@@ -255,7 +256,7 @@ class Trans_kk extends CI_Controller {
                                 'status_kawin' => $this->input->post('status_'.$i),
                                 'pekerjaan' => $this->input->post('pekerjaan'.$i),
                                 'warga_negara' => $this->input->post('warga_negara_'.$i),
-                                'link_gambar' => $path .$iUploadFoto[1],
+                                'link_gambar' => $iUploadFoto[1],
                                 'status_hidup' => 1
                             );                                        
                             $data_anggota_kk = array(
@@ -264,7 +265,7 @@ class Trans_kk extends CI_Controller {
                                 'id_ktp' => $this->input->post('nik'.$i),
                                 'pendidikan' => $this->input->post('pendidikan_'.$i),
                                 'hub_keluarga' => $this->input->post('hub_kel_'.$i),
-                                'rumah_path' => $path .$iUploadFotoRumah[1]
+                                'rumah_path' => $iUploadFotoRumah[1]
                                 // 'id_ktp' => date('Y-m-d', strtotime($_POST['id_tglLahir_'])),
                                 // 'create_by' => $this->session->userdata('id_user'),
                                 // 'create_date' => date('Y-m-d H:i:s')
