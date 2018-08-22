@@ -1,5 +1,6 @@
 <script>
 var iLength=0;
+$("#id_btnBatalCpa").hide();
     App.isAngularJsApp() === !1 && jQuery(document).ready(function () {
         ComponentsDateTimePickers.init();
         ComponentsSelect2.init();
@@ -342,6 +343,19 @@ function getDetailKK(iKK,iKTP){
         }
     });
 }
+// var iCount;
+$('#id_btnModalTambah').click(function(){
+    // document.getElementById("fmKtp").reset();
+    var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+    if(iCount>0){
+        iCount = iCount + 1;
+    }else{
+        iCount = 1;        
+    }
+    $('.foto_ktp'+(iCount-1)).hide();
+    $('#fileFoto').append('<input type="file" id="foto_ktp'+iCount+'" name="foto_ktp'+iCount+'" class="foto_ktp'+iCount+'" >');
+    
+});
 
 function readURL(input,sparam) {
 
@@ -364,9 +378,8 @@ readURL(this,'foto_rumah');
 });
 
     $('#id_formKK').submit(function (event) {
-        // var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-            // iLength=iLength+iLength1;
-        console.log(iLength);
+        var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            iLength=iLength+iLength1;
         event.preventDefault();
         $.ajax({
             url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sLength="+iLength, // json datasource
@@ -384,6 +397,7 @@ readURL(this,'foto_rumah');
                     // $("#btnCloseUpload").trigger("click");
                     // $('#table_gridOutRequest').DataTable().ajax.reload();
                 }
+                iLength=0;
             }
         });
 
@@ -398,7 +412,8 @@ readURL(this,'foto_rumah');
         || $('#id_pekerjaan').val() == '' || $('#id_pendidikan').val() == '') {
             alert("Data harus diisi semua.");
         } else {
-            var i = parseInt($('#idTxtTempLoop').val());
+            // var i = parseInt($('#idTxtTempLoop').val());
+            var i = 0;
             var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
             if(iLength1>0){
                 i = iLength1 + 1;
@@ -417,9 +432,8 @@ readURL(this,'foto_rumah');
             tr += '<td><input type="text" class="form-control input-sm" id="id_status' + i + '" name="status' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_pendidikan' + i + '" name="pendidikan' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' + i + '" name="pekerjaan' + i + '" readonly="true" value="' + $('#id_pekerjaan').val() + '" ></td>';
+            tr += '<td><input type="text" class="form-control input-sm" id="id_warga_negara' + i + '" name="warga_negara' + i + '" readonly="true" value="' + $('#id_warga_negara').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_hub_kel' + i + '" name="hub_kel' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[1] + '" ></td>';
-            tr += '<td><input type="text" class="form-control input-sm" id="id_difabel' + i + '" name="difabel' + i + '" readonly="true" value="' + $('#id_difabel').val().split(',')[1] + '" ></td>';
-            tr += '<td><input type="text" class="form-control input-sm" id="id_bantuan' + i + '" name="bantuan' + i + '" readonly="true" value="' + $('#id_bantuan').val() + '" ></td>';
 
             tr += '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' + i + '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
             
@@ -428,15 +442,16 @@ readURL(this,'foto_rumah');
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_status_' + i + '" name="status_' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' + i + '" name="pendidikan_' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' + i + '" name="hub_kel_' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[0] + '" ></td>';
-            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_difabel_' + i + '" name="difabel_' + i + '" readonly="true" value="' + $('#id_difabel').val().split(',')[0] + '" ></td>';
-            // tr += '<td hidden><input type="text" class="form-control input-sm" id="id_bantuan_' + i + '" name="bantuan_' + i + '" readonly="true" value="' + $('#id_bantuan').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_warga_negara_' + i + '" name="warga_negara_' + i + '" readonly="true" value="' + $('#id_warga_negara').val().split(',')[0] + '" ></td>';
             
             tr += '</tr>';
 
             $('#id_body_data').append(tr);
             $('#idTxtTempLoop').val(i);
             // kosongDetail();
-            iLength=i;
+            // iLength=i;
+
+            $('#id_btnBatalCpa').trigger('click');
             }
     });
     function hapusBaris(noRow) {

@@ -8,6 +8,7 @@
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
 <!-- KONTEN DI SINI YA -->
+<form id="id_formKK" enctype="multipart/form-data" id="uploadpr" method="POST">
 <div class="row">
     <div class="col-md-12">
         <div class="portlet portlet-sortable light bordered">
@@ -42,7 +43,6 @@
 
                 </ul>
                 <!-- <form role="form" method="post" action="<?php echo base_url('transaksi/trans_kk/home'); ?>" id="id_formAdvance"> -->
-                <form id="id_formKK" enctype="multipart/form-data" id="uploadpr" method="POST">
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_2_1">
 
@@ -97,7 +97,7 @@
                                 <div class="form-body">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <h2>Kepala keluarga</h2>
+                                            <h2>Data keluarga</h2>
                                             <!-- <input id="idtrans_kk" class="form-control" type="hidden" name="idtrans_kk" value=""/> -->
 
                                         </div>
@@ -106,7 +106,7 @@
                                             <input id="id_noKK" required="required" class="form-control input-sm"
                                                    type="text" name="noKK" />
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>NIK</label>
@@ -121,10 +121,10 @@
 
                                             </div>
 
-                                        </div>
+                                        </div> -->
 
 
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Tempat lahir</label>
@@ -140,8 +140,8 @@
                                                 </div>
 
                                             </div>
-                                        </div>
-                                        <div class="form-group">
+                                        </div> -->
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Jenis kelamin</label>
@@ -162,7 +162,7 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label>Alamat</label>
                                             <textarea rows="2" cols="" name="alamat_" id="id_alamat_"
@@ -218,7 +218,7 @@
                                             <h4>&nbsp;</h4>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <!-- <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Foto</label>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -232,13 +232,13 @@
                                                                     <span class="fileinput-new"> Pilih /</span>
                                                                     <span class="fileinput-exists"> Ubah Foto </span>
                                                                     <input type="file" id="foto_ktp" name="foto_ktp" > </span>
-                                                                <!-- <input type="hidden" name="unlinkimg" value="">
-                                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto </a> -->
+                                                                <input type="hidden" name="unlinkimg" value="">
+                                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto </a>
                                                             </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
+                                            </div> -->
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Foto Rumah</label>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -260,10 +260,10 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                        <br><br>
-                                            <h4>&nbsp;</h4>
+                                        <!-- <br><br>
+                                            <h4>&nbsp;</h4> -->
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>Agama</label>
@@ -294,8 +294,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
+                                        </div> -->
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>Pendidikan</label>
@@ -325,8 +325,6 @@
                                                     endforeach;
                                                     echo form_dropdown('difabel_', $data, '', ' id="id_difabel_" class="form-control input-sm select2me "');
                                                     ?>
-                                                    <!-- <input id="id_difabel_"  class="form-control input-sm"
-                                                           type="text" name="difabel_"/> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -338,13 +336,12 @@
                                         <input id="id_bantuan_"  class="form-control input-sm"
                                                 type="text" name="bantuan_"/>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- HIDDEN INPUT -->
                                 <input type="text" id="idTmpAksiBtn" class="hidden">
                                 <!-- END HIDDEN INPUT -->
                             </div>
                             <div class="row">
-
                                 <div class="col-md-6">
                                     <div class="form-group" >
                                         <input type="text" id="idTxtTempLoop" name="txtTempLoop" class="form-control nomor1 hidden">
@@ -392,13 +389,10 @@
                                                         Pekerjaan
                                                     </th>
                                                     <th>
+                                                        Warga Negara
+                                                    </th>
+                                                    <th>
                                                         Hubungan Keluarga
-                                                    </th>
-                                                    <th>
-                                                        Difabel
-                                                    </th>
-                                                    <th>
-                                                        Bantuan
                                                     </th>
                                                     <th width="5%">
                                                         Act
@@ -444,27 +438,12 @@
 
                         </div>    
                         <!--<div class="tab-pane fade" id="tab_2_3">-->
-                        <!--  MODAL Data CPA -->
-
-                        <!-- END ROW-->
-
-                        <!--                        </div>-->
-
-                        <!--                    </div>-->
-
-                </form>
+                <!-- </form> -->
             </div>
         </div>
         <!-- end <div class="portlet green-meadow box"> -->
     </div>
-    <!-- end <div class="col-md-6"> -->
-    <!--
-    <div class="col-md-6">
-    </div>
-    -->
-    <!-- end <div class="col-md-6"> -->
 </div>
-
 <!-- END PAGE CONTENT-->
 
 <!--  MODAL Input Data Cucian Masuk -->
@@ -477,6 +456,7 @@
             </div>
             <div class="modal-body">
                 <div class="scroller" style="height:450px; ">
+                <form id="fmKtp">
                     <div class="row">
 
                         <div class="col-md-6">
@@ -586,15 +566,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Difabel</label>
-                                        <?php
-                                        $data = array();
-                                        $data[''] = '';
-                                        foreach ($difabel as $row) :
-                                            $data[$row['id_difabel'].','.$row['nama_difabel']] = $row['nama_difabel'];
-                                        endforeach;
-                                        echo form_dropdown('difabel', $data, '', ' id="id_difabel" class="form-control input-sm select2me "');
-                                        ?>
+                                    <label>Warga Negara</label>
+                                        <select name="warga_negara" id="id_warga_negara" class="select2me">
+                                            <option value="0,WNI">WNI</option>
+                                            <option value="1,WNA">WNA</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label>Hubungan Keluarga</label>
@@ -611,7 +587,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Bantuan</label>
@@ -619,18 +595,36 @@
                                                 type="text" name="bantuan"/>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
 
                         </div>
-                        <!--end <div class="col-md-6"> 1 -->
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Foto</label>
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail" style="width: 150px; height: 170px;">
+                                        <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambar_foto_ktp" alt="" />    
+
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail hidden" style="max-width: 250px; max-height: 200px;"> </div>
+                                        <div>
+                                            <span class="btn default btn-file">
+                                                <span class="fileinput-new"> Pilih /</span>
+                                                <span class="fileinput-exists"> Ubah Foto </span>
+                                                    <div id="fileFoto"></div>
+                                                    <!-- <input type="file" id="foto_ktp" name="foto_ktp" >  -->
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
 
                         </div>
 
 
                     </div>
+                </form>
                     <!-- END ROW-->
                 </div>
                 <!-- END SCROLLER-->
@@ -638,6 +632,7 @@
             <!-- END MODAL BODY-->
             <div class="modal-footer">
                 <button type="button" class="btn blue" id="id_btnAddCpa"><i class="fa fa-plus"></i>&nbsp; Tambah </button>
+                <button type="button" class="btn default" data-dismiss="modal" id="id_btnBatalCpa_"><i class="fa fa-times"></i>&nbsp;Close</button>
                 <button type="button" class="btn default" data-dismiss="modal" id="id_btnBatalCpa"><i class="fa fa-times"></i>&nbsp;Close</button>
             </div>
         </div>
@@ -646,6 +641,7 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- End MODAL Input Data Cucian Masuk -->
+</form>
 
 <?php $this->load->view('app.min.inc.php'); ?>
 <?php $this->load->view('transaksi/js/trans_kk.js.php'); ?>
