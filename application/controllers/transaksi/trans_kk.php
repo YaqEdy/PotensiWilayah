@@ -82,6 +82,7 @@ class Trans_kk extends CI_Controller {
     public function getKKAll() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
         $rows = $this->trans_kk_m->getKKAll();
+        // print_r($rows);die();
         $data['data'] = array();
         $no = 1;
         foreach ($rows as $row) {
@@ -106,7 +107,7 @@ class Trans_kk extends CI_Controller {
         $idKK = $this->input->get('sKK');
         $idKTP = $this->input->get('sKTP');
         $iDataKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK' and id_ktp='$idKTP'");
-        $iDataAnggotaKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK' and id_ktp!='$idKTP'");
+        $iDataAnggotaKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK'");
         $i=0;
         $tr='';
         foreach ($iDataAnggotaKK as $row) {        
@@ -127,9 +128,8 @@ class Trans_kk extends CI_Controller {
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_status' . $i . '" name="status' . $i . '" readonly="true" value="' .$row->nama_nikah. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_pendidikan' . $i . '" name="pendidikan' . $i . '" readonly="true" value="' .$row->nama_pend. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' . $i . '" name="pekerjaan' . $i . '" readonly="true" value="' .$row->pekerjaan. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_warga_negara' . $i . '" name="warga_negara' . $i . '" readonly="true" value="' .$row->warga_negara. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_hub_kel' . $i . '" name="hub_kel' . $i . '" readonly="true" value="' .$row->nama_hub_kel. '" ></td>';
-            $tr .= '<td><input type="text" class="form-control input-sm" id="id_difabel' . $i . '" name="difabel' . $i . '" readonly="true" value="' .$row->nama_difabel. '" ></td>';
-            $tr .= '<td><input type="text" class="form-control input-sm" id="id_bantuan' . $i . '" name="bantuan' . $i . '" readonly="true" value="' .$row->bantuan_desc. '" ></td>';
 
             $tr .= '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' . $i . '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
             
@@ -138,7 +138,7 @@ class Trans_kk extends CI_Controller {
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_status_' . $i . '" name="status_' . $i . '" readonly="true" value="' .$row->status_kawin. '" ></td>';
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' . $i . '" name="pendidikan_' . $i . '" readonly="true" value="' .$row->pendidikan. '" ></td>';
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' . $i . '" name="hub_kel_' . $i . '" readonly="true" value="' .$row->hub_keluarga. '" ></td>';
-            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_difabel_' . $i . '" name="difabel_' . $i . '" readonly="true" value="' .$row->id_m_difabel. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_warga_negara_' . $i . '" name="warga_negara_' . $i . '" readonly="true" value="' .$row->warga_negara_. '" ></td>';
             
             $tr .= '</tr>';
         }

@@ -319,27 +319,34 @@ function getDetailKK(iKK,iKTP){
             console.log(e.KK[0]);
             $("#id_noKK").val(e.KK[0].id_master_kk);
             $("#id_nik_").val(e.KK[0].id_ktp);
-            $("#id_nama_").val(e.KK[0].nama_ktp);
-            $("#id_tmpt_lahir_").val(e.KK[0].tempat_lahir);
-            $("#id_tglLahir_").val(e.KK[0].tanggal_lahir);
-            $("#jekel_").val(e.KK[0].jekel);
-            $("#gol_darah_").val(e.KK[0].gol_darah);
+            // $("#id_nama_").val(e.KK[0].nama_ktp);
+            // $("#id_tmpt_lahir_").val(e.KK[0].tempat_lahir);
+            // $("#id_tglLahir_").val(e.KK[0].tanggal_lahir);
+            // $("#jekel_").val(e.KK[0].jekel);
+            // $("#gol_darah_").val(e.KK[0].gol_darah);
             $("#id_alamat_").val(e.KK[0].alamat);
             $("#id_rt_").val(e.KK[0].rt);
             $("#id_rw_").val(e.KK[0].rw);
             $("#id_kec_").val(e.KK[0].id_kec);
             $("#id_kel_").val(e.KK[0].id_kel);
-            $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.KK[0].link_gambar);
+            // $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.KK[0].link_gambar);
             $("#gambar_foto_rumah").attr('src','<?php echo base_url(); ?>'+ e.KK[0].rumah_path);
-            $("#id_agama_").val(e.KK[0].agama);
-            $("#id_status_").val(e.KK[0].status_kawin);
-            $("#id_warga_negara_").val(e.KK[0].warga_negara);
-            $("#id_pendidikan_").val(e.KK[0].pendidikan);
-            $("#id_pekerjaan_").val(e.KK[0].pekerjaan);
-            $("#id_difabel_").val(e.KK[0].id_t_difabel);
-            $("#id_bantuan_").val(e.KK[0].bantuan_desc);
+            // $("#id_agama_").val(e.KK[0].agama);
+            // $("#id_status_").val(e.KK[0].status_kawin);
+            // $("#id_warga_negara_").val(e.KK[0].warga_negara);
+            // $("#id_pendidikan_").val(e.KK[0].pendidikan);
+            // $("#id_pekerjaan_").val(e.KK[0].pekerjaan);
+            // $("#id_difabel_").val(e.KK[0].id_t_difabel);
+            // $("#id_bantuan_").val(e.KK[0].bantuan_desc);
 
             $('#id_body_data').append(e.anggotaKK);
+        },
+        complete:function(e){
+            // tampilan gambar 
+            // var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            // for(var i=0;i<iCount;i++){
+            //     $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.KK[0].link_gambar);
+            // }
         }
     });
 }

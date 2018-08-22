@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class Trans_kk_m extends CI_Model {
     public function getKKAll() {
-        $sql = "SELECT * from vw_t_kk WHERE hub_keluarga=1";
+        $sql = "SELECT * from vw_t_kk";
         $query = $this->db->query($sql);
         return $query->result(); // returning rows, not row
     }
