@@ -155,11 +155,12 @@ class Trans_kk extends CI_Controller {
 
     public function upload($sNama,$sPath,$sidktp){
         // $fileName = date('YmdHisu');
-        $iCekFoto = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='".$this->input->post('noKK')."' and id_ktp='".$sidktp."'");
-        if(basename( $_FILES[$sNama]['name'])=="" && sizeof($iCekFoto) > 0){
+        // print_r('ss'.basename( $_FILES[$sNama]['name']));die();
+        $iCekFoto = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='".$this->input->post('noKK')."'");
+        if(basename( $_FILES['foto_rumah']['name'])==""){
+            $result = array(true,$iCekFoto[0]->link_gambar);
+        }elseif(basename( $_FILES[$sNama]['name'])==""){
             $result = array(true,$iCekFoto[0]->rumah_path);            
-        }elseif(basename( $_FILES['foto_rumah']['name'])=="" && sizeof($iCekFoto) > 0){
-            $result = array(true,$iCekFoto[0]->link_gambar);                        
         }else{
             $fileName = $this->global_m->get_data("select uuid() as uuid")[0]->uuid;
 
@@ -219,7 +220,7 @@ class Trans_kk extends CI_Controller {
                                 'id_kec' => $this->input->post('kec_'),
                                 'agama' => $this->input->post('agama_'.$i),
                                 'status_kawin' => $this->input->post('status_'.$i),
-                                'pekerjaan' => $this->input->post('pekerjaan'.$i),
+                                'pekerjaan' => $this->input->post('pekerjaan_'.$i),
                                 'warga_negara' => $this->input->post('warga_negara_'.$i),
                                 // 'link_gambar' => $path,
                                 'link_gambar' => $iUploadFoto[1],
@@ -258,7 +259,7 @@ class Trans_kk extends CI_Controller {
                                 'id_kec' => $this->input->post('kec_'),
                                 'agama' => $this->input->post('agama_'.$i),
                                 'status_kawin' => $this->input->post('status_'.$i),
-                                'pekerjaan' => $this->input->post('pekerjaan'.$i),
+                                'pekerjaan' => $this->input->post('pekerjaan_'.$i),
                                 'warga_negara' => $this->input->post('warga_negara_'.$i),
                                 'link_gambar' => $iUploadFoto[1],
                                 'status_hidup' => 1
@@ -284,18 +285,13 @@ class Trans_kk extends CI_Controller {
                 }
             }
 
-            // if ($result) {
-            //     // $anggotaKel=$this->saveAnggotaKel();
-            //     // if($anggotaKel[0]){
-            //         $result = array('istatus' => $istatus, 'iremarks' => $iremarks); //, 'body'=>'Data Berhasil Disimpan');
-            //     // }else{
-            //     //     $result = array('istatus' => $anggotaKel[0], 'iremarks' => $anggotaKel[1]); //, 'body'=>'Data Berhasil Disimpan');
-            //     // }
-            // } else {
-            //     $result = array('istatus' => $istatus, 'iremarks' => $iremarks);
-            // }
+            if ($result) {
+                $result = array('istatus' => $istatus, 'iremarks' => $iremarks); //, 'body'=>'Data Berhasil Disimpan');
+            } else {
+                $result = array('istatus' => $istatus, 'iremarks' => $iremarks);
+            }
         }
-        // echo json_encode(TRUE);
+        echo json_encode($result);
     }
 
     function saveAnggotaKel(){

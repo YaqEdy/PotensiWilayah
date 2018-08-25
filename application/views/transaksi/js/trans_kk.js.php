@@ -186,7 +186,7 @@ var TableManaged = function () {
 
 var initTable1 = function () {
 
-    var table = $('#idTabelPO');
+    var table = $('#idGridKK');
 
     // begin first table
     table.dataTable({
@@ -332,10 +332,11 @@ function getDetailKK(iKK,iKTP){
             // tampilan gambar 
             var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
             for(var i=0;i<iCount;i++){
-                var iImg=$("#id_link_gambar"+i).val();
+                var a=i+1;
+                var iImg=$("#id_link_gambar"+a).val();
                 // $("#gambar_foto_ktp"+i).attr('src','<?php echo base_url(); ?>'+iImg);
-                $('#fileFoto').append('<input type="file" id="foto_ktp'+i+'" name="foto_ktp'+i+'" onchange="foto_ktp(this)" >');
-                $('#foto_ktp'+(i)).hide();
+                $('#fileFoto').append('<input type="file" id="foto_ktp'+a+'" name="foto_ktp'+a+'" onchange="foto_ktp(this)" >');
+                $('#foto_ktp'+(a)).hide();
             }
         }
     });
@@ -349,8 +350,9 @@ $('#id_btnModalTambah').click(function(){
     }else{
         iCount = 1;        
     }
-    $('.foto_ktp'+(iCount-1)).hide();
-    $('#fileFoto').append('<input type="file" id="foto_ktp'+iCount+'" name="foto_ktp'+iCount+'" onchange="foto_ktp(this)" >');
+    $('#'+(iCount-1)).hide();
+    $('#fileFoto').append('<div id="'+iCount+'"></div>');
+    $('#'+iCount).append('<input type="file" id="foto_ktp'+iCount+'" name="foto_ktp'+iCount+'" onchange="foto_ktp(this)" >');
     // $('.gambar_foto_ktp'+(iCount-1)).hide();
     $('#imgKTP').append('<img src="" id="gambar_foto_ktp'+iCount+'" class="gambar_foto_ktp'+iCount+'" alt="" />');
     
@@ -393,8 +395,7 @@ readURL(this,'foto_rumah');
                 console.log(e);
                 if (e.istatus == true) {
                     alert(e.iremarks);
-                    // $("#btnCloseUpload").trigger("click");
-                    // $('#table_gridOutRequest').DataTable().ajax.reload();
+                    $('#idGridKK').DataTable().ajax.reload();
                 }
                 iLength=0;
             }
@@ -430,7 +431,7 @@ readURL(this,'foto_rumah');
             tr += '<td><input type="text" class="form-control input-sm" id="id_agama' + i + '" name="agama' + i + '" readonly="true" value="' + $('#id_agama').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_status' + i + '" name="status' + i + '" readonly="true" value="' + $('#id_status').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_pendidikan' + i + '" name="pendidikan' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[1] + '" ></td>';
-            tr += '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' + i + '" name="pekerjaan' + i + '" readonly="true" value="' + $('#id_pekerjaan').val() + '" ></td>';
+            tr += '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' + i + '" name="pekerjaan' + i + '" readonly="true" value="' + $('#id_pekerjaan').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_warga_negara' + i + '" name="warga_negara' + i + '" readonly="true" value="' + $('#id_warga_negara').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_hub_kel' + i + '" name="hub_kel' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[1] + '" ></td>';
 
@@ -442,6 +443,7 @@ readURL(this,'foto_rumah');
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' + i + '" name="pendidikan_' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' + i + '" name="hub_kel_' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_warga_negara_' + i + '" name="warga_negara_' + i + '" readonly="true" value="' + $('#id_warga_negara').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pekerjaan_' + i + '" name="pekerjaan_' + i + '" readonly="true" value="' + $('#id_pekerjaan').val().split(',')[0] + '" ></td>';
             
             tr += '</tr>';
 
@@ -478,7 +480,7 @@ readURL(this,'foto_rumah');
             $("#"+itr).empty();
             $('#fileFoto').append('<div id="'+itr+'"></div>');
             $("#"+itr).append('<input type="file" id="foto_ktp'+itr+'" name="foto_ktp'+itr+'" onchange="foto_ktp(this)" >');
-            
+
             var cells = target.cells; //cell collection - https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableRowElement
             if (!cells.length || target.parentNode.nodeName == 'THEAD') {
                 return;
@@ -562,31 +564,6 @@ readURL(this,'foto_rumah');
         });
     }
 
-
-    function getKelAll_(idKec,idkel) {
-        // ajaxModal();
-        // //cls_body_detail_cucian
-        // $('#id_kel_').empty();
-        // if (idKec != '') {
-        //     $.post("<?php echo site_url('globalc/getKelAll'); ?>",
-        //             {
-        //                 'idMaster': idKec
-        //             }, function (data) {
-        //         if (data.data_cpa.length > 0) {
-        //             //var opt;
-
-        //             for (i = 0; i < data.data_cpa.length; i++) {
-        //                 var idKel = data.data_cpa[i].id_kel;
-        //                 var namakel = data.data_cpa[i].nama_kel;
-        //                 opt = '<option value="' + idKel + '">' + namakel + '</option>';
-        //                 $('#id_kel_').append(opt);
-        //             }
-        //         }
-        //     }, "json");
-        //     $("#id_kel_").select2('val',idkel);
-        // }//if kd<>''
-        // return false;
-    }
 
 // end ini yg dipakai
 
