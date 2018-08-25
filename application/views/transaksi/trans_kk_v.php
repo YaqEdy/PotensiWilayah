@@ -106,63 +106,6 @@
                                             <input id="id_noKK" required="required" class="form-control input-sm"
                                                    type="text" name="noKK" />
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>NIK</label>
-                                                    <input id="id_nik_" required="required" class="form-control input-sm"
-                                                           type="text" name="nik_" />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Nama</label>
-                                                    <input id="id_nama_" class="form-control input-sm"
-                                                           type="text" name="nama_" />
-                                                </div>
-
-                                            </div>
-
-                                        </div> -->
-
-
-                                        <!-- <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Tempat lahir</label>
-                                                    <input id="id_tmpt_lahir_"  class="form-control input-sm"
-                                                           type="text" name="tmpt_lahir_"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Tanggal Lahir</label>
-                                                    <input id="id_tglLahir_"  placeholder="dd-mm-yyyy"
-                                                           class="form-control input-sm date-picker" type="text"
-                                                           name="tglLahir_" data-date-format="dd-mm-yyyy" />
-
-                                                </div>
-
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Jenis kelamin</label>
-                                                    <select name="jekel_" id="id_jekel_" class="select2me">
-                                                        <option value="0">Pria</option>
-                                                        <option value="1">Wanita</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Golongan darah</label>
-                                                    <select name="gol_darah_" id="id_gol_darah_" class="select2me">
-                                                        <option value="0">O</option>
-                                                        <option value="1">A</option>
-                                                        <option value="2">B</option>
-                                                        <option value="3">AB</option>
-
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </div> -->
                                         <div class="form-group">
                                             <label>Alamat</label>
                                             <textarea rows="2" cols="" name="alamat_" id="id_alamat_"
@@ -211,26 +154,6 @@
                                             <h4>&nbsp;</h4>
                                         </div>
                                         <div class="row">
-                                            <!-- <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Foto</label>
-                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                        <div class="fileinput-new thumbnail" style="width: 150px; height: 170px;">
-                                                            <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambar_foto_ktp" alt="" />    
-
-                                                        </div>
-                                                        <div class="fileinput-preview fileinput-exists thumbnail hidden" style="max-width: 250px; max-height: 200px;"> </div>
-                                                            <div>
-                                                                <span class="btn default btn-file">
-                                                                    <span class="fileinput-new"> Pilih /</span>
-                                                                    <span class="fileinput-exists"> Ubah Foto </span>
-                                                                    <input type="file" id="foto_ktp" name="foto_ktp" > </span>
-                                                                <input type="hidden" name="unlinkimg" value="">
-                                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto </a>
-                                                            </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Foto Rumah</label>
@@ -256,80 +179,7 @@
                                         <!-- <br><br>
                                             <h4>&nbsp;</h4> -->
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <label>Agama</label>
-                                                    <select name="agama_" id="id_agama_" class="select2me">
-                                                        <option value="0">Islam</option>
-                                                        <option value="1">Khatolik</option>
-                                                        <option value="2">Kristen</option>
-                                                        <option value="3">Hindu</option>
-                                                        <option value="4">Budha</option>
-                                                        <option value="5">Lain-lain</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Status Kawin</label>
-                                                    <select name="status_" id="id_status_" class="select2me">
-                                                        <option value="0">Tdk/Blm Kawin</option>
-                                                        <option value="1">Kawin</option>
-                                                        <option value="2">Duda</option>
-                                                        <option value="3">Janda</option>
-
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Warga Negara</label>
-                                                    <select name="warga_negara_" id="id_warga_negara_" class="select2me">
-                                                        <option value="0">WNI</option>
-                                                        <option value="1">WNA</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <label>Pendidikan</label>
-                                                    <select name="pendidikan_" id="id_pendidikan_" class="select2me">
-                                                    <option value="1">SD</option>
-                                                    <option value="2">SLTP</option>
-                                                    <option value="3">SLTA</option>
-                                                    <option value="4">D3</option>
-                                                    <option value="5">D4/S1</option>
-                                                    <option value="6">S2</option>
-                                                    <option value="7">S3</option>
-                                                    <option value="8">Profesor</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Pekerjaan</label>
-                                                    <input id="id_pekerjaan_"  class="form-control input-sm"
-                                                           type="text" name="pekerjaan_"/>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Difabel</label>
-                                                    <?php
-                                                    $data = array();
-                                                    $data[''] = '';
-                                                    foreach ($difabel as $row) :
-                                                        $data[$row['id_difabel']] = $row['nama_difabel'];
-                                                    endforeach;
-                                                    echo form_dropdown('difabel_', $data, '', ' id="id_difabel_" class="form-control input-sm select2me "');
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Bantuan</label>
-                                        <input id="id_bantuan_"  class="form-control input-sm"
-                                                type="text" name="bantuan_"/>
-                                    </div>
-                                </div> -->
+                                        
                                 <!-- HIDDEN INPUT -->
                                 <input type="text" id="idTmpAksiBtn" class="hidden">
                                 <!-- END HIDDEN INPUT -->
@@ -387,7 +237,7 @@
                                                     <th>
                                                         Hubungan Keluarga
                                                     </th>
-                                                    <th width="5%">
+                                                    <th width="5%" hidden>
                                                         Act
                                                     </th>
 
@@ -589,18 +439,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Bantuan</label>
-                                        <input id="id_bantuan"  class="form-control input-sm"
-                                                type="text" name="bantuan"/>
-                                    </div>
-                                </div>
-                            </div> -->
-
-
 
                         </div>
                         <div class="col-md-6">

@@ -134,7 +134,8 @@ class Trans_kk extends CI_Controller {
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_warga_negara' . $i . '" name="warga_negara' . $i . '" readonly="true" value="' .$row->warga_negara. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_hub_kel' . $i . '" name="hub_kel' . $i . '" readonly="true" value="' .$row->nama_hub_kel. '" ></td>';
 
-            $tr .= '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' . $i . '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
+            $tr .= '<td hidden><input type="button" class="btn red btn-sm" value="--"></td>';
+            // $tr .= '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' . $i . '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
             
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' . $i . '" name="jekel_' . $i . '" readonly="true" value="' .$row->jekel. '" ></td>';
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_agama_' . $i . '" name="agama_' . $i . '" readonly="true" value="' .$row->agama. '" ></td>';

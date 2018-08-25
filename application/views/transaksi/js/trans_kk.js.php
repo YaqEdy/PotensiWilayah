@@ -341,15 +341,25 @@ function getDetailKK(iKK,iKTP){
         }
     });
 }
-// var iCount;
+var iPlus=0;
 $('#id_btnModalTambah').click(function(){
+    iPlus=iPlus+1;
     // document.getElementById("fmKtp").reset();
     var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        for(var i=0;i<iCount;i++){
+            var a=i+1;
+            $('#'+(a)).hide();
+        }
+
     if(iCount>0){
         iCount = iCount + 1;
     }else{
         iCount = 1;        
     }
+    if(iPlus>0){
+        $('#'+iCount).empty();        
+    }
+
     $('#'+(iCount-1)).hide();
     $('#fileFoto').append('<div id="'+iCount+'"></div>');
     $('#'+iCount).append('<input type="file" id="foto_ktp'+iCount+'" name="foto_ktp'+iCount+'" onchange="foto_ktp(this)" >');
@@ -412,6 +422,7 @@ readURL(this,'foto_rumah');
         || $('#id_pekerjaan').val() == '' || $('#id_pendidikan').val() == '') {
             alert("Data harus diisi semua.");
         } else {
+            iPlus=0;
             // var i = parseInt($('#idTxtTempLoop').val());
             var i = 0;
             var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
@@ -435,7 +446,7 @@ readURL(this,'foto_rumah');
             tr += '<td><input type="text" class="form-control input-sm" id="id_warga_negara' + i + '" name="warga_negara' + i + '" readonly="true" value="' + $('#id_warga_negara').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_hub_kel' + i + '" name="hub_kel' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[1] + '" ></td>';
 
-            tr += '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' + i + '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
+            tr += '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' + i + '_' +$('#id_nik').val()+'\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
             
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' + i + '" name="jekel_' + i + '" readonly="true" value="' + $('#id_jekel').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_agama_' + i + '" name="agama_' + i + '" readonly="true" value="' + $('#id_agama').val().split(',')[0] + '" ></td>';
@@ -455,15 +466,24 @@ readURL(this,'foto_rumah');
             $('#id_btnBatalCpa').trigger('click');
             }
     });
+    var iReqDel="";
     function hapusBaris(noRow) {
+        console.log("ssd");
+        // if(iReqDel==""){
+        //     iReqDel=noRow.split("_")[1];
+        // }else{
+        //     iReqDel=iReqDel+","+noRow.split("_")[1];            
+        // }
+        // var noRow=noRow.split("_")[0];
+        // console.log(noRow,'--',iReqDel);
         if (document.getElementById(noRow) != null) {
             $('#' + noRow).remove();
-            if(iDel==""){
-                iDel = noRow.substring(noRow.lastIndexOf('r') + 1);
-            }else{
-                iDel =iDel+","+ noRow.substring(noRow.lastIndexOf('r') + 1);
-            }
-            console.log(iDel);
+            // if(iDel==""){
+            //     iDel = noRow.substring(noRow.lastIndexOf('r') + 1);
+            // }else{
+            //     iDel =iDel+","+ noRow.substring(noRow.lastIndexOf('r') + 1);
+            // }
+            // console.log(iDel);
         }
     }
 
@@ -476,10 +496,16 @@ readURL(this,'foto_rumah');
                 target = target.parentElement;
             }
 
+            var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            for(var i=0;i<iCount;i++){
+                var a=i+1;
+                $('#'+(a)).hide();
+            }
             var itr=target.id.split('r')[1];
             $("#"+itr).empty();
             $('#fileFoto').append('<div id="'+itr+'"></div>');
             $("#"+itr).append('<input type="file" id="foto_ktp'+itr+'" name="foto_ktp'+itr+'" onchange="foto_ktp(this)" >');
+            $("#"+itr).show();
 
             var cells = target.cells; //cell collection - https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableRowElement
             if (!cells.length || target.parentNode.nodeName == 'THEAD') {
