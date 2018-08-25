@@ -198,14 +198,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Kelurahan</label>
-                                                    <?php
-                                                    $data = array();
-                                                    $data[''] = '';
-                                                    foreach ($kel as $row) :
-                                                        $data[$row['id_kel']] = $row['nama_kel'];
-                                                    endforeach;
-                                                    echo form_dropdown('kel_', $data, '', 'required id="id_kel_" class="form-control input-sm select2me "');
-                                                    ?>
+                                                    <select name="kel_" id="id_kel_" class="form-control input-sm select2me "></select>
                                                 </div>
 
                                             </div>
@@ -557,8 +550,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label>Pekerjaan</label>
-                                        <input id="id_pekerjaan"  class="form-control input-sm"
-                                               type="text" name="pekerjaan"/>
+                                        <?php
+                                        $data = array();
+                                        $data[''] = '';
+                                        foreach ($pekerjaan as $row) :
+                                            $data[$row['id_pekerjaan'].','.$row['nama_pekerjaan']] = $row['nama_pekerjaan'];
+                                        endforeach;
+                                        echo form_dropdown('pekerjaan', $data, '', ' id="id_pekerjaan" class="form-control input-sm select2me "');
+                                        ?>
+                                        <!-- <input id="id_pekerjaan"  class="form-control input-sm"
+                                               type="text" name="pekerjaan"/> -->
                                     </div>
 
                                 </div>                                
@@ -569,6 +570,7 @@
                                     <div class="col-md-6">
                                     <label>Warga Negara</label>
                                         <select name="warga_negara" id="id_warga_negara" class="select2me">
+                                            <option value="">--Pilih--</option>
                                             <option value="0,WNI">WNI</option>
                                             <option value="1,WNA">WNA</option>
                                         </select>

@@ -68,7 +68,9 @@ class Trans_kk extends CI_Controller {
         $data['kel'] = $this->global_m->getSelectOption('master_kelurahan','','','','','id_kel');
         $data['difabel'] = $this->global_m->getSelectOption('tbl_m_difabel','','','','','id_difabel');
         $data['hub_kel'] = $this->global_m->getSelectOption('tbl_r_hub_kel','','','','','id_hub_kel');
+        $data['pekerjaan'] = $this->global_m->getSelectOption('tbl_m_pekerjaan','','','','','id_pekerjaan');
 
+        // print_r($this->global_m->getSelectOption('tbl_r_hub_kel','','','','','id_hub_kel'));die();
         if (isset($_POST["btnSimpan"])) {
             $this->simpan();
         } else {
@@ -110,14 +112,15 @@ class Trans_kk extends CI_Controller {
         $iDataAnggotaKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK'");
         $i=0;
         $tr='';
-        foreach ($iDataAnggotaKK as $row) {        
+        foreach ($iDataAnggotaKK as $row) {       
+            $i++; 
             if($row->jekel==0){
                 $ijenkel="Pria";
             }else{
                 $ijenkel="Wanita";                
             }
             // print_r($row->id_master_kk);die();
-            $tr .= '<tr class="listdata" id="tr'. $i++. '">';
+            $tr .= '<tr class="listdata" id="tr'. $i. '">';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_nik' . $i . '" name="nik' . $i . '" readonly="true" value="' .$row->id_ktp. '"></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_nama' . $i . '" name="nama' . $i . '" readonly="true" value="' .$row->nama_ktp. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_tmpt_lahir' . $i . '" name="tmpt_lahir' . $i . '" readonly="true" value="' .$row->tempat_lahir. '" ></td>';
@@ -127,7 +130,7 @@ class Trans_kk extends CI_Controller {
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_agama' . $i . '" name="agama' . $i . '" readonly="true" value="' .$row->nama_agama. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_status' . $i . '" name="status' . $i . '" readonly="true" value="' .$row->nama_nikah. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_pendidikan' . $i . '" name="pendidikan' . $i . '" readonly="true" value="' .$row->nama_pend. '" ></td>';
-            $tr .= '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' . $i . '" name="pekerjaan' . $i . '" readonly="true" value="' .$row->pekerjaan. '" ></td>';
+            $tr .= '<td><input type="text" class="form-control input-sm" id="id_pekerjaan' . $i . '" name="pekerjaan' . $i . '" readonly="true" value="' .$row->nama_pekerjaan. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_warga_negara' . $i . '" name="warga_negara' . $i . '" readonly="true" value="' .$row->warga_negara. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_hub_kel' . $i . '" name="hub_kel' . $i . '" readonly="true" value="' .$row->nama_hub_kel. '" ></td>';
 
@@ -140,6 +143,7 @@ class Trans_kk extends CI_Controller {
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' . $i . '" name="hub_kel_' . $i . '" readonly="true" value="' .$row->hub_keluarga. '" ></td>';
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_warga_negara_' . $i . '" name="warga_negara_' . $i . '" readonly="true" value="' .$row->warga_negara_. '" ></td>';
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_link_gambar' . $i . '" name="link_gambar' . $i . '" readonly="true" value="' .$row->link_gambar. '" ></td>';
+            $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_pekerjaan_' . $i . '" name="pekerjaan_' . $i . '" readonly="true" value="' .$row->pekerjaan. '" ></td>';
             
             $tr .= '</tr>';
         }
