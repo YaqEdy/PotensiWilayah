@@ -105,7 +105,27 @@ class Trans_kk extends CI_Controller {
         $this->output->set_output(json_encode($data));
     }
 
-    public function ajax_getDetailKK(){
+    public function ajax_delAnggotaKK(){
+        $idKTP = $this->input->get('sKTP');
+        $data = array(
+            'is_delete' => '1'
+        );        
+        $result = $this->global_m->ubah('master_ktp', $data, 'id_ktp', $idKTP);
+        // $iUpdateKK = $this->global_m->get_data("UPDATE master_ktp SET id_delete='0' WHERE id_ktp='$idKTP'");
+        if($result){
+            $result = array('istatus' => true, 'iremarks' => 'Success.!');
+        }else{
+            $result = array('istatus' => false, 'iremarks' => 'Gagal.!');            
+        }
+        echo json_encode($result);
+    }
+
+    public function ajax_getAnggotaKK(){
+        $idKTP = $this->input->get('sKTP');
+        $iDataKK = $this->global_m->get_data("select * FROM vw_t_kk where id_ktp='$idKTP'");
+        echo json_encode($iDataKK);
+    }
+        public function ajax_getDetailKK(){
         $idKK = $this->input->get('sKK');
         $idKTP = $this->input->get('sKTP');
         $iDataKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK' and id_ktp='$idKTP'");
@@ -134,7 +154,9 @@ class Trans_kk extends CI_Controller {
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_warga_negara' . $i . '" name="warga_negara' . $i . '" readonly="true" value="' .$row->warga_negara. '" ></td>';
             $tr .= '<td><input type="text" class="form-control input-sm" id="id_hub_kel' . $i . '" name="hub_kel' . $i . '" readonly="true" value="' .$row->nama_hub_kel. '" ></td>';
 
-            $tr .= '<td hidden><input type="button" class="btn red btn-sm" value="--"></td>';
+            $tr .= '<td>
+            <input type="button" onclick="getAnggotaKK('."2,".$i.",".$row->id_ktp. ')" class="btn btn-warning btn-sm" value="Edit">
+            <input type="button" onclick="delAnggotaKK('."2,".$i.",".$row->id_ktp. ')" class="btn red btn-sm" value="Delete"></td>';
             // $tr .= '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' . $i . '\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
             
             $tr .= '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' . $i . '" name="jekel_' . $i . '" readonly="true" value="' .$row->jekel. '" ></td>';
@@ -225,7 +247,7 @@ class Trans_kk extends CI_Controller {
                                 'warga_negara' => $this->input->post('warga_negara_'.$i),
                                 // 'link_gambar' => $path,
                                 'link_gambar' => $iUploadFoto[1],
-                                'status_hidup' => 1
+                                'is_delete' => 0
                             );                                        
                             $data_anggota_kk = array(
                                 // 'idtrans_kk' => $fileName,
@@ -263,7 +285,7 @@ class Trans_kk extends CI_Controller {
                                 'pekerjaan' => $this->input->post('pekerjaan_'.$i),
                                 'warga_negara' => $this->input->post('warga_negara_'.$i),
                                 'link_gambar' => $iUploadFoto[1],
-                                'status_hidup' => 1
+                                'is_delete' => 0
                             );                                        
                             $data_anggota_kk = array(
                                 // 'idtrans_kk' => $fileName,
@@ -321,7 +343,7 @@ class Trans_kk extends CI_Controller {
                                 'pekerjaan' => $this->input->post('pekerjaan'.$i),
                                 'warga_negara' => $this->input->post('warga_negara'.$i),
                                 'link_gambar' => $path .$iUploadFoto[1],
-                                'status_hidup' => 1
+                                'is_delete' => 0
                             );                                        
                             $data_anggota_kk = array(
                                 // 'idtrans_kk' => $fileName,
@@ -368,7 +390,7 @@ class Trans_kk extends CI_Controller {
                                 'pekerjaan' => $this->input->post('pekerjaan'.$i),
                                 // 'warga_negara' => $this->input->post('warga_negara'.$i),
                                 // 'link_gambar' => $path .$iUploadFoto[1],
-                                'status_hidup' => 1
+                                'is_delete' => 0
                             );                                        
                             $data_anggota_kk = array(
                                 // 'idtrans_kk' => $fileName,

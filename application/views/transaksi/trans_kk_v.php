@@ -237,7 +237,7 @@
                                                     <th>
                                                         Hubungan Keluarga
                                                     </th>
-                                                    <th width="5%" hidden>
+                                                    <th>
                                                         Act
                                                     </th>
 
@@ -474,6 +474,7 @@
             <!-- END MODAL BODY-->
             <div class="modal-footer">
                 <button type="button" class="btn blue" id="id_btnAddCpa"><i class="fa fa-plus"></i>&nbsp; Tambah </button>
+                <button type="button" class="btn blue" id="id_btnEditCpa"><i class="fa fa-plus"></i>&nbsp; Update </button>
                 <button type="button" class="btn default" data-dismiss="modal" id="id_btnBatalCpa_"><i class="fa fa-times"></i>&nbsp;Close</button>
                 <button type="button" class="btn default" data-dismiss="modal" id="id_btnBatalCpa"><i class="fa fa-times"></i>&nbsp;Close</button>
             </div>

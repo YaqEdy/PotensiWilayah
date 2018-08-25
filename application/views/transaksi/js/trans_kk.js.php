@@ -333,9 +333,10 @@ function getDetailKK(iKK,iKTP){
             var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
             for(var i=0;i<iCount;i++){
                 var a=i+1;
-                var iImg=$("#id_link_gambar"+a).val();
+                // var iImg=$("#id_link_gambar"+a).val();
                 // $("#gambar_foto_ktp"+i).attr('src','<?php echo base_url(); ?>'+iImg);
-                $('#fileFoto').append('<input type="file" id="foto_ktp'+a+'" name="foto_ktp'+a+'" onchange="foto_ktp(this)" >');
+                $('#fileFoto').append('<div id="'+a+'"></div>');
+                $('#'+a).append('<input type="file" id="foto_ktp'+a+'" name="foto_ktp'+a+'" onchange="foto_ktp(this)" >');
                 $('#foto_ktp'+(a)).hide();
             }
         }
@@ -343,6 +344,23 @@ function getDetailKK(iKK,iKTP){
 }
 var iPlus=0;
 $('#id_btnModalTambah').click(function(){
+    $("#id_btnEditCpa").hide();
+    $("#id_btnAddCpa").show();
+    $('#id_nik').val("");
+    $('#id_nama').val("");
+    $('#id_tmpt_lahir').val("");
+    $('#id_tgl_lahir').val("");
+    $('#id_jekel').select2('val','');
+    $('#id_gol_darah').select2('val','');
+    $('#id_agama').select2('val','');
+    $('#id_status').select2('val','');
+    $('#id_pendidikan').select2('val','');
+    $('#id_pekerjaan').select2('val','');
+    $('#id_hub_kel').select2('val','');
+    $('#id_warga_negara').select2('val','');
+
+    $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+'');
+
     iPlus=iPlus+1;
     // document.getElementById("fmKtp").reset();
     var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
@@ -431,7 +449,7 @@ readURL(this,'foto_rumah');
             }else{
                 i = i + 1;
             }
-
+            var iFoto=document.getElementById('gambar_foto_ktp').getAttribute('src');
             tr = '<tr class="listdata" id="tr' + i + '">';
             tr += '<td><input type="text" class="form-control input-sm" id="id_nik' + i + '" name="nik' + i + '" readonly="true" value="' + $('#id_nik').val() + '"></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_nama' + i + '" name="nama' + i + '" readonly="true" value="' + $('#id_nama').val() + '" ></td>';
@@ -446,7 +464,10 @@ readURL(this,'foto_rumah');
             tr += '<td><input type="text" class="form-control input-sm" id="id_warga_negara' + i + '" name="warga_negara' + i + '" readonly="true" value="' + $('#id_warga_negara').val().split(',')[1] + '" ></td>';
             tr += '<td><input type="text" class="form-control input-sm" id="id_hub_kel' + i + '" name="hub_kel' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[1] + '" ></td>';
 
-            tr += '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' + i + '_' +$('#id_nik').val()+'\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
+            tr += '<td><input type="button" onclick="getAnggotaKK('+"1,"+i+","+$('#id_nik').val()+')" class="btn btn-warning btn-sm" value="Edit">';
+            tr += '<input type="button" onclick="delAnggotaKK('+"1,"+i+","+$('#id_nik').val()+')" class="btn red btn-sm" value="Delete"></td>';
+
+            // tr += '<td><a href="#" class="btn red btn-sm" onclick="hapusBaris(\'tr' + i + '_' +$('#id_nik').val()+'\')"><i class="fa fa-minus fa-fw"/></i></a></td>';
             
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_jekel_' + i + '" name="jekel_' + i + '" readonly="true" value="' + $('#id_jekel').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_agama_' + i + '" name="agama_' + i + '" readonly="true" value="' + $('#id_agama').val().split(',')[0] + '" ></td>';
@@ -454,6 +475,7 @@ readURL(this,'foto_rumah');
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pendidikan_' + i + '" name="pendidikan_' + i + '" readonly="true" value="' + $('#id_pendidikan').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_hub_kel_' + i + '" name="hub_kel_' + i + '" readonly="true" value="' + $('#id_hub_kel').val().split(',')[0] + '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_warga_negara_' + i + '" name="warga_negara_' + i + '" readonly="true" value="' + $('#id_warga_negara').val().split(',')[0] + '" ></td>';
+            tr += '<td hidden><input type="text" class="form-control input-sm" id="id_link_gambar' + i + '" name="link_gambar' + i + '" readonly="true" value="' +iFoto+ '" ></td>';
             tr += '<td hidden><input type="text" class="form-control input-sm" id="id_pekerjaan_' + i + '" name="pekerjaan_' + i + '" readonly="true" value="' + $('#id_pekerjaan').val().split(',')[0] + '" ></td>';
             
             tr += '</tr>';
@@ -466,78 +488,172 @@ readURL(this,'foto_rumah');
             $('#id_btnBatalCpa').trigger('click');
             }
     });
-    var iReqDel="";
-    function hapusBaris(noRow) {
-        console.log("ssd");
-        // if(iReqDel==""){
-        //     iReqDel=noRow.split("_")[1];
-        // }else{
-        //     iReqDel=iReqDel+","+noRow.split("_")[1];            
-        // }
-        // var noRow=noRow.split("_")[0];
-        // console.log(noRow,'--',iReqDel);
-        if (document.getElementById(noRow) != null) {
-            $('#' + noRow).remove();
-            // if(iDel==""){
-            //     iDel = noRow.substring(noRow.lastIndexOf('r') + 1);
-            // }else{
-            //     iDel =iDel+","+ noRow.substring(noRow.lastIndexOf('r') + 1);
-            // }
-            // console.log(iDel);
-        }
-    }
 
-        var t = document.getElementById('id_tabelAnggotaKel');
-        t.onclick = function (event) {
+function getAnggotaKK(iid,itr,iKTP){
+    if(iid==2){
+        $("#id_btnEditCpa").show();
+        $("#id_btnAddCpa").hide();
+        $.ajax({
+            url: "<?php echo base_url("transaksi/trans_kk/ajax_getAnggotaKK"); ?>?sKTP="+iKTP, // json datasource
+            type: "POST",
+            dataType: "json",
+            // data: sKK=iKK,sKTP=iKTP,
+            success: function (e) {
+                var ijenkel;
+                if(e[0].jekel==0){
+                    ijenkel=e[0].jekel+",Pria";
+                }else{
+                    ijenkel=e[0].jekel+",Wanita";                
+                }
+                $('#id_nik').val(e[0].id_ktp);
+                $('#id_nama').val(e[0].nama_ktp);
+                $('#id_tmpt_lahir').val(e[0].tempat_lahir);
+                $('#id_tgl_lahir').val(e[0].tanggal_lahir);
+                $('#id_jekel').select2('val',ijenkel);
+                $('#id_gol_darah').select2('val',e[0].gol_darah);
+                $('#id_agama').select2('val',e[0].agama+","+e[0].nama_agama);
+                $('#id_status').select2('val',e[0].status_kawin+","+e[0].nama_nikah);
+                $('#id_pendidikan').select2('val',e[0].pendidikan+","+e[0].nama_pend);
+                $('#id_pekerjaan').select2('val',e[0].pekerjaan+","+e[0].nama_pekerjaan);
+                $('#id_hub_kel').select2('val',e[0].hub_keluarga+","+e[0].nama_hub_kel);
+                $('#id_warga_negara').select2('val',e[0].warga_negara_+","+e[0].warga_negara);
+
+                $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e[0].link_gambar);
+
+                var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                for(var i=0;i<iCount;i++){
+                    var a=i+1;
+                    $('#'+(a)).hide();
+                }
+                $("#"+itr).empty();
+                $('#fileFoto').append('<div id="'+itr+'"></div>');
+                $("#"+itr).append('<input type="file" id="foto_ktp'+itr+'" name="foto_ktp'+itr+'" onchange="foto_ktp(this)" >');
+                $("#"+itr).show();
+
             $("#idDivInputProduk").modal();
-            event = event || window.event; //IE8
-            var target = event.target || event.srcElement;
-            while (target && target.nodeName != 'TR') { // find TR
-                target = target.parentElement;
+            },
+            complete:function(e){
+                
             }
+        });
+    }else{
+        editLocal(itr,iKTP);
+    }
+}
 
-            var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-            for(var i=0;i<iCount;i++){
-                var a=i+1;
-                $('#'+(a)).hide();
-            }
-            var itr=target.id.split('r')[1];
-            $("#"+itr).empty();
-            $('#fileFoto').append('<div id="'+itr+'"></div>');
-            $("#"+itr).append('<input type="file" id="foto_ktp'+itr+'" name="foto_ktp'+itr+'" onchange="foto_ktp(this)" >');
-            $("#"+itr).show();
+function editLocal(itr,iKTP){
+    var Row = document.getElementById("tr"+itr);
+    var cells = Row.getElementsByTagName("td");
+    // console.log(cells[0].outerHTML.split('value="')[1].replace('"></td>',''));
+        var ijenkel=cells[13].outerHTML.split('value="')[1].replace('"></td>','')+","+cells[4].outerHTML.split('value="')[1].replace('"></td>','');
+        var iagama=cells[14].outerHTML.split('value="')[1].replace('"></td>','')+","+cells[6].outerHTML.split('value="')[1].replace('"></td>','');
+        var istatus=cells[15].outerHTML.split('value="')[1].replace('"></td>','')+","+cells[7].outerHTML.split('value="')[1].replace('"></td>','');
+        var ipend=cells[16].outerHTML.split('value="')[1].replace('"></td>','')+","+cells[8].outerHTML.split('value="')[1].replace('"></td>','');
+        var iWn=cells[18].outerHTML.split('value="')[1].replace('"></td>','')+","+cells[10].outerHTML.split('value="')[1].replace('"></td>','');
+        var ihubkel=cells[17].outerHTML.split('value="')[1].replace('"></td>','')+","+cells[11].outerHTML.split('value="')[1].replace('"></td>','');
+        var ipekerjaan=cells[20].outerHTML.split('value="')[1].replace('"></td>','')+","+cells[9].outerHTML.split('value="')[1].replace('"></td>','');
 
-            var cells = target.cells; //cell collection - https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableRowElement
-            if (!cells.length || target.parentNode.nodeName == 'THEAD') {
-                return;
-            }
+        $('#id_nik').val(cells[0].outerHTML.split('value="')[1].replace('"></td>','')) ;
+        $('#id_nama').val(cells[1].outerHTML.split('value="')[1].replace('"></td>',''));
+        $('#id_tmpt_lahir').val(cells[2].outerHTML.split('value="')[1].replace('"></td>',''));
+        $('#id_tgl_lahir').val(cells[3].outerHTML.split('value="')[1].replace('"></td>','')) ;
+        $('#id_jekel').select2('val',ijenkel);
+        $('#id_gol_darah').select2('val',cells[5].outerHTML.split('value="')[1].replace('"></td>','')) ;
+        $('#id_agama').select2('val',iagama) ;
+        $('#id_status').select2('val',istatus) ;
+        $('#id_pendidikan').select2('val',ipend) ;
+        $('#id_pekerjaan').select2('val',ipekerjaan) ;
+        $('#id_hub_kel').select2('val',ihubkel) ;
+        $('#id_warga_negara').select2('val',iWn) ;
 
-            var ijenkel=cells[13].innerHTML.split('value="')[1].replace('">','')+","+cells[4].innerHTML.split('value="')[1].replace('">','');
-            var iagama=cells[14].innerHTML.split('value="')[1].replace('">','')+","+cells[6].innerHTML.split('value="')[1].replace('">','');
-            var istatus=cells[15].innerHTML.split('value="')[1].replace('">','')+","+cells[7].innerHTML.split('value="')[1].replace('">','');
-            var ipend=cells[16].innerHTML.split('value="')[1].replace('">','')+","+cells[8].innerHTML.split('value="')[1].replace('">','');
-            var iWn=cells[18].innerHTML.split('value="')[1].replace('">','')+","+cells[10].innerHTML.split('value="')[1].replace('">','');
-            var ihubkel=cells[17].innerHTML.split('value="')[1].replace('">','')+","+cells[11].innerHTML.split('value="')[1].replace('">','');
-            var ipekerjaan=cells[20].innerHTML.split('value="')[1].replace('">','')+","+cells[9].innerHTML.split('value="')[1].replace('">','');
+        $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ cells[19].outerHTML.split('value="')[1].replace('"></td>',''));
+        $("#idDivInputProduk").modal();
 
-            $('#id_nik').val(cells[0].innerHTML.split('value="')[1].replace('">','')) ;
-            $('#id_nama').val(cells[1].innerHTML.split('value="')[1].replace('">',''));
-            $('#id_tmpt_lahir').val(cells[2].innerHTML.split('value="')[1].replace('">',''));
-            $('#id_tgl_lahir').val(cells[3].innerHTML.split('value="')[1].replace('">','')) ;
-            $('#id_jekel').select2('val',ijenkel);
-            $('#id_gol_darah').select2('val',cells[5].innerHTML.split('value="')[1].replace('">','')) ;
-            $('#id_agama').select2('val',iagama) ;
-            $('#id_status').select2('val',istatus) ;
-            $('#id_pendidikan').select2('val',ipend) ;
-            $('#id_pekerjaan').select2('val',ipekerjaan) ;
-            $('#id_hub_kel').select2('val',ihubkel) ;
-            $('#id_hub_kel').select2('val',ihubkel) ;
-            $('#id_warga_negara').select2('val',iWn) ;
-
-
-            $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ cells[19].innerHTML.split('value="')[1].replace('">',''));
-
+        var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        for(var i=0;i<iCount;i++){
+            var a=i+1;
+            $('#'+(a)).hide();
         }
+        $("#"+itr).empty();
+        $('#fileFoto').append('<div id="'+itr+'"></div>');
+        $("#"+itr).append('<input type="file" id="foto_ktp'+itr+'" name="foto_ktp'+itr+'" onchange="foto_ktp(this)" >');
+        $("#"+itr).show();
+        
+}
+
+function delAnggotaKK(iid,itr,iKTP){
+    if(iid==2){
+        $.ajax({
+            url: "<?php echo base_url("transaksi/trans_kk/ajax_delAnggotaKK"); ?>?sKTP="+iKTP, // json datasource
+            type: "POST",
+            dataType: "json",
+            // data: sKK=iKK,sKTP=iKTP,
+            success: function (e) {
+                if(e.istatus){
+                    alert(e.iremarks);
+                    $('#tr' + itr).remove();
+                }else{
+                    alert(e.iremarks);
+                }
+            },
+            complete:function(e){
+                
+            }
+        });
+    }else{
+        $('#tr' + itr).remove();        
+    }
+}
+        // var t = document.getElementById('id_tabelAnggotaKel');
+        // t.onclick = function (event) {
+        //     $("#idDivInputProduk").modal();
+        //     event = event || window.event; //IE8
+        //     var target = event.target || event.srcElement;
+        //     while (target && target.nodeName != 'TR') { // find TR
+        //         target = target.parentElement;
+        //     }
+
+        //     var iCount=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        //     for(var i=0;i<iCount;i++){
+        //         var a=i+1;
+        //         $('#'+(a)).hide();
+        //     }
+        //     var itr=target.id.split('r')[1];
+        //     $("#"+itr).empty();
+        //     $('#fileFoto').append('<div id="'+itr+'"></div>');
+        //     $("#"+itr).append('<input type="file" id="foto_ktp'+itr+'" name="foto_ktp'+itr+'" onchange="foto_ktp(this)" >');
+        //     $("#"+itr).show();
+
+        //     var cells = target.cells; //cell collection - https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableRowElement
+        //     if (!cells.length || target.parentNode.nodeName == 'THEAD') {
+        //         return;
+        //     }
+
+        //     var ijenkel=cells[13].innerHTML.split('value="')[1].replace('">','')+","+cells[4].innerHTML.split('value="')[1].replace('">','');
+        //     var iagama=cells[14].innerHTML.split('value="')[1].replace('">','')+","+cells[6].innerHTML.split('value="')[1].replace('">','');
+        //     var istatus=cells[15].innerHTML.split('value="')[1].replace('">','')+","+cells[7].innerHTML.split('value="')[1].replace('">','');
+        //     var ipend=cells[16].innerHTML.split('value="')[1].replace('">','')+","+cells[8].innerHTML.split('value="')[1].replace('">','');
+        //     var iWn=cells[18].innerHTML.split('value="')[1].replace('">','')+","+cells[10].innerHTML.split('value="')[1].replace('">','');
+        //     var ihubkel=cells[17].innerHTML.split('value="')[1].replace('">','')+","+cells[11].innerHTML.split('value="')[1].replace('">','');
+        //     var ipekerjaan=cells[20].innerHTML.split('value="')[1].replace('">','')+","+cells[9].innerHTML.split('value="')[1].replace('">','');
+
+        //     $('#id_nik').val(cells[0].innerHTML.split('value="')[1].replace('">','')) ;
+        //     $('#id_nama').val(cells[1].innerHTML.split('value="')[1].replace('">',''));
+        //     $('#id_tmpt_lahir').val(cells[2].innerHTML.split('value="')[1].replace('">',''));
+        //     $('#id_tgl_lahir').val(cells[3].innerHTML.split('value="')[1].replace('">','')) ;
+        //     $('#id_jekel').select2('val',ijenkel);
+        //     $('#id_gol_darah').select2('val',cells[5].innerHTML.split('value="')[1].replace('">','')) ;
+        //     $('#id_agama').select2('val',iagama) ;
+        //     $('#id_status').select2('val',istatus) ;
+        //     $('#id_pendidikan').select2('val',ipend) ;
+        //     $('#id_pekerjaan').select2('val',ipekerjaan) ;
+        //     $('#id_hub_kel').select2('val',ihubkel) ;
+        //     $('#id_hub_kel').select2('val',ihubkel) ;
+        //     $('#id_warga_negara').select2('val',iWn) ;
+
+        //     $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ cells[19].innerHTML.split('value="')[1].replace('">',''));
+
+        // }
 
     $("#id_kec_").change(function () {
         var idKec = $(this).val();
