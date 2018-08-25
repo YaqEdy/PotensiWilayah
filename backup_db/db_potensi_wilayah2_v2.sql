@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: db_potensi_wilayah2
 Target Host: localhost
 Target Database: db_potensi_wilayah2
-Date: 8/25/2018 2:06:52 PM
+Date: 8/26/2018 6:07:52 AM
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -264,7 +264,7 @@ CREATE TABLE `master_ktp` (
   `pekerjaan` char(10) DEFAULT NULL,
   `warga_negara` char(45) DEFAULT '',
   `link_gambar` varchar(100) DEFAULT NULL,
-  `status_hidup` char(1) DEFAULT '1',
+  `is_delete` char(1) DEFAULT '1',
   PRIMARY KEY (`id_ktp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -422,7 +422,7 @@ CREATE TABLE `sec_menu` (
   `parent` int(11) DEFAULT '0',
   `lvl` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Table structure for sec_menu_old
@@ -721,7 +721,7 @@ CREATE TABLE `web_temp_perkiraan` (
 -- ----------------------------
 -- View structure for vw_t_kk
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_kk` AS select `a`.`idtrans_kk` AS `idtrans_kk`,`a`.`id_master_kk` AS `id_master_kk`,`a`.`id_ktp` AS `id_ktp`,`a`.`pendidikan` AS `pendidikan`,`k`.`nama_pend` AS `nama_pend`,`a`.`hub_keluarga` AS `hub_keluarga`,`f`.`nama_hub_kel` AS `nama_hub_kel`,`a`.`no_paspor` AS `no_paspor`,`a`.`no_kitap` AS `no_kitap`,`a`.`ayah` AS `ayah`,`a`.`ibu` AS `ibu`,`a`.`rumah_path` AS `rumah_path`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`g`.`nama_kel` AS `nama_kel`,`b`.`id_kec` AS `id_kec`,`h`.`nama_kec` AS `nama_kec`,`b`.`agama` AS `agama`,`i`.`nama_agama` AS `nama_agama`,`b`.`status_kawin` AS `status_kawin`,`j`.`nama_nikah` AS `nama_nikah`,`b`.`pekerjaan` AS `pekerjaan`,(case when (`b`.`warga_negara` = 0) then 'WNI' else 'WNA' end) AS `warga_negara`,`b`.`warga_negara` AS `warga_negara_`,`b`.`link_gambar` AS `link_gambar`,`b`.`status_hidup` AS `status_hidup`,(select count(1) from `trans_kk` `z` where (`z`.`id_master_kk` = `a`.`id_master_kk`)) AS `jml_anggota_keluarga`,`l`.`nama_pekerjaan` AS `nama_pekerjaan` from ((((((((`trans_kk` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) left join `tbl_r_hub_kel` `f` on((`a`.`hub_keluarga` = `f`.`id_hub_kel`))) left join `master_kelurahan` `g` on((`b`.`id_kel` = `g`.`id_kel`))) left join `master_kecamatan` `h` on((`b`.`id_kec` = `h`.`id_kec`))) left join `tbl_m_agama` `i` on((`b`.`agama` = `i`.`id_agama`))) left join `tbl_r_status_nikah` `j` on((`b`.`status_kawin` = `j`.`id_nikah`))) left join `tbl_r_pendidikan` `k` on((`a`.`pendidikan` = `k`.`id_pend`))) left join `tbl_m_pekerjaan` `l` on((`b`.`pekerjaan` = `l`.`id_pekerjaan`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_kk` AS select `a`.`idtrans_kk` AS `idtrans_kk`,`a`.`id_master_kk` AS `id_master_kk`,`a`.`id_ktp` AS `id_ktp`,`a`.`pendidikan` AS `pendidikan`,`k`.`nama_pend` AS `nama_pend`,`a`.`hub_keluarga` AS `hub_keluarga`,`f`.`nama_hub_kel` AS `nama_hub_kel`,`a`.`no_paspor` AS `no_paspor`,`a`.`no_kitap` AS `no_kitap`,`a`.`ayah` AS `ayah`,`a`.`ibu` AS `ibu`,`a`.`rumah_path` AS `rumah_path`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`g`.`nama_kel` AS `nama_kel`,`b`.`id_kec` AS `id_kec`,`h`.`nama_kec` AS `nama_kec`,`b`.`agama` AS `agama`,`i`.`nama_agama` AS `nama_agama`,`b`.`status_kawin` AS `status_kawin`,`j`.`nama_nikah` AS `nama_nikah`,`b`.`pekerjaan` AS `pekerjaan`,(case when (`b`.`warga_negara` = 0) then 'WNI' else 'WNA' end) AS `warga_negara`,`b`.`warga_negara` AS `warga_negara_`,`b`.`link_gambar` AS `link_gambar`,`b`.`is_delete` AS `is_delete`,(select count(1) from `trans_kk` `z` where (`z`.`id_master_kk` = `a`.`id_master_kk`)) AS `jml_anggota_keluarga`,`l`.`nama_pekerjaan` AS `nama_pekerjaan` from ((((((((`trans_kk` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) left join `tbl_r_hub_kel` `f` on((`a`.`hub_keluarga` = `f`.`id_hub_kel`))) left join `master_kelurahan` `g` on((`b`.`id_kel` = `g`.`id_kel`))) left join `master_kecamatan` `h` on((`b`.`id_kec` = `h`.`id_kec`))) left join `tbl_m_agama` `i` on((`b`.`agama` = `i`.`id_agama`))) left join `tbl_r_status_nikah` `j` on((`b`.`status_kawin` = `j`.`id_nikah`))) left join `tbl_r_pendidikan` `k` on((`a`.`pendidikan` = `k`.`id_pend`))) left join `tbl_m_pekerjaan` `l` on((`b`.`pekerjaan` = `l`.`id_pekerjaan`)));
 
 -- ----------------------------
 -- View structure for vw_t_kk_old
@@ -1381,11 +1381,11 @@ INSERT INTO `master_komunitas` VALUES ('000001', 'K Pencinta Anjing Herder', '',
 INSERT INTO `master_komunitas` VALUES ('000002', 'K Pecinta Kucing Angora', '', '5105030', '5105030007', 'Riyan D Masiv', '087778989156', '000001');
 INSERT INTO `master_komunitas` VALUES ('000003', 'KOmunitas Motor Harley Klungkung 008', 'Klungkung', '5105030', '5105030008', 'Komang Agung', '', '000002');
 INSERT INTO `master_komunitas` VALUES ('000004', 'Komunitas Mobil Jadul', 'Nusapenida', '5105010', '5105010007', 'Komang karet', '', '000003');
-INSERT INTO `master_ktp` VALUES ('444', 'ekop', 'sjdfjk', '2018-08-25', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '0', '000001', '0', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '1');
-INSERT INTO `master_ktp` VALUES ('778', 'yooo', 'bekasi', '2018-08-25', '1', 'B', 'Bekasi 2', '8', '90', '5105020004', '5105020', '0', '1', '000003', '1', 'uploads/foto/6e1e0129-a82e-11e8-b821-782bcbdbdcb7.jpg', '1');
+INSERT INTO `master_ktp` VALUES ('444', 'ekop', 'sjdfjk', '2018-08-25', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '0', '000001', '0', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '0');
+INSERT INTO `master_ktp` VALUES ('778', 'yooo', 'bekasi', '2018-08-25', '1', 'B', 'Bekasi 2', '8', '90', '5105020004', '5105020', '0', '1', '000003', '1', 'uploads/foto/6e1e0129-a82e-11e8-b821-782bcbdbdcb7.jpg', '0');
 INSERT INTO `master_ktp` VALUES ('889889', 'kjsdbhj', 'ksdbj', '2018-08-25', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '0', '000001', '0', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '1');
-INSERT INTO `master_ktp` VALUES ('90', 'iio', 'sjbd', '2018-08-25', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '0', '000001', '0', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '1');
-INSERT INTO `master_ktp` VALUES ('999', 'SJDBK', 'LSDFJ', '2018-08-22', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '0', '000001', '1', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '1');
+INSERT INTO `master_ktp` VALUES ('90', 'iio', 'sjbd', '2018-08-25', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '0', '000001', '0', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '0');
+INSERT INTO `master_ktp` VALUES ('999', 'SJDBK', 'LSDFJ', '2018-08-22', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '0', '000001', '1', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '0');
 INSERT INTO `master_ktp` VALUES ('999999', 'sdfkj', 'fsbk', '2018-08-25', '0', 'O', 'bekasi', '9', '10', '5105010001', '5105010', '0', '1', '000001', '0', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg', '1');
 INSERT INTO `master_layanan` VALUES ('1', 'Cuci Setrika Biasa');
 INSERT INTO `master_layanan` VALUES ('2', 'Cuci Setrika Express');
@@ -1771,6 +1771,7 @@ INSERT INTO `sec_menu` VALUES ('208', 'Jenis Sentra', 'master/master_jenissentra
 INSERT INTO `sec_menu` VALUES ('209', 'Jenis Komunitas', 'master/master_jeniskomunitas/home', 'Data Jenis Komunitas', '+2+3', '2', '207', '0');
 INSERT INTO `sec_menu` VALUES ('210', 'Jenis L Keuangan', 'master/master_jenislk/home', 'Data Jenis Lembaga Keuangan', '+2+3', '5', '207', '0');
 INSERT INTO `sec_menu` VALUES ('211', 'Difabel', 'master/master_difabel/home', 'Difabel', '+2+3', '7', '64', '0');
+INSERT INTO `sec_menu` VALUES ('212', 'Pekerjaan', 'master/master_pekerjaan/home', 'Pekerjaan', '+2+3', '8', '64', '0');
 INSERT INTO `sec_menu_old` VALUES ('1', 'Konfigurasi', '#', '', '+1+2', '6', '0', '0');
 INSERT INTO `sec_menu_old` VALUES ('2', 'Group User', 'admin/sec_group_user/home', 'Konfigurasi Group User', '+1+2', '1', '1', '0');
 INSERT INTO `sec_menu_old` VALUES ('3', 'Group Menu', 'admin/konfigurasi_menu_status_user/home', 'Konfigurasi Group Menu', '+1+2', '2', '1', '0');
@@ -1878,12 +1879,12 @@ INSERT INTO `tbl_r_status_nikah` VALUES ('0', 'Tdk/Blm Kawin');
 INSERT INTO `tbl_r_status_nikah` VALUES ('1', 'Kawin');
 INSERT INTO `tbl_r_status_nikah` VALUES ('2', 'Duda');
 INSERT INTO `tbl_r_status_nikah` VALUES ('3', 'Janda');
-INSERT INTO `trans_kk` VALUES ('19', '123', '999', '4', '2', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
-INSERT INTO `trans_kk` VALUES ('20', '1234', '778', '2', '2', '', '', '', '', 'uploads/foto/6dd23707-a82e-11e8-b821-782bcbdbdcb7.jpg');
+INSERT INTO `trans_kk` VALUES ('19', '123', '999', '4', '1', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
+INSERT INTO `trans_kk` VALUES ('20', '1234', '778', '2', '1', '', '', '', '', 'uploads/foto/6dd23707-a82e-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('21', '123', '444', '1', '3', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
-INSERT INTO `trans_kk` VALUES ('22', '123', '90', '6', '1', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
+INSERT INTO `trans_kk` VALUES ('22', '123', '90', '6', '2', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('23', '123', '889889', '1', '2', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
-INSERT INTO `trans_kk` VALUES ('24', '123', '999999', '1', '1', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
+INSERT INTO `trans_kk` VALUES ('24', '123', '999999', '1', '2', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `utility_db` VALUES ('1', 'backup-on-2016-06-25-07-03.sql', 'backup_db/backup-on-2016-06-25-07-03.sql', '2016-06-25', '07:03:30');
 INSERT INTO `utility_db` VALUES ('2', 'backup-on-2016-08-10-05-48.sql', 'backup_db/backup-on-2016-08-10-05-48.sql', '2016-08-10', '05:48:10');
 INSERT INTO `utility_db` VALUES ('3', 'backup-on-2016-08-15-11-25.sql', 'backup_db/backup-on-2016-08-15-11-25.sql', '2016-08-15', '11:25:41');
