@@ -21,6 +21,9 @@
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/datatables/datatables.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js'); ?>"></script>
 <!-- END PAGE LEVEL PLUGINS -->
+
+
+
 <script>
     var App = function () {
         var t, e = !1, o = !1, a = !1, i = !1, n = [], l = "<?php echo base_url('metronic/'); ?>/", s = "global/img/", r = "global/plugins/", c = "global/css/", d = {blue: "#89C4F4", red: "#F3565D", green: "#1bbc9b", purple: "#9b59b6", grey: "#95a5a6", yellow: "#F8CB00"}, p = function () {
@@ -304,8 +307,10 @@
         // END MENU OPEN
     });
 </script>
+
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="<?php echo base_url('metronic/layouts/layout4/scripts/layout.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('metronic/layouts/layout4/scripts/demo.min.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/layouts/global/scripts/quick-sidebar.min.js'); ?>" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 <script src="<?php echo base_url('metronic/additional/start.js'); ?>" type="text/javascript"></script>

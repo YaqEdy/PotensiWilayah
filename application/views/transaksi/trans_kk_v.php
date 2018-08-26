@@ -197,7 +197,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-body">
+                                    <div class="form-body table-responsive">
                                         <table class="table table-striped table-hover table-bordered" id="id_tabelAnggotaKel" name="tabelAnggotaKel">
                                             <thead>
                                                 <tr>

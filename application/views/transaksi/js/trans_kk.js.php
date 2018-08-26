@@ -407,6 +407,14 @@ readURL(this,'foto_rumah');
 });
 
     $('#id_formKK').submit(function (event) {
+        var r = confirm('Anda yakin menyimpan data ini?');
+        var r = confirm('Anda yakin merubah data ini?');
+            if (r == true) {
+                ajaxSubmit();
+            } else {//if(r)
+                return false;
+            }
+
         ajaxModal();
         var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
             iLength=iLength+iLength1;
@@ -423,7 +431,8 @@ readURL(this,'foto_rumah');
             success: function (e) {
                 console.log(e);
                 if (e.istatus == true) {
-                    UIToastr.init('Success', e.iremarks);
+                    alert(e.iremarks);
+                    // UIToastr.init(e.iremarks, e.iremarks);
                     $('#idGridKK').DataTable().ajax.reload();
                 }
                 iLength=0;
@@ -1124,5 +1133,3 @@ function delAnggotaKK(iid,itr,iKTP){
     }
 </script>
 
-
-<!-- END JAVASCRIPTS -->
