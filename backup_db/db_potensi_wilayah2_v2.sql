@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: db_potensi_wilayah2
 Target Host: localhost
 Target Database: db_potensi_wilayah2
-Date: 8/26/2018 6:07:52 AM
+Date: 8/26/2018 8:31:41 AM
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1868,10 +1868,10 @@ INSERT INTO `tbl_r_hub_kel` VALUES ('1', 'KEPALA KELUARGA');
 INSERT INTO `tbl_r_hub_kel` VALUES ('2', 'ISTRI');
 INSERT INTO `tbl_r_hub_kel` VALUES ('3', 'ANAK');
 INSERT INTO `tbl_r_pendidikan` VALUES ('1', 'SD');
-INSERT INTO `tbl_r_pendidikan` VALUES ('2', 'SMP');
-INSERT INTO `tbl_r_pendidikan` VALUES ('3', 'SMA/SMK');
+INSERT INTO `tbl_r_pendidikan` VALUES ('2', 'SLTP');
+INSERT INTO `tbl_r_pendidikan` VALUES ('3', 'SLTA');
 INSERT INTO `tbl_r_pendidikan` VALUES ('4', 'D3');
-INSERT INTO `tbl_r_pendidikan` VALUES ('5', 'S1');
+INSERT INTO `tbl_r_pendidikan` VALUES ('5', 'D4/S1');
 INSERT INTO `tbl_r_pendidikan` VALUES ('6', 'S2');
 INSERT INTO `tbl_r_pendidikan` VALUES ('7', 'S3');
 INSERT INTO `tbl_r_pendidikan` VALUES ('8', 'Profesor');
@@ -1880,7 +1880,7 @@ INSERT INTO `tbl_r_status_nikah` VALUES ('1', 'Kawin');
 INSERT INTO `tbl_r_status_nikah` VALUES ('2', 'Duda');
 INSERT INTO `tbl_r_status_nikah` VALUES ('3', 'Janda');
 INSERT INTO `trans_kk` VALUES ('19', '123', '999', '4', '1', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
-INSERT INTO `trans_kk` VALUES ('20', '1234', '778', '2', '1', '', '', '', '', 'uploads/foto/6dd23707-a82e-11e8-b821-782bcbdbdcb7.jpg');
+INSERT INTO `trans_kk` VALUES ('20', '1234', '778', '2', '1', '', '', '', '', 'uploads/foto/6e1e0129-a82e-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('21', '123', '444', '1', '3', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('22', '123', '90', '6', '2', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');
 INSERT INTO `trans_kk` VALUES ('23', '123', '889889', '1', '2', '', '', '', '', 'uploads/foto/6491af74-a831-11e8-b821-782bcbdbdcb7.jpg');

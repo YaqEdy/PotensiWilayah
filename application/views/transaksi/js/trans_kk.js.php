@@ -407,6 +407,7 @@ readURL(this,'foto_rumah');
 });
 
     $('#id_formKK').submit(function (event) {
+        ajaxModal();
         var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
             iLength=iLength+iLength1;
         event.preventDefault();
@@ -422,7 +423,7 @@ readURL(this,'foto_rumah');
             success: function (e) {
                 console.log(e);
                 if (e.istatus == true) {
-                    alert(e.iremarks);
+                    UIToastr.init('Success', e.iremarks);
                     $('#idGridKK').DataTable().ajax.reload();
                 }
                 iLength=0;
