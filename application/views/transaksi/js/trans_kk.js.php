@@ -1,5 +1,6 @@
 <script>
 var iLength=0;
+var iEdit=0;
 $("#id_btnBatalCpa").hide();
     App.isAngularJsApp() === !1 && jQuery(document).ready(function () {
         ComponentsDateTimePickers.init();
@@ -272,6 +273,7 @@ var initTable1 = function () {
         $(this).parents('tr').toggleClass("active");
     });
     table.on('click', 'tbody tr', function () {
+        iEdit=1;
         var idKK = $(this).find("td").eq(1).html();
         var idKtp = $(this).find("td").eq(2).html();
         getDetailKK(idKK,idKtp);
@@ -407,13 +409,12 @@ readURL(this,'foto_rumah');
 });
 
     $('#id_formKK').submit(function (event) {
-        var r = confirm('Anda yakin menyimpan data ini?');
-        var r = confirm('Anda yakin merubah data ini?');
-            if (r == true) {
-                ajaxSubmit();
-            } else {//if(r)
-                return false;
-            }
+        // var r = confirm('Anda yakin menyimpan data ini?');
+        // var r = confirm('Anda yakin merubah data ini?');
+        //     if (r == true) {
+        //     } else {//if(r)
+        //         return false;
+        //     }
 
         ajaxModal();
         var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
@@ -431,9 +432,10 @@ readURL(this,'foto_rumah');
             success: function (e) {
                 console.log(e);
                 if (e.istatus == true) {
-                    alert(e.iremarks);
-                    // UIToastr.init(e.iremarks, e.iremarks);
+                    UIToastr.init(e.itype, e.iremarks);
                     $('#idGridKK').DataTable().ajax.reload();
+                }else{
+                    UIToastr.init('error', e.iremarks);                    
                 }
                 iLength=0;
             }
@@ -601,9 +603,10 @@ function delAnggotaKK(iid,itr,iKTP){
             success: function (e) {
                 if(e.istatus){
                     alert(e.iremarks);
+                    UIToastr.init(e.itype, e.iremarks);
                     $('#tr' + itr).remove();
                 }else{
-                    alert(e.iremarks);
+                    UIToastr.init(e.itype, e.iremarks);
                 }
             },
             complete:function(e){

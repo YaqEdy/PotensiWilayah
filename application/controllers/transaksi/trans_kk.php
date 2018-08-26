@@ -113,9 +113,9 @@ class Trans_kk extends CI_Controller {
         $result = $this->global_m->ubah('master_ktp', $data, 'id_ktp', $idKTP);
         // $iUpdateKK = $this->global_m->get_data("UPDATE master_ktp SET id_delete='0' WHERE id_ktp='$idKTP'");
         if($result){
-            $result = array('istatus' => true, 'iremarks' => 'Success.!');
+            $result = array('istatus' => true,'itype'=>'success', 'iremarks' => 'Delete Success.!');
         }else{
-            $result = array('istatus' => false, 'iremarks' => 'Gagal.!');            
+            $result = array('istatus' => false,'itype'=>'error', 'iremarks' => 'Gagal.!');            
         }
         echo json_encode($result);
     }
@@ -265,6 +265,7 @@ class Trans_kk extends CI_Controller {
                             $result = $this->global_m->simpan('master_ktp', $data_anggota_ktp);
                             $result = $this->global_m->simpan('trans_kk', $data_anggota_kk);
                             $istatus=true;
+                            $itype='success';
                             $iremarks="Insert Anggota KK Success.!";
                         }else
                         {
@@ -302,6 +303,7 @@ class Trans_kk extends CI_Controller {
                             $result = $this->global_m->ubah('trans_kk', $data_anggota_kk, 'idtrans_kk', $iCekNIK[0]->idtrans_kk);
 
                             $istatus=true;
+                            $itype='success';
                             $iremarks="Update Anggota KK Success.!";                                        
                         }
                     }
@@ -309,9 +311,9 @@ class Trans_kk extends CI_Controller {
             }
 
             if ($result) {
-                $result = array('istatus' => $istatus, 'iremarks' => $iremarks); //, 'body'=>'Data Berhasil Disimpan');
+                $result = array('istatus' => $istatus,'itype' => $itype, 'iremarks' => $iremarks); //, 'body'=>'Data Berhasil Disimpan');
             } else {
-                $result = array('istatus' => $istatus, 'iremarks' => $iremarks);
+                $result = array('istatus' => $istatus,'itype' => 'error', 'iremarks' => $iremarks);
             }
         }
         echo json_encode($result);
