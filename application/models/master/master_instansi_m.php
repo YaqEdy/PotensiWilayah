@@ -3,34 +3,34 @@
 if (! defined ( 'BASEPATH' ))
 	exit ( 'No direct script access allowed' );
 
-class Master_bantuan_m extends CI_Model {
-	public function getBantuanAll()
+class Master_instansi_m extends CI_Model {
+	public function getInstansiAll()
 	{
-		$sql="SELECT * from tbl_m_bantuan ";
+		$sql="SELECT * from tbl_m_instansi ";
 		$query=$this->db->query($sql);
 		return $query->result(); // returning rows, not row
 	}
-	public function getIdBantuan(){
-		$sql= "select id_bantuan from tbl_m_bantuan";
+	public function getIdInstansi(){
+		$sql= "select id_instansi from tbl_m_instansi";
 		$query = $this->db->query($sql);
 		$jml = $query->num_rows();
 		if($jml == 0){
-			$id_bantuan = "000001";
-			return $id_bantuan;
+			$id_instansi = "000001";
+			return $id_instansi;
 		}else{
-			$sql= "select max(right(id_bantuan,6)) as id_bantuan from tbl_m_bantuan";
+			$sql= "select max(right(id_instansi,6)) as id_instansi from tbl_m_instansi";
 			$query = $this->db->query($sql);
 			$hasil = $query->result();
-			$id_bantuan =  $hasil[0]->id_bantuan;
-			$id_bantuan = sprintf('%06u',$id_bantuan+1);
-			return $id_bantuan;
+			$id_instansi =  $hasil[0]->id_instansi;
+			$id_instansi = sprintf('%06u',$id_instansi+1);
+			return $id_instansi;
 		}
 	}
-	public function getDescBantuan($idBantuan)
+	public function getDescInstansi($idInstansi)
 	{
-		$this->db->select ( 'nama_bantuan' );//, s.alamat, s.telp, s.npwp
-		$this->db->from('tbl_m_bantuan');
-		$this->db->where ( 'id_bantuan', $idBantuan);
+		$this->db->select ( 'nama_instansi' );//, s.alamat, s.telp, s.npwp
+		$this->db->from('tbl_m_instansi');
+		$this->db->where ( 'id_instansi', $idInstansi);
 		$query = $this->db->get ();
 		if($query->num_rows()== '1'){
 			return $query->result ();
@@ -41,7 +41,7 @@ class Master_bantuan_m extends CI_Model {
 	public function insert($data){
 		
 		$this->db->trans_begin();
-		$model = $this->db->insert('tbl_m_bantuan', $data);
+		$model = $this->db->insert('tbl_m_instansi', $data);
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
@@ -52,10 +52,10 @@ class Master_bantuan_m extends CI_Model {
 		}
 	
 	}
-	function update($data,$idBantuan){
+	function update($data,$idInstansi){
 		$this->db->trans_begin();
-		$query1 = $this->db->where('id_bantuan', $idBantuan);
-		$query2 = $this->db->update('tbl_m_bantuan', $data);
+		$query1 = $this->db->where('id_instansi', $idInstansi);
+		$query2 = $this->db->update('tbl_m_instansi', $data);
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;
@@ -95,10 +95,10 @@ class Master_bantuan_m extends CI_Model {
 			return false;
 		}
 	}*/
-	function delete($idBantuan){
+	function delete($idInstansi){
 		$this->db->trans_begin();
-		$query1	=	$this->db->where('id_bantuan',$idBantuan);
-		$query2	=   $this->db->delete('tbl_m_bantuan');
+		$query1	=	$this->db->where('id_instansi',$idInstansi);
+		$query2	=   $this->db->delete('tbl_m_instansi');
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			return false;

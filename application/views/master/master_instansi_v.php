@@ -1,3 +1,4 @@
+
 <!-- BEGIN PAGE BREADCRUMB -->
 
 <!-- END PAGE BREADCRUMB -->
@@ -10,7 +11,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-cogs  font-red-sunglo"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Data Bantuan</span>
+                    <span class="caption-subject font-red-sunglo bold uppercase">Data Instansi</span>
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -28,11 +29,11 @@
                 <ul class="nav nav-pills">
                     <li class="linav active" id="linav1">
                         <a href="#tab_2_1" data-toggle="tab" id="navitab_2_1" class="anavitab">
-                            Data Bantuan </a>
+                            Data Instansi </a>
                     </li>
                     <li class="linav" id="linav2">
                         <a href="#tab_2_2" data-toggle="tab" id="navitab_2_2" class="anavitab">
-                            Form Bantuan</a>
+                            Form Instansi</a>
                     </li>
 
                 </ul>
@@ -49,14 +50,14 @@
                                     <div class="col-md-6">
                                         
                                             <table class="table table-striped table-bordered table-hover text_kanan"
-                                                   id="idTabelBantuan">
+                                                   id="idTabelInstansi">
                                                 <thead>
                                                     <tr>
                                                         <th>
-                                                            Id Bantuan
+                                                            Id Instansi
                                                         </th>
                                                         <th>
-                                                            Nama Bantuan
+                                                            Nama Instansi
                                                         </th>
 <!--                                                         <th>
                                                             Alamat
@@ -81,7 +82,7 @@
                         </div>
                         <div class="tab-pane fade" id="tab_2_2">
                             <form role="form" method="post" class=""
-                      action="<?php echo base_url('master/master_bantuan/home'); ?>" id="id_formBantuan">
+                      action="<?php echo base_url('master/master_Instansi/home'); ?>" id="id_formInstansi">
                     
                             <div class="row">
                                 <div class="form-body">
@@ -89,18 +90,18 @@
                                         <div class="form-group hidden">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label>Id Bantuan </label>
+                                                    <label>Id Instansi </label>
                                                     <div class="input-group">
-                                                        <input id="id_BantuanId" required="required" class="form-control input-sm"
-                                                               type="text" name="BantuanId" readonly/>
+                                                        <input id="id_InstansiId" required="required" class="form-control input-sm"
+                                                               type="text" name="InstansiId" readonly/>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Nama Bantuan</label>
-                                            <input id="id_namaBantuan" required="required" class="form-control input-sm"
-                                                   type="text" name="namaBantuan"/>
+                                            <label>Nama Instansi</label>
+                                            <input id="id_namaInstansi" required="required" class="form-control input-sm"
+                                                   type="text" name="namaInstansi"/>
                                         </div>
 <!--                                        <div class="form-group">
                                             <label>Alamat</label>
@@ -220,17 +221,17 @@
 
         var initTable1 = function () {
 
-            var table = $('#idTabelBantuan');
+            var table = $('#idTabelInstansi');
 
             // begin first table
             table.dataTable({
-                "ajax": "<?php echo base_url("/master/master_bantuan/getBantuanAll"); ?>",
+                "ajax": "<?php echo base_url("/master/master_Instansi/getInstansiAll"); ?>",
                 "columns": [
-                    {"data": "idBantuan"},
-                    {"data": "namaBantuan"}
+                    {"data": "idInstansi"},
+                    {"data": "namaInstansi"}
                     /*,
-                    {"data": "alamatBantuan"},
-                    {"data": "telpBantuan"}*/
+                    {"data": "alamatInstansi"},
+                    {"data": "telpInstansi"}*/
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -301,17 +302,17 @@
                 $(this).parents('tr').toggleClass("active");
             });
             table.on('click', 'tbody tr', function () {
-                var idBantuan = $(this).find("td").eq(0).html();
+                var idInstansi = $(this).find("td").eq(0).html();
 
-                $('#id_BantuanId').val(idBantuan);
-                getDescBantuan(idBantuan);
+                $('#id_InstansiId').val(idInstansi);
+                getDescInstansi(idInstansi);
                  $("#navitab_2_2").trigger('click');
                 //$('#').val();
                 $('#btnCloseModalDataUser').trigger('click');
                 $('#id_btnSimpan').attr('disabled', true);
                 $('#id_btnUbah').attr("disabled", false);
                 $('#id_btnHapus').attr("disabled", false);
-                $('#id_namaBantuan').focus();
+                $('#id_namaInstansi').focus();
 
             });
 
@@ -330,26 +331,26 @@
         };
     }();
     btnStart();
-    $("#id_namaBantuan").focus();
+    $("#id_namaInstansi").focus();
     $('#id_btnBatal').click(function () {
         btnStart();
     });
-    $("#id_BantuanId").focusout(function () {
-        var idBantuan = $(this).val();
-        getDescBantuan(idBantuan);
+    $("#id_InstansiId").focusout(function () {
+        var idInstansi = $(this).val();
+        getDescInstansi(idInstansi);
     });
-    function getDescBantuan(idBantuan) {
+    function getDescInstansi(idInstansi) {
         ajaxModal();
-        if (idBantuan != '') {
-            $.post("<?php echo site_url('/master/master_bantuan/getDescBantuan'); ?>",
+        if (idInstansi != '') {
+            $.post("<?php echo site_url('/master/master_Instansi/getDescInstansi'); ?>",
                     {
-                        'idBantuan': idBantuan
+                        'idInstansi': idInstansi
                     }, function (data) {
                 if (data.baris == 1) {
-                    $('#id_namaBantuan').val(data.nama_Bantuan);
-                    $('#id_alamat').val(data.alamat);
-                    $('#id_telp').val(data.telp);
-                    $('#id_npwp').val(data.npwp);
+                    $('#id_namaInstansi').val(data.nama_instansi);
+                    // $('#id_alamat').val(data.alamat);
+                    // $('#id_telp').val(data.telp);
+                    // $('#id_npwp').val(data.npwp);
                     /*
                      $('#').val(data.); */
                 } else {
@@ -364,7 +365,7 @@
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "<?php echo base_url(); ?>master/master_bantuan/simpan",
+            url: "<?php echo base_url(); ?>master/master_Instansi/simpan",
             data: dataString,
             success: function (data) {
                 $('#id_Reload').trigger('click');
@@ -379,7 +380,7 @@
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "<?php echo base_url(); ?>master/master_bantuan/ubah",
+            url: "<?php echo base_url(); ?>master/master_Instansi/ubah",
             data: dataString,
             success: function (data) {
                 $('#id_Reload').trigger('click');
@@ -391,13 +392,13 @@
     }
     function ajaxHapus() {
         ajaxModal();
-        var idBantuan = $('#id_BantuanId').val();
-        idBantuan = idBantuan.trim();
+        var idInstansi = $('#id_InstansiId').val();
+        idInstansi = idInstansi.trim();
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "<?php echo base_url(); ?>master/master_bantuan/hapus",
-            data: {idBantuan: idBantuan},
+            url: "<?php echo base_url(); ?>master/master_Instansi/hapus",
+            data: {idInstansi: idInstansi},
             success: function (data) {
                 $('#id_Reload').trigger('click');
                 $('#id_btnBatal').trigger('click');
@@ -407,8 +408,8 @@
         });
         
     }
-    $('#id_formBantuan').submit(function (event) {
-        dataString = $("#id_formBantuan").serialize();
+    $('#id_formInstansi').submit(function (event) {
+        dataString = $("#id_formInstansi").serialize();
         
         var aksiBtn = $('#idTmpAksiBtn').val();
         if (aksiBtn == '1') {

@@ -27,9 +27,11 @@
                     {"data": "id_ktp"},
                     {"data": "nama_bantuan"},
                     {"data": "nama_ktp"},
-                    {"data": "id_m_bantuan"},
+                    {"data": "id_m_instansi"},
                     {"data": "idsession"},
                     {"data": "tgl_bantuan"},
+                    {"data": "nama_instansi"},
+                    {"data": "ket"},
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -103,15 +105,12 @@
             });
             table.on('click', 'tbody tr', function () {
                 var idSession = $(this).find("td").eq(6).html();
-                var idbantuan = $(this).find("td").eq(5).html();
+                var idinstansi = $(this).find("td").eq(5).html();
                 var tglBantuan = $(this).find("td").eq(7).html();
-                // var id = "000000"+idbantuan;
-                // var idbantuan = id.substr(id.length - 6); // => "Tabs1"
-                // console.log(tglBantuan,'--',idbantuan);
+                var iBantuan = $(this).find("td").eq(3).html();
+                var iKet = $(this).find("td").eq(9).html();
 
-                // $('#id_tgl_bantuan').val("01-01-2018");
-                // $('#id_bantuan').select2('val',idbantuan);
-                getDetailBantuan(idSession,tglBantuan,idbantuan);
+                getDetailBantuan(idSession,tglBantuan,idinstansi,iBantuan,iKet);
                  $("#navitab_2_2").trigger('click');
                 //$('#').val();
                 $('#btnCloseModalDataUser').trigger('click');
@@ -137,9 +136,9 @@
         };
     }();
 
-    // getDetailBantuan(idSession,tglBantuan,idbantuan);
+    // getDetailBantuan(idSession,tglBantuan,idinstansi,iBantuan,iKet);
 
-function getDetailBantuan(a,tgl,idbantuan){
+function getDetailBantuan(a,tgl,idInstansi,iBantuan,iKet){
     $.ajax({
         url: "<?php echo base_url("transaksi/trans_bantuan/ajax_detail"); ?>", // json datasource
         type: "POST",
@@ -149,8 +148,10 @@ function getDetailBantuan(a,tgl,idbantuan){
             if (e.act == true) {
                 iPID=e.iPid;
                 $('#idGridPenerima').DataTable().ajax.reload();
+                $('#id_bantuan').val(iBantuan);
                 $('#id_tgl_bantuan').val(tgl);
-                $('#id_bantuan').select2('val',idbantuan);
+                $('#id_instansi').select2('val',idInstansi);
+                $('#id_ket').val(iKet);
             }
         },
         complete:function(e){
@@ -162,7 +163,9 @@ $("#navitab_2_2").click(function(){
     iPID="";
     $("#id_BantuanId").val('');    
     $("#id_tgl_bantuan").val('');    
-    $("#id_bantuan").select2('val','');    
+    $("#id_instansi").select2('val','');    
+    $("#id_bantuan").val('');    
+    $("#id_ket").val('');    
     $('#idGridPenerima').DataTable().ajax.reload();
 });
 //Grid penerima bantuan
@@ -278,7 +281,7 @@ function del_temp(a){
         url: "<?php echo base_url("transaksi/trans_bantuan/ajax_delTemp"); ?>", // json datasource
         type: "POST",
         dataType: "json",
-        data: {sKtp:a,sPID:iPID},
+        data: {sId:a,sPID:iPID},
         success: function (e) {
             if (e.act == true) {
                     UIToastr.init(e.tipePesan, e.pesan);
@@ -294,9 +297,10 @@ function del_temp(a){
     });    
 }
 
-function tambahOrang(){ 
-    if($("#id_bantuan").val()==""){
-        alert("Bantuan harus dipilih.!")
+function tambahPeserta(){ 
+    if($("#id_bantuan").val()==""||$("#id_tgl_bantuan").val()==""
+    ||$("#id_instansi").val()==""||$("#id_ket").val()==""){
+        alert("Data harus diisi semua.!")
     }else{
         $("#idDivSelectKTP").modal();
     }
@@ -406,7 +410,7 @@ function select(a){
         url: "<?php echo base_url("transaksi/trans_bantuan/ajax_saveSelect"); ?>", // json datasource
         type: "POST",
         dataType: "json",
-        data: {sKtp:a,sBantuan:$("#id_bantuan").val(),sPID:iPID,sTgl:$("#id_tgl_bantuan").val()},
+        data: {sKtp:a,sBantuan:$("#id_bantuan").val(),sInstansi:$("#id_instansi").val(),sTgl:$("#id_tgl_bantuan").val(),sKet:$("#id_ket").val(),sPID:iPID},
         success: function (e) {
             if (e.act == true) {
                     UIToastr.init(e.tipePesan, e.pesan);
@@ -429,7 +433,7 @@ function simpanBantuan(){
                 url: "<?php echo base_url("transaksi/trans_bantuan/ajax_simpanBantuan"); ?>", // json datasource
                 type: "POST",
                 dataType: "json",
-                data: {sPID:iPID},
+                data: {sPID:iPID,sBantuan:$("#id_bantuan").val(),sInstansi:$("#id_instansi").val(),sTgl:$("#id_tgl_bantuan").val(),sKet:$("#id_ket").val()},
                 success: function (e) {
                     if (e.act == true) {
                             UIToastr.init(e.tipePesan, e.pesan);

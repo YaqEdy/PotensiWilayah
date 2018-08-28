@@ -43,7 +43,7 @@ class Trans_bantuan extends CI_Controller {
         } else {
             $data['multilevel'] = $this->user_m->get_data(0, $this->session->userdata('usergroup'));
             $data['menu_all'] = $this->user_m->get_menu_all(0);
-            $data['bantuan'] = $this->global_m->getSelectOption('tbl_m_bantuan','','','','','id_bantuan');
+            $data['instansi'] = $this->global_m->getSelectOption('tbl_m_instansi','','','','','id_instansi');
 
             $this->template->set('title', $data['menu_nama']);
             $this->template->load('template/template_dataTable', 'transaksi/trans_bantuan_v', $data);
@@ -59,12 +59,14 @@ class Trans_bantuan extends CI_Controller {
             $array = array(
                 'no' => $no++,
                 'id_t_bantuan' => trim($row->id_t_bantuan),
-                'id_m_bantuan' => trim($row->id_m_bantuan),
+                'id_m_instansi' => trim($row->id_m_instansi),
                 'id_ktp' => trim($row->id_ktp),
                 'nama_bantuan' => trim($row->nama_bantuan),
                 'nama_ktp' => trim($row->nama_ktp),
                 'idsession' => trim($row->idsession),
-                'tgl_bantuan' => trim($row->tgl_bantuan)
+                'tgl_bantuan' => trim($row->tgl_bantuan),
+                'nama_instansi' => trim($row->nama_instansi),
+                'ket' => trim($row->ket)
             );
 
             array_push($data['data'], $array);
@@ -91,7 +93,7 @@ class Trans_bantuan extends CI_Controller {
                 'nama_ktp' => trim($row->nama_ktp),
                 'jekel' => $ijekel,
                 'tanggal_lahir' => trim($row->tanggal_lahir),
-                'act' => "<button id='btnDel' onclick='del_temp(".trim($row->id_ktp).")' class='btn btn-danger btn-sm'><i class='glyphicon glyphicon-remove'></i> Delete</button>",
+                'act' => "<button id='btnDel' onclick='del_temp(".trim($row->id_t_bantuan).")' class='btn btn-danger btn-sm'><i class='glyphicon glyphicon-remove'></i> Delete</button>",
                 /*,
                 'alamatBantuan' => trim($row->alamat),
                 'telpBantuan' => trim($row->telp)*/
@@ -103,9 +105,9 @@ class Trans_bantuan extends CI_Controller {
     }
 
     function ajax_delTemp() {
-        $idKtp = trim($this->input->post('sKtp'));
+        $iId = trim($this->input->post('sId'));
         $iPid=trim($this->input->post('sPID'));
-        $model = $this->trans_bantuan_m->delete("DELETE FROM `tbl_t_bantuan_temp` WHERE id_ktp='".$idKtp."' and idsession='".$iPid."'");
+        $model = $this->trans_bantuan_m->delete("DELETE FROM `tbl_t_bantuan_temp` WHERE id_t_bantuan='".$iId."' and idsession='".$iPid."'");
         if ($model) {
             $array = array(
                 'act' => true,
@@ -151,35 +153,48 @@ class Trans_bantuan extends CI_Controller {
     }
 
     function ajax_saveSelect() {
-        $sTgl = trim($this->input->post('sTgl'));
         $idKtp = trim($this->input->post('sKtp'));
-        $idBantuan = trim($this->input->post('sBantuan'));
+        $iBantuan = trim($this->input->post('sBantuan'));
+        $idInstansi = trim($this->input->post('sInstansi'));
+        $sTgl = trim($this->input->post('sTgl'));
+        $iKet = trim($this->input->post('sKet'));
         if(trim($this->input->post('sPID'))==""){
             $iPid=$this->global_m->get_data('select uuid() as pid')[0]->pid;
         }else{
             $iPid=trim($this->input->post('sPID'));
         }
-        $data = array(
-            'idsession' => $iPid,
-            'id_m_bantuan' => $idBantuan,
-            'id_ktp' => $idKtp,
-            'tgl_bantuan' => date('Y-m-d', strtotime($sTgl)),
-            'create_by' => $this->session->userdata('id_user'),
-            'create_date' => date('Y-m-d H:i:s')
-        );
-        $model = $this->global_m->simpan('tbl_t_bantuan_temp',$data);
+        $iCek=$this->global_m->get_data("SELECT * FROM vw_t_bantuan_temp where idsession='".$iPid."' and id_ktp='".$idKtp."'");
+        if(sizeof($iCek)<1){
+            $data = array(
+                'idsession' => $iPid,
+                'id_m_instansi' => $idInstansi,
+                'id_ktp' => $idKtp,
+                'tgl_bantuan' => date('Y-m-d', strtotime($sTgl)),
+                'nama_bantuan' => $iBantuan,
+                'ket' => $iKet,
+                'create_by' => $this->session->userdata('id_user'),
+                'create_date' => date('Y-m-d H:i:s')
+            );    
+            $model = $this->global_m->simpan('tbl_t_bantuan_temp',$data);            
+            $itipePesan='success';
+            $ipesan='Peserta berhasil dipilih.';
+        }else{
+            $model=true;
+            $itipePesan='error';
+            $ipesan='Peserta sudah dipilih.';            
+        }
         if ($model) {
             $array = array(
                 'act' => true,
-                'tipePesan' => 'success',
-                'pesan' => 'Data berhasil disimpan.',
+                'tipePesan' => $itipePesan,
+                'pesan' => $ipesan,
                 'iPid' => $iPid
             );
         } else {
             $array = array(
                 'act' => false,
                 'tipePesan' => 'error',
-                'pesan' => 'Data gagal disimpan.',
+                'pesan' => 'Peserta gagal dipilih.',
                 'iPid' => ''
             );
         }
@@ -188,9 +203,15 @@ class Trans_bantuan extends CI_Controller {
 
     function ajax_simpanBantuan() {
         $iPid=trim($this->input->post('sPID'));
+        $iBantuan=$this->input->post('sBantuan');
+        $iInstansi=$this->input->post('sInstansi');
+        $iTgl=date('Y-m-d', strtotime($this->input->post('sTgl')));
+        $iKet=$this->input->post('sKet');
         $iUser=$this->session->userdata('id_user');
         $idate=date('Y-m-d H:i:s');
-        $model = $this->trans_bantuan_m->query("CALL zsp_simpan_bantuan('".$iUser."','".$iPid."')");
+
+        // print_r($iBantuan);die();
+        $model = $this->trans_bantuan_m->query("CALL zsp_simpan_bantuan('".$iUser."','".$iPid."','".$iBantuan."','".$iInstansi."','".$iTgl."','".$iKet."')");
         if ($model) {
             $array = array(
                 'act' => true,

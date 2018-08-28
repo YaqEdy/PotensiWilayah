@@ -68,13 +68,19 @@
                                                             Nama
                                                         </th>
                                                         <th>
-                                                            Id M Bantuan
+                                                            Id M Instansi
                                                         </th>
                                                         <th>
                                                             Id session
                                                         </th>
                                                         <th>
                                                             tgl bantuan
+                                                        </th>
+                                                        <th>
+                                                        nama_instansi
+                                                        </th>
+                                                        <th>
+                                                            Keterangan
                                                         </th>
 
                                                     </tr>
@@ -110,27 +116,37 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Tgl Bantuan</label>
-                                            <input id="id_tgl_bantuan" class="form-control input-sm date-picker" data-date-format="dd-mm-yyyy" type="text">
+                                            <label>Jenis Bantuan</label>
+                                            <input id="id_bantuan" class="form-control" type="text">
                                         </div>
                                         <div class="form-group">
-                                            <label>Bantuan</label>
+                                            <label>Instansi</label>
                                             <?php
                                             $data = array();
                                             $data[''] = '';
-                                            foreach ($bantuan as $row) :
-                                                $data[$row['id_bantuan']] = $row['nama_bantuan'];
+                                            foreach ($instansi as $row) :
+                                                $data[$row['id_instansi']] = $row['nama_instansi'];
                                             endforeach;
-                                            echo form_dropdown('bantuan', $data, '', ' id="id_bantuan" class="form-control input-sm select2me "');
+                                            echo form_dropdown('instansi', $data, '', ' id="id_instansi" class="form-control input-sm select2me "');
                                             ?>
                                         </div>
 
+                                    </div>
 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tanggal Bantuan</label>
+                                            <input id="id_tgl_bantuan" class="form-control input-sm date-picker" data-date-format="dd-mm-yyyy" type="text">
+                                        </div>                                    
+                                        <div class="form-group">
+                                            <label>Keterangan</label>
+                                            <input id="id_ket" class="form-control" type="text">
+                                        </div>                                    
                                     </div>
                                     <!--end <div class="col-md-6"> 1 -->
                                     <div class="col-md-6"></div>
                                     <div class="col-md-12">
-                                    <button id="idAddOrang" onclick="tambahOrang()" class="btn blue">Tambah Orang</button>
+                                    <button id="idAddPeserta" onclick="tambahPeserta()" class="btn blue">Tambah Peserta</button>
                                         <table class="table table-striped table-bordered table-hover text_kanan" id="idGridPenerima">
                                             <thead>
                                                 <tr>
