@@ -60,7 +60,7 @@ class Master_komunitas_m extends CI_Model {
 
     function update($data, $kelId) {
         $this->db->trans_begin();
-        $query1 = $this->db->where('id_kel', $kelId);
+        $query1 = $this->db->where('id_komunitas', $kelId);
         $query2 = $this->db->update('master_komunitas', $data);
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -71,9 +71,9 @@ class Master_komunitas_m extends CI_Model {
         }
     }
 
-    function delete($kelId) {
+    function delete($Id) {
         $this->db->trans_begin();
-        $query1 = $this->db->where('id_kel', $kelId);
+        $query1 = $this->db->where('id_komunitas', $Id);
         $query2 = $this->db->delete('master_komunitas');
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
