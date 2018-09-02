@@ -10,7 +10,7 @@ $("#id_btnBatalCpa").hide();
             $(this).next();
         });
         TableManaged.init();
-
+        loadGridAnggotaKel();
     });
     $(document).keyup(function (e) {
         if (e.which === 36) {
@@ -35,9 +35,7 @@ $("#id_btnBatalCpa").hide();
         //alert(nama_cust);
         $('#id_nama_cust').val(nama_cust);
     });
-    $("#id_btnSimpan").click(function () {
-        $('#idTmpAksiBtn').val('1');
-    });
+
     $('#id_status_bayar').change(function () {
         var st_bayar = $(this).val();
         if (st_bayar == 0) {
@@ -48,14 +46,7 @@ $("#id_btnBatalCpa").hide();
         }
     });
     $('#id_btnBatal').click(function () {
-        btnStart();
-        resetForm();
-        readyToStart();
-        tglTransStart();
-        $('#id_body_data').empty();
-        $('#id_status_bayar').val('0');
-        $('#id_customer').select2('val', '');
-        $('.cls_diskon_lgsbayar').hide();
+        formClear('id_formKK');
     });
     function finishing(obj) {
         var idMaster = $(obj).closest('tr').find("td").eq(1).html();
@@ -194,6 +185,7 @@ var initTable1 = function () {
         "ajax": "<?php echo base_url("/transaksi/trans_kk/getKKAll"); ?>",
         "columns": [
             {"data": "no"},
+            {"data": "idsession"},
             {"data": "idKK"},
             {"data": "idKtp"},
             {"data": "namaKtp"},
@@ -273,10 +265,11 @@ var initTable1 = function () {
         $(this).parents('tr').toggleClass("active");
     });
     table.on('click', 'tbody tr', function () {
-        iEdit=1;
-        var idKK = $(this).find("td").eq(1).html();
-        var idKtp = $(this).find("td").eq(2).html();
-        getDetailKK(idKK,idKtp);
+        // iEdit=1;
+        var idSes = $(this).find("td").eq(1).html();
+        // var idKtp = $(this).find("td").eq(2).html();
+        iPID=idSes;
+        getDetailKK(idSes);
         // $('#id_kelId').val(idKel);
         // getDescKel(idKel);
         $("#navitab_2_2").trigger('click');
@@ -303,6 +296,29 @@ return {
 };
 }();
 
+function getDetailKK(iSes){
+    $.ajax({
+        url: "<?php echo base_url("transaksi/trans_kk/ajax_getDetailKK"); ?>", // json datasource
+        type: "POST",
+        dataType: "json",
+        data: {sSes:iSes},
+        success: function (e) {
+            console.log(e);
+            console.log(e.alamat);
+            $("#id_noKK").val(e.id_master_kk);
+            $("#id_alamat_").val(e.alamat);
+            $("#id_rt_").val(e.rt);
+            $("#id_rw_").val(e.rw);
+            $("#id_kec_").select2('val',e.id_kec);
+            getKelAll2(e.id_kec,e.id_kel);
+            $("#gambar_foto_rumah").attr('src','<?php echo base_url(); ?>'+ e.rumah_path);
+        },
+        complete:function(e){
+            $('#idGridAnggotaKel').DataTable().ajax.reload();
+        }
+    });
+}
+
 function formClear(e){
 // $(this).closest('form').find("input[type=text], textarea").val("");
     $("#"+e).find("input[type=text], textarea, select").val("");
@@ -310,8 +326,18 @@ function formClear(e){
     $('#id_body_data').empty();    
     $('#id_btnSimpan').attr('disabled', false);
     $('#id_btnUbah').attr("disabled", true);
+
+    btnStart();
+    resetForm();
+    readyToStart();
+    tglTransStart();
+    $('#id_body_data').empty();
+    $('#id_status_bayar').val('0');
+    $('#id_kec_').select2('val', '');
+    $('#id_kel_').select2('val', '');
+    $('.cls_diskon_lgsbayar').hide();
 }
-function getDetailKK(iKK,iKTP){
+function getDetailKK_(iKK,iKTP){
     $.ajax({
         url: "<?php echo base_url("transaksi/trans_kk/ajax_getDetailKK"); ?>?sKK="+iKK+"&sKTP="+iKTP, // json datasource
         type: "POST",
@@ -344,8 +370,42 @@ function getDetailKK(iKK,iKTP){
         }
     });
 }
-var iPlus=0;
 $('#id_btnModalTambah').click(function(){
+    $('#id_instansi').select2('val', ' ');
+    $('#id_pendidikan').select2('val', ' ');
+    $('#id_All').show();
+    $('#id_btnBatalCpa').show();
+    $('#id_btnEditCpa').hide();
+
+    $("#id_nik").val('');
+    $("#id_nama").val('');
+    $("#id_tmpt_lahir").val('');
+    $("#id_tgl_lahir").val('');
+    $("#id_jekel").select2('val','');
+    $("#id_gol_darah").select2('val','');
+    $("#id_agama").select2('val','');
+    $("#id_status").select2('val','');
+    $("#id_pekerjaan").select2('val','');
+    $("#id_warga_negara").select2('val','');
+    $("#id_hub_kel").select2('val','');
+    $("#gambar_foto_ktp").attr('src','');
+
+    $("#id_pendidikan").select2('val','');
+    $("#id_thn_masuk").val('');
+    $("#id_thn_lulus").val('');
+    $("#id_nama_sekolah").val('');
+
+    $("#id_nama_pend").val('');
+    $("#id_jenis_pend").val('');
+    $("#id_thn").val('');
+    $("#id_ket").val('');
+    $("#id_instansi").select2('val','');
+});
+var iPlus=0;
+$('#id_btnModalTambah_').click(function(){
+    $('#id_instansi').select2('val', ' ');
+    $('#id_pendidikan').select2('val', ' ');
+
     $("#id_btnEditCpa").hide();
     $("#id_btnAddCpa").show();
     $('#id_nik').val("");
@@ -356,7 +416,7 @@ $('#id_btnModalTambah').click(function(){
     $('#id_gol_darah').select2('val','');
     $('#id_agama').select2('val','');
     $('#id_status').select2('val','');
-    $('#id_pendidikan').select2('val','');
+    // $('#id_pendidikan').select2('val','');
     $('#id_pekerjaan').select2('val','');
     $('#id_hub_kel').select2('val','');
     $('#id_warga_negara').select2('val','');
@@ -408,7 +468,7 @@ $("#foto_rumah").change(function () {
 readURL(this,'foto_rumah');
 });
 
-    $('#id_formKK').submit(function (event) {
+    $('#id_formKK_').submit(function (event) {
         // var r = confirm('Anda yakin menyimpan data ini?');
         // var r = confirm('Anda yakin merubah data ini?');
         //     if (r == true) {
@@ -430,7 +490,7 @@ readURL(this,'foto_rumah');
             processData: false,
             dataType: "JSON",
             success: function (e) {
-                console.log(e);
+                // console.log(e);
                 if (e.istatus == true) {
                     UIToastr.init(e.itype, e.iremarks);
                     $('#idGridKK').DataTable().ajax.reload();
@@ -443,7 +503,205 @@ readURL(this,'foto_rumah');
 
     });
 
+    $('#id_formKK').submit(function (event) {
+        // console.log($("#id_pendidikan").val());
+        event.preventDefault();
+        $.ajax({
+            url: "<?php echo base_url("transaksi/trans_kk/ajax_Tambah"); ?>?sPID="+iPID, // json datasource
+            type: 'POST',
+            data: new FormData(this),
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function (e) {
+                if(e.act){
+                    UIToastr.init(e.tipePesan, e.pesan);
+                    iPID=e.iPid;
+                    $("#id_btnBatalCpa").trigger('click');
+                }else{
+                    UIToastr.init(e.tipePesan, e.pesan);
+                }
+            },
+            complete:function(e){
+                $('#idGridAnggotaKel').DataTable().ajax.reload();
+            }
+        });       
+    });
+    var iPID="";
     $('#id_btnAddCpa').click(function () {
+        $("#id_All").trigger('click');
+    });
+
+function loadGridAnggotaKel(){
+    var table2 = $('#idGridAnggotaKel');
+    table2.dataTable({
+        "ajax":{ 
+            "url":"<?php echo base_url("transaksi/trans_kk/getAnggotaKel"); ?>",
+            "type": "POST",
+            "data": function (z) {
+                    z.sPID = iPID;
+                }
+        },
+        "columns": [
+            {"data": "no"},
+            {"data": "id_ktp"},
+            {"data": "nama_ktp"},
+            {"data": "tempat_lahir"},
+            {"data": "tanggal_lahir"},
+            {"data": "jekel"},
+            {"data": "gol_darah"},
+            {"data": "agama"},
+            {"data": "status_kawin"},
+            {"data": "pekerjaan"},
+            {"data": "warga_negara"},
+            {"data": "hub_keluarga"},
+            {"data": "act"},
+            {"data": "idsession"},
+        ],
+        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No data available in table",
+            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "infoEmpty": "No entries found",
+            "infoFiltered": "(filtered1 from _MAX_ total entries)",
+            "lengthMenu": "Show _MENU_ entries",
+            "search": "Search:",
+            "zeroRecords": "No matching records found"
+        },
+        "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+
+        "lengthMenu": [
+            [5, 10, 15, 20, -1],
+            [5, 10, 15, 20, "All"] // change per page values here
+        ],
+        // set the initial value
+        "pageLength": 5,
+        "pagingType": "bootstrap_full_number",
+        "language": {
+            "search": "Cari: ",
+            "lengthMenu": "  _MENU_ records",
+            "paginate": {
+                "previous": "Prev",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
+        "columnDefs": [{// set default column settings
+                'orderable': true,
+                "searchable": true,
+                'targets': [0]
+            }],
+        "order": [
+            [0, "asc"]
+        ] // set first column as a default sort by asc
+    });
+}
+
+function edit_temp(a){
+    $('#id_btnBatalCpa').show();
+    $("#id_btnEditCpa").show();
+    $("#id_All").hide();
+    $.ajax({
+        url: "<?php echo base_url("transaksi/trans_kk/ajax_getAngKel"); ?>", // json datasource
+        type: "POST",
+        dataType: "json",
+        data: {sKtp:a,sPID:iPID},
+        success: function (e) {
+            // console.log(e);
+            $("#id_nik").val(e.ktp.id_ktp);
+            $("#id_nama").val(e.ktp.nama_ktp);
+            $("#id_tmpt_lahir").val(e.ktp.tempat_lahir);
+            $("#id_tgl_lahir").val(e.ktp.tanggal_lahir);
+            $("#id_jekel").select2('val',e.ktp.jekel);
+            $("#id_gol_darah").select2('val',e.ktp.gol_darah);
+            $("#id_agama").select2('val',e.ktp.agama);
+            $("#id_status").select2('val',e.ktp.status_kawin);
+            $("#id_pekerjaan").select2('val',e.ktp.pekerjaan);
+            $("#id_warga_negara").select2('val',e.ktp.warga_negara);
+            $("#id_hub_kel").select2('val',e.ktp.hub_keluarga);
+            $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.ktp.link_gambar);
+
+            $("#id_pendidikan").select2('val',e.formal.id_pend);
+            $("#id_thn_masuk").val(e.formal.thn_masuk);
+            $("#id_thn_lulus").val(e.formal.thn_lulus);
+            $("#id_nama_sekolah").val(e.formal.nama_sekolah);
+
+            $("#id_nama_pend").val(e.nformal.nama_pend);
+            $("#id_jenis_pend").val(e.nformal.jenis_pend);
+            $("#id_thn").val(e.nformal.tahun);
+            $("#id_ket").val(e.nformal.ket);
+            $("#id_instansi").select2('val',e.nformal.instansi);
+
+        },
+        complete:function(e){
+            $("#idDivInputProduk").modal();
+        }
+    });    
+
+}
+function del_temp(a,b){
+    $.ajax({
+        url: "<?php echo base_url("transaksi/trans_kk/ajax_delTemp"); ?>", // json datasource
+        type: "POST",
+        dataType: "json",
+        data: {sId:a,sPID:iPID,sKtp:b},
+        success: function (e) {
+            if (e.act == true) {
+                    UIToastr.init(e.tipePesan, e.pesan);
+                    iPID=e.iPid;
+                    $('#idGridAnggotaKel').DataTable().ajax.reload();
+            }else{
+                UIToastr.init(e.tipePesan, e.pesan);                    
+                iPID="";
+            }
+        },
+        complete:function(e){
+        }
+    });    
+}
+
+    $("#id_btnSimpan").click(function () {
+        save();
+    });
+
+    $("#id_btnUbah").click(function () {
+        save();
+    });
+
+function save(){
+    $.ajax({
+        url: "<?php echo base_url("transaksi/trans_kk/ajax_Simpan"); ?>", // json datasource
+        dataType: "JSON", // what to expect back from the PHP script, if anything
+        type: 'post',
+        cache: false,
+        data: {sPID: iPID},
+        success: function (e) {
+            // console.log(e)
+            if (e.istatus == true) {
+                UIToastr.init(e.itype, e.iremarks);
+                $('#idGridKK').DataTable().ajax.reload();
+            }else{
+                UIToastr.init('error', e.iremarks);                    
+            }
+
+        },
+        complete: function (e) {
+            $("#navitab_2_1").trigger('click');
+        }
+    });
+}
+
+
+    $('#id_btnAddCpa_').click(function () {
         var i = $('#idTxtTempLoop').val();
         if ($('#id_nik').val() == '' || $('#id_nama').val() == ''
         || $('#id_tmpt_lahir').val() == '' || $('#id_tgl_lahir').val() == ''
@@ -694,7 +952,6 @@ function delAnggotaKK(iid,itr,iKTP){
         });
     }
     function getKelAll2(idKec,idKel_) {
-
         $.ajax({
             url: "<?php echo base_url("/globalc/getKelAll"); ?>", // json datasource
             dataType: "JSON", // what to expect back from the PHP script, if anything

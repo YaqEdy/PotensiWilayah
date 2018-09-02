@@ -69,6 +69,8 @@ class Trans_kk extends CI_Controller {
         $data['difabel'] = $this->global_m->getSelectOption('tbl_m_difabel','','','','','id_difabel');
         $data['hub_kel'] = $this->global_m->getSelectOption('tbl_r_hub_kel','','','','','id_hub_kel');
         $data['pekerjaan'] = $this->global_m->getSelectOption('tbl_m_pekerjaan','','','','','id_pekerjaan');
+        $data['instansi'] = $this->global_m->getSelectOption('tbl_m_instansi','','','','','id_instansi');
+        $data['pendidikan'] = $this->global_m->getSelectOption('tbl_r_pendidikan','','','','','id_pend');
 
         // print_r($this->global_m->getSelectOption('tbl_r_hub_kel','','','','','id_hub_kel'));die();
         if (isset($_POST["btnSimpan"])) {
@@ -90,6 +92,7 @@ class Trans_kk extends CI_Controller {
         foreach ($rows as $row) {
             $array = array(
                 'no'=>$no,
+                'idsession'=>trim($row->idsession),
                 'idKK' => trim($row->id_master_kk),
                 'idKtp' => trim($row->id_ktp),
                 'namaKtp' => trim($row->nama_ktp),
@@ -125,7 +128,16 @@ class Trans_kk extends CI_Controller {
         $iDataKK = $this->global_m->get_data("select * FROM vw_t_kk where id_ktp='$idKTP'");
         echo json_encode($iDataKK);
     }
-        public function ajax_getDetailKK(){
+    public function ajax_getDetailKK(){
+        $iPid = $this->input->post('sSes');
+
+        $result = $this->global_m->query("CALL zsp_detail_kk('".$iPid."')");
+        $idataKK = $this->global_m->get_data("SELECT * FROM vw_kk where idsession='".$iPid."' and hub_keluarga=1 limit 1")[0];
+// print_r($idataKK);die();
+        echo json_encode($idataKK);
+    }
+
+        public function ajax_getDetailKK_(){
         $idKK = $this->input->get('sKK');
         $idKTP = $this->input->get('sKTP');
         $iDataKK = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='$idKK' and id_ktp='$idKTP'");
@@ -437,6 +449,193 @@ class Trans_kk extends CI_Controller {
         }
     return $result;
     }
+
+
+
+    function ajax_Tambah() {
+        // print_r(trim($this->input->get('sPID'));die();
+        if(trim($this->input->get('sPID'))==""){
+            $iPid=$this->global_m->get_data('select uuid() as pid')[0]->pid;
+        }else{
+            $iPid=trim($this->input->get('sPID'));
+        }
+        $idKtp=$this->input->post('nik');
+        // $upload=$this-input->get('iUpload');
+// print_r(basename($_FILES['foto_rumah']['name']));die();
+        $iCek=$this->global_m->get_data("SELECT * FROM master_ktp_kk_temp where idsession='".$iPid."' and id_ktp='".$idKtp."'");
+        if(sizeof($iCek)<1){
+            $path = 'uploads/foto/';
+            $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
+            $iUploadFoto=$this->upload('foto_ktp',$path,$idKtp);
+            if($iUploadFotoRumah[0] && $iUploadFoto[0]){
+                $data = array(
+                    'idsession' => $iPid,
+                    'id_ktp' => $this->input->post('nik'),
+                    'nama_ktp' => $this->input->post('nama'),
+                    'tempat_lahir' => $this->input->post('tmpt_lahir'),
+                    'tanggal_lahir' => date('Y-m-d', strtotime($this->input->post('tgl_lahir'))),
+                    'jekel' => $this->input->post('jekel'),
+                    'gol_darah' => $this->input->post('gol_darah'),
+                    'alamat' => $this->input->post('alamat_'),
+                    'rt' => $this->input->post('rt_'),
+                    'rw' => $this->input->post('rw_'),
+                    'id_kel' => $this->input->post('kel_'),
+                    'id_kec' => $this->input->post('kec_'),
+                    'agama' => $this->input->post('agama'),
+                    'status_kawin' => $this->input->post('status'),
+                    'pekerjaan' => $this->input->post('pekerjaan'),
+                    'warga_negara' => $this->input->post('warga_negara'),
+                    'link_gambar' => $iUploadFoto[1],
+                    'is_delete' => 0,
+                    'id_master_kk' => $this->input->post('noKK'),
+                    'hub_keluarga' => $this->input->post('hub_kel'),
+                    'rumah_path' => $iUploadFotoRumah[1]
+                );
+                $data_pend_formal=array(
+                    'id_ktp' => $this->input->post('nik'),
+                    'id_pend' => $this->input->post('pendidikan'),
+                    'thn_masuk' => $this->input->post('thn_masuk'),
+                    'thn_lulus' => $this->input->post('thn_lulus'),
+                    'nama_sekolah' => $this->input->post('nama_sekolah'),
+                    'idsession' => $iPid           
+                );
+                $data_pend_non_formal=array(
+                    'id_ktp' => $this->input->post('nik'),
+                    'nama_pend' => $this->input->post('nama_pend'),
+                    'jenis_pend' => $this->input->post('jenis_pend'),
+                    'tahun' => $this->input->post('thn'),
+                    'ket' => $this->input->post('keterangan'),
+                    'instansi' => $this->input->post('instansi'),
+                    'idsession' => $iPid
+                );
+                $model = $this->global_m->simpan('master_ktp_kk_temp',$data);            
+                $model = $this->global_m->simpan('tbl_m_pend_formal_temp',$data_pend_formal);            
+                $model = $this->global_m->simpan('tbl_m_pend_non_formal_temp',$data_pend_non_formal);            
+                $itipePesan='success';
+                $ipesan='Anggota Keluarga berhasil disimpan.!';
+            } else {
+                $model=true;
+                $itipePesan='error';
+                $ipesan='Data dan Foto gagal disimpan.!';
+            }
+        }else{
+            $model=true;
+            $itipePesan='error';
+            $ipesan='NIK sudah ada.!';            
+        }
+        if ($model) {
+            $array = array(
+                'act' => 1,
+                'tipePesan' => $itipePesan,
+                'pesan' => $ipesan,
+                'iPid'=>$iPid
+            );
+        } else {
+            $array = array(
+                'act' => 0,
+                'tipePesan' => 'error',
+                'pesan' => 'Data gagal disimpan.',
+                'iPid'=>''
+            );
+        }
+        $this->output->set_output(json_encode($array));
+    }
+
+    public function getAnggotaKel() {
+        $iPID = trim($this->input->post('sPID'));
+        // print_r($iPID);die();
+        $this->CI = & get_instance(); //and a.kcab_id<>'1100'
+        $rows=$this->global_m->get_data("SELECT * FROM vw_anggota_kel_temp where idsession='".$iPID."'");
+        $data['data'] = array();
+        $no=1;
+        foreach ($rows as $row) {
+            if($row->jekel=='0'){
+                $ijekel="Pria";
+            }else{
+                $ijekel="Wanita";                
+            }
+            $array = array(
+                'no' => $no++,
+                'id_ktp' => trim($row->id_ktp),
+                'nama_ktp' => trim($row->nama_ktp),
+                'tempat_lahir' => trim($row->tempat_lahir),
+                'tanggal_lahir' => trim($row->tanggal_lahir),
+                'jekel' => $ijekel,
+                'gol_darah' => trim($row->gol_darah),
+                'agama' => trim($row->nama_agama),
+                'status_kawin' => trim($row->nama_nikah),
+                'pekerjaan' => trim($row->nama_pekerjaan),
+                'warga_negara' => trim($row->warga_negara),
+                'hub_keluarga' => trim($row->nama_hub_kel),
+
+                'act' =>"<input type='button' onclick='edit_temp(".trim($row->id_ktp).")' class='btn btn-warning btn-sm' value='Edit'>
+                        <input type='button' onclick='del_temp(".trim($row->id).",".trim($row->id_ktp).")' class='btn red btn-sm' value='Delete'>",
+                'idsession' => trim($row->idsession)
+    
+            );
+
+            array_push($data['data'], $array);
+        }
+        $this->output->set_output(json_encode($data));
+    }
+
+    function ajax_getAngKel() {
+        $iPid=trim($this->input->post('sPID'));
+        $iKtp=trim($this->input->post('sKtp'));
+
+        $ktp = $this->global_m->get_data("SELECT * FROM `master_ktp_kk_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
+        $pend_formal = $this->global_m->get_data("SELECT * FROM `tbl_m_pend_formal_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
+        $pend_non_formal = $this->global_m->get_data("SELECT * FROM `tbl_m_pend_non_formal_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
+        $array = array(
+            'ktp' => $ktp,
+            'formal' => $pend_formal,
+            'nformal' => $pend_non_formal
+        );
+        $this->output->set_output(json_encode($array));
+    }
+
+    function ajax_delTemp() {
+        $iId = trim($this->input->post('sId'));
+        $iPid=trim($this->input->post('sPID'));
+        $iKtp=trim($this->input->post('sKtp'));
+
+        $model = $this->global_m->query("DELETE FROM `master_ktp_kk_temp` WHERE id='".$iId."' and idsession='".$iPid."'");
+        $model = $this->global_m->query("DELETE FROM tbl_m_pend_formal_temp WHERE idsession='".$iPid."' and id_ktp='".$iKtp."'");
+        $model = $this->global_m->query("DELETE FROM tbl_m_pend_non_formal_temp WHERE idsession='".$iPid."' and id_ktp='".$iKtp."'");
+        if ($model) {
+            $array = array(
+                'act' => true,
+                'tipePesan' => 'success',
+                'pesan' => 'Data berhasil dihapus.',
+                'iPid' => $iPid
+            );
+        } else {
+            $array = array(
+                'act' => false,
+                'tipePesan' => 'error',
+                'pesan' => 'Data gagal dihapus.',
+                'iPid' => ''
+            );
+        }
+        $this->output->set_output(json_encode($array));
+    }
+
+    public function ajax_Simpan(){
+        $iPid = $this->input->post('sPID');
+
+        $result = $this->global_m->query("CALL zsp_simpan_kk('".$iPid."')");
+
+        if($result){
+            $result = array('istatus' => true,'itype'=>'success', 'iremarks' => 'Data berhasil disimpan.!');
+        }else{
+            $result = array('istatus' => false,'itype'=>'error', 'iremarks' => 'Data gagal disimpan.!');            
+        }
+        echo json_encode($result);
+    }
+
+
+
+// ======end dipakai
 
     function getDescProduk() {
         $this->CI = & get_instance();
