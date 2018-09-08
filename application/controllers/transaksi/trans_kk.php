@@ -460,11 +460,11 @@ class Trans_kk extends CI_Controller {
             $iPid=trim($this->input->get('sPID'));
         }
         $idKtp=$this->input->post('nik');
+        $path = 'uploads/foto/';
         // $upload=$this-input->get('iUpload');
 // print_r(basename($_FILES['foto_rumah']['name']));die();
         $iCek=$this->global_m->get_data("SELECT * FROM master_ktp_kk_temp where idsession='".$iPid."' and id_ktp='".$idKtp."'");
         if(sizeof($iCek)<1){
-            $path = 'uploads/foto/';
             $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
             $iUploadFoto=$this->upload('foto_ktp',$path,$idKtp);
             if($iUploadFotoRumah[0] && $iUploadFoto[0]){
@@ -484,33 +484,34 @@ class Trans_kk extends CI_Controller {
                     'agama' => $this->input->post('agama'),
                     'status_kawin' => $this->input->post('status'),
                     'pekerjaan' => $this->input->post('pekerjaan'),
-                    'warga_negara' => $this->input->post('warga_negara'),
+                    'id_difabel' => $this->input->post('difabel'),
+                    'id_pend' => $this->input->post('pendidikan'),
                     'link_gambar' => $iUploadFoto[1],
                     'is_delete' => 0,
                     'id_master_kk' => $this->input->post('noKK'),
                     'hub_keluarga' => $this->input->post('hub_kel'),
                     'rumah_path' => $iUploadFotoRumah[1]
                 );
-                $data_pend_formal=array(
-                    'id_ktp' => $this->input->post('nik'),
-                    'id_pend' => $this->input->post('pendidikan'),
-                    'thn_masuk' => $this->input->post('thn_masuk'),
-                    'thn_lulus' => $this->input->post('thn_lulus'),
-                    'nama_sekolah' => $this->input->post('nama_sekolah'),
-                    'idsession' => $iPid           
-                );
-                $data_pend_non_formal=array(
-                    'id_ktp' => $this->input->post('nik'),
-                    'nama_pend' => $this->input->post('nama_pend'),
-                    'jenis_pend' => $this->input->post('jenis_pend'),
-                    'tahun' => $this->input->post('thn'),
-                    'ket' => $this->input->post('keterangan'),
-                    'instansi' => $this->input->post('instansi'),
-                    'idsession' => $iPid
-                );
+                // $data_pend_formal=array(
+                //     'id_ktp' => $this->input->post('nik'),
+                //     'id_pend' => $this->input->post('pendidikan'),
+                //     'thn_masuk' => $this->input->post('thn_masuk'),
+                //     'thn_lulus' => $this->input->post('thn_lulus'),
+                //     'nama_sekolah' => $this->input->post('nama_sekolah'),
+                //     'idsession' => $iPid           
+                // );
+                // $data_pend_non_formal=array(
+                //     'id_ktp' => $this->input->post('nik'),
+                //     'nama_pend' => $this->input->post('nama_pend'),
+                //     'jenis_pend' => $this->input->post('jenis_pend'),
+                //     'tahun' => $this->input->post('thn'),
+                //     'ket' => $this->input->post('keterangan'),
+                //     'instansi' => $this->input->post('instansi'),
+                //     'idsession' => $iPid
+                // );
                 $model = $this->global_m->simpan('master_ktp_kk_temp',$data);            
-                $model = $this->global_m->simpan('tbl_m_pend_formal_temp',$data_pend_formal);            
-                $model = $this->global_m->simpan('tbl_m_pend_non_formal_temp',$data_pend_non_formal);            
+                // $model = $this->global_m->simpan('tbl_m_pend_formal_temp',$data_pend_formal);            
+                // $model = $this->global_m->simpan('tbl_m_pend_non_formal_temp',$data_pend_non_formal);            
                 $itipePesan='success';
                 $ipesan='Anggota Keluarga berhasil disimpan.!';
             } else {
@@ -519,9 +520,43 @@ class Trans_kk extends CI_Controller {
                 $ipesan='Data dan Foto gagal disimpan.!';
             }
         }else{
-            $model=true;
-            $itipePesan='error';
-            $ipesan='NIK sudah ada.!';            
+            $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
+            $iUploadFoto=$this->upload('foto_ktp',$path,$idKtp);
+            if($iUploadFotoRumah[0] && $iUploadFoto[0]){
+                $data = array(
+                    // 'idsession' => $iPid,
+                    // 'id_ktp' => $this->input->post('nik'),
+                    'nama_ktp' => $this->input->post('nama'),
+                    'tempat_lahir' => $this->input->post('tmpt_lahir'),
+                    'tanggal_lahir' => date('Y-m-d', strtotime($this->input->post('tgl_lahir'))),
+                    'jekel' => $this->input->post('jekel'),
+                    'gol_darah' => $this->input->post('gol_darah'),
+                    'alamat' => $this->input->post('alamat_'),
+                    'rt' => $this->input->post('rt_'),
+                    'rw' => $this->input->post('rw_'),
+                    'id_kel' => $this->input->post('kel_'),
+                    'id_kec' => $this->input->post('kec_'),
+                    'agama' => $this->input->post('agama'),
+                    'status_kawin' => $this->input->post('status'),
+                    'pekerjaan' => $this->input->post('pekerjaan'),
+                    'id_difabel' => $this->input->post('difabel'),
+                    'id_pend' => $this->input->post('pendidikan'),
+                    'link_gambar' => $iUploadFoto[1],
+                    'is_delete' => 0,
+                    'id_master_kk' => $this->input->post('noKK'),
+                    'hub_keluarga' => $this->input->post('hub_kel'),
+                    'rumah_path' => $iUploadFotoRumah[1]
+                );
+                $model = $this->global_m->ubah('master_ktp_kk_temp', $data, 'id_ktp', $this->input->post('nik'));
+                // $model = $this->global_m->query("UPDATE `master_ktp_kk_temp` SET ".$data." WHERE `id_ktp`='".$this->input->post('nik')."' and idsession='".$iPid."'");
+                $model=true;
+                $itipePesan='success';
+                $ipesan='Data berhasil diupdate.!';            
+            } else {
+                $model=true;
+                $itipePesan='error';
+                $ipesan='Data dan Foto gagal disimpan.!';
+            }
         }
         if ($model) {
             $array = array(
@@ -565,7 +600,8 @@ class Trans_kk extends CI_Controller {
                 'agama' => trim($row->nama_agama),
                 'status_kawin' => trim($row->nama_nikah),
                 'pekerjaan' => trim($row->nama_pekerjaan),
-                'warga_negara' => trim($row->warga_negara),
+                'nama_difabel' => trim($row->nama_difabel),
+                'nama_pend' => trim($row->nama_pend),
                 'hub_keluarga' => trim($row->nama_hub_kel),
 
                 'act' =>"<input type='button' onclick='edit_temp(".trim($row->id_ktp).")' class='btn btn-warning btn-sm' value='Edit'>
@@ -584,12 +620,12 @@ class Trans_kk extends CI_Controller {
         $iKtp=trim($this->input->post('sKtp'));
 
         $ktp = $this->global_m->get_data("SELECT * FROM `master_ktp_kk_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
-        $pend_formal = $this->global_m->get_data("SELECT * FROM `tbl_m_pend_formal_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
-        $pend_non_formal = $this->global_m->get_data("SELECT * FROM `tbl_m_pend_non_formal_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
+        // $pend_formal = $this->global_m->get_data("SELECT * FROM `tbl_m_pend_formal_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
+        // $pend_non_formal = $this->global_m->get_data("SELECT * FROM `tbl_m_pend_non_formal_temp` WHERE id_ktp='".$iKtp."' and idsession='".$iPid."'")[0];
         $array = array(
-            'ktp' => $ktp,
-            'formal' => $pend_formal,
-            'nformal' => $pend_non_formal
+            'ktp' => $ktp
+            // 'formal' => $pend_formal,
+            // 'nformal' => $pend_non_formal
         );
         $this->output->set_output(json_encode($array));
     }
@@ -600,8 +636,8 @@ class Trans_kk extends CI_Controller {
         $iKtp=trim($this->input->post('sKtp'));
 
         $model = $this->global_m->query("DELETE FROM `master_ktp_kk_temp` WHERE id='".$iId."' and idsession='".$iPid."'");
-        $model = $this->global_m->query("DELETE FROM tbl_m_pend_formal_temp WHERE idsession='".$iPid."' and id_ktp='".$iKtp."'");
-        $model = $this->global_m->query("DELETE FROM tbl_m_pend_non_formal_temp WHERE idsession='".$iPid."' and id_ktp='".$iKtp."'");
+        // $model = $this->global_m->query("DELETE FROM tbl_m_pend_formal_temp WHERE idsession='".$iPid."' and id_ktp='".$iKtp."'");
+        // $model = $this->global_m->query("DELETE FROM tbl_m_pend_non_formal_temp WHERE idsession='".$iPid."' and id_ktp='".$iKtp."'");
         if ($model) {
             $array = array(
                 'act' => true,

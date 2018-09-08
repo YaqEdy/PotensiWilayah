@@ -237,7 +237,10 @@
                                                         Pekerjaan
                                                     </th>
                                                     <th>
-                                                        Warga Negara
+                                                        Difabel
+                                                    </th>
+                                                    <th>
+                                                        Pendidikan
                                                     </th>
                                                     <th>
                                                         Hubungan Keluarga
@@ -412,15 +415,54 @@
                                                 ?>
                                             </div>
                                             <div class="col-md-6">
-                                            <label>Warga Negara</label>
+                                                <!-- <div class="form-group"> -->
+                                                <label>Difabel</label>
+                                                    <?php
+                                                    $data = array();
+                                                    $data[''] = '';
+                                                    foreach ($difabel as $row) :
+                                                        $data[$row['id_difabel']] = $row['nama_difabel'];
+                                                    endforeach;
+                                                    echo form_dropdown('difabel', $data, '', ' id="id_difabel" class="form-control input-sm select2me"');
+                                                    ?>
+                                                </select>
+                                                <!-- </div> -->
+                                            <!-- <label>Warga Negara</label>
                                                 <select name="warga_negara" id="id_warga_negara" class="select2me">
                                                     <option value="">--Pilih--</option>
                                                     <option value="0">WNI</option>
                                                     <option value="1">WNA</option>
-                                                </select>
+                                                </select> -->
                                             </div>
 
                                         </div>                                
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <label>Pendidikan</label>
+                                                <?php
+                                                $data = array();
+                                                $data[''] = '';
+                                                foreach ($pendidikan as $row) :
+                                                    $data[$row['id_pend']] = $row['nama_pend'];
+                                                endforeach;
+                                                echo form_dropdown('pendidikan', $data, '', ' id="id_pendidikan" class="form-control input-sm select2me"');
+                                                ?>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Hubungan Keluarga</label>
+                                                <?php
+                                                $data = array();
+                                                $data[''] = '';
+                                                foreach ($hub_kel as $row) :
+                                                    $data[$row['id_hub_kel']] = $row['nama_hub_kel'];
+                                                endforeach;
+                                                echo form_dropdown('hub_kel', $data, '', ' id="id_hub_kel" class="form-control input-sm select2me "');
+                                                ?>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -443,28 +485,7 @@
                                                 </div>
                                         </div>
                                     </div>
-
                                 </div>
-                                <div class="col-md-6">
-                                <!-- <br><br><br><br> -->
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hubungan Keluarga</label>
-                                                <?php
-                                                $data = array();
-                                                $data[''] = '';
-                                                foreach ($hub_kel as $row) :
-                                                    $data[$row['id_hub_kel']] = $row['nama_hub_kel'];
-                                                endforeach;
-                                                echo form_dropdown('hub_kel', $data, '', ' id="id_hub_kel" class="form-control input-sm select2me "');
-                                                ?>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
 
                             </div>
                         </div>

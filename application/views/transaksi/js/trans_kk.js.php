@@ -326,7 +326,8 @@ function formClear(e){
     $('#id_body_data').empty();    
     $('#id_btnSimpan').attr('disabled', false);
     $('#id_btnUbah').attr("disabled", true);
-
+    iPID="";
+    
     btnStart();
     resetForm();
     readyToStart();
@@ -371,8 +372,6 @@ function getDetailKK_(iKK,iKTP){
     });
 }
 $('#id_btnModalTambah').click(function(){
-    $('#id_instansi').select2('val', ' ');
-    $('#id_pendidikan').select2('val', ' ');
     $('#id_All').show();
     $('#id_btnBatalCpa').show();
     $('#id_btnEditCpa').hide();
@@ -386,20 +385,21 @@ $('#id_btnModalTambah').click(function(){
     $("#id_agama").select2('val','');
     $("#id_status").select2('val','');
     $("#id_pekerjaan").select2('val','');
-    $("#id_warga_negara").select2('val','');
+    $("#id_difabel").select2('val','');
+    $("#id_pendidikan").select2('val','');
     $("#id_hub_kel").select2('val','');
     $("#gambar_foto_ktp").attr('src','');
 
-    $("#id_pendidikan").select2('val','');
-    $("#id_thn_masuk").val('');
-    $("#id_thn_lulus").val('');
-    $("#id_nama_sekolah").val('');
+    // $("#id_pendidikan").select2('val','');
+    // $("#id_thn_masuk").val('');
+    // $("#id_thn_lulus").val('');
+    // $("#id_nama_sekolah").val('');
 
-    $("#id_nama_pend").val('');
-    $("#id_jenis_pend").val('');
-    $("#id_thn").val('');
-    $("#id_ket").val('');
-    $("#id_instansi").select2('val','');
+    // $("#id_nama_pend").val('');
+    // $("#id_jenis_pend").val('');
+    // $("#id_thn").val('');
+    // $("#id_ket").val('');
+    // $("#id_instansi").select2('val','');
 });
 var iPlus=0;
 $('#id_btnModalTambah_').click(function(){
@@ -461,9 +461,10 @@ function readURL(input,sparam) {
     }
 }
 
-function foto_ktp(e){
-    readURL(e,'foto_ktp');    
-}
+$("#foto_ktp").change(function () {
+readURL(this,'foto_ktp');
+});
+
 $("#foto_rumah").change(function () {
 readURL(this,'foto_rumah');
 });
@@ -555,7 +556,8 @@ function loadGridAnggotaKel(){
             {"data": "agama"},
             {"data": "status_kawin"},
             {"data": "pekerjaan"},
-            {"data": "warga_negara"},
+            {"data": "nama_difabel"},
+            {"data": "nama_pend"},
             {"data": "hub_keluarga"},
             {"data": "act"},
             {"data": "idsession"},
@@ -626,20 +628,21 @@ function edit_temp(a){
             $("#id_agama").select2('val',e.ktp.agama);
             $("#id_status").select2('val',e.ktp.status_kawin);
             $("#id_pekerjaan").select2('val',e.ktp.pekerjaan);
-            $("#id_warga_negara").select2('val',e.ktp.warga_negara);
+            $("#id_difabel").select2('val',e.ktp.id_difabel);
+            $("#id_pendidikan").select2('val',e.ktp.id_pend);
             $("#id_hub_kel").select2('val',e.ktp.hub_keluarga);
             $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.ktp.link_gambar);
 
-            $("#id_pendidikan").select2('val',e.formal.id_pend);
-            $("#id_thn_masuk").val(e.formal.thn_masuk);
-            $("#id_thn_lulus").val(e.formal.thn_lulus);
-            $("#id_nama_sekolah").val(e.formal.nama_sekolah);
+            // $("#id_pendidikan").select2('val',e.formal.id_pend);
+            // $("#id_thn_masuk").val(e.formal.thn_masuk);
+            // $("#id_thn_lulus").val(e.formal.thn_lulus);
+            // $("#id_nama_sekolah").val(e.formal.nama_sekolah);
 
-            $("#id_nama_pend").val(e.nformal.nama_pend);
-            $("#id_jenis_pend").val(e.nformal.jenis_pend);
-            $("#id_thn").val(e.nformal.tahun);
-            $("#id_ket").val(e.nformal.ket);
-            $("#id_instansi").select2('val',e.nformal.instansi);
+            // $("#id_nama_pend").val(e.nformal.nama_pend);
+            // $("#id_jenis_pend").val(e.nformal.jenis_pend);
+            // $("#id_thn").val(e.nformal.tahun);
+            // $("#id_ket").val(e.nformal.ket);
+            // $("#id_instansi").select2('val',e.nformal.instansi);
 
         },
         complete:function(e){
