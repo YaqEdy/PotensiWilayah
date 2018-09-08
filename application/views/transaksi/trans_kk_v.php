@@ -158,9 +158,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                            <br>
                                                 <div class="form-group">
-                                                    <label>Foto Rumah</label>
-                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <!-- <label>Foto Rumah</label> -->
+                                                    <a href="#" class="btn btn-primary" onclick="onFotoRmh()">Foto Rumah</a>
+                                                    <!-- <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 225px; height: 170px;">
                                                             <img src="<?= site_url('metronic/img/no-image.png'); ?>" id="gambar_foto_rumah" alt="" />    
 
@@ -171,10 +173,10 @@
                                                                     <span class="fileinput-new"> Pilih /</span>
                                                                     <span class="fileinput-exists"> Ubah Foto Rumah </span>
                                                                     <input type="file" id="foto_rumah" name="foto_rumah" > </span>
-                                                                <!-- <input type="hidden" name="unlinkimg" value="">
+                                                                 <input type="hidden" name="unlinkimg" value="">
                                                                 <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus Foto Rumah</a> -->
-                                                            </div>
-                                                    </div>
+                                                            <!-- </div> -->
+                                                    <!-- </div> --> 
                                                 </div>
                                             </div>
                                         </div>
@@ -182,6 +184,8 @@
                                         <!-- <br><br>
                                             <h4>&nbsp;</h4> -->
                                         </div>
+                                    </div>
+                                </div>
                                         
                                 <!-- HIDDEN INPUT -->
                                 <input type="text" id="idTmpAksiBtn" class="hidden">
@@ -302,8 +306,8 @@
             </div>
             <div class="modal-body">
                 <!-- <div class="scroller" style="height:450px; "> -->
-                <form id="fmKtp">
-                    <ul class="nav nav-pills">
+                <!-- <form id="fmKtp"> -->
+                    <!-- <ul class="nav nav-pills">
                         <li class="linav active" id="linav3_1">
                             <a href="#tab_3_1" data-toggle="tab" id="navitab_3_1" class="anavitab">
                                 Data Keluarga </a>
@@ -316,12 +320,12 @@
                             <a href="#tab_3_3" data-toggle="tab" id="navitab_3_3" class="anavitab" >
                                 Pendidikan Non Formal </a>
                         </li>
-                    </ul>
+                    </ul> -->
 
-                    <div class="tab-content">
-                        <div class="tab-pane fade active in" id="tab_3_1">
+                    <!-- <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_3_1"> -->
+                        <div id="divktp" hidden>
                             <div class="row">
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>NIK</label>
@@ -489,7 +493,48 @@
 
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tab_3_2">
+
+                        <div id="divftRumah" hidden>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Upload Foto Rumah</label>
+                                        <input id="id_foto_rmh"  class=""
+                                                type="file" name="foto_rmh"  multiple="multiple"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <table class="table table-striped table-bordered table-hover text_kanan" id="idGridFotoRumah">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            No
+                                        </th>
+                                        <th>
+                                            Foto Rumah
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                        <!-- <th>
+                                            Ses
+                                        </th> -->
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+
+                        </div>
+
+                        <!-- <div class="tab-pane fade" id="tab_3_2">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -560,9 +605,9 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> -->
 
-                </form>
+                <!-- </form> -->
                     <!-- END ROW-->
                 <!-- </div> -->
                 <!-- END SCROLLER-->
@@ -579,6 +624,7 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- End MODAL Input Data Cucian Masuk -->
+
 </form>
 
 <?php $this->load->view('app.min.inc.php'); ?>

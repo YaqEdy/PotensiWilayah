@@ -11,6 +11,7 @@ $("#id_btnBatalCpa").hide();
         });
         TableManaged.init();
         loadGridAnggotaKel();
+        loadGridRumah();
     });
     $(document).keyup(function (e) {
         if (e.which === 36) {
@@ -231,11 +232,11 @@ var initTable1 = function () {
             }
         },
         "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
-        "columnDefs": [{// set default column settings
-                'orderable': true,
-                "searchable": true,
-                'targets': [0]
-            }],
+        "columnDefs": [
+            {"targets": [0],"orderable": true,"searchable": true},
+            // {"targets":[1],"visible":false,"searchable":false}
+ 
+            ],
         "order": [
             [0, "asc"]
         ] // set first column as a default sort by asc
@@ -267,6 +268,7 @@ var initTable1 = function () {
     table.on('click', 'tbody tr', function () {
         // iEdit=1;
         var idSes = $(this).find("td").eq(1).html();
+        // console.log(idSes);
         // var idKtp = $(this).find("td").eq(2).html();
         iPID=idSes;
         getDetailKK(idSes);
@@ -314,9 +316,140 @@ function getDetailKK(iSes){
             $("#gambar_foto_rumah").attr('src','<?php echo base_url(); ?>'+ e.rumah_path);
         },
         complete:function(e){
+            iPID=iSes;
             $('#idGridAnggotaKel').DataTable().ajax.reload();
+            loadGridRumah();
         }
     });
+}
+
+function onFotoRmh(){
+    $('#idDivInputProduk').find('.modal-title').text('Foto Rumah');
+    $("#divftRumah").show();
+    $("#divktp").hide();
+
+    $('#id_All').hide();
+    $('#id_btnBatalCpa').show();
+    $('#id_btnEditCpa').hide();
+
+    $("#idDivInputProduk").modal();
+}
+
+$("#id_foto_rmh").change(function(ev){
+    ev.preventDefault();
+    var fileInput = $('#id_foto_rmh')[0];
+        if( fileInput.files.length > 0 ){
+            var form_data = new FormData();
+            $.each(fileInput.files, function(k,file){
+                form_data.append('sNoKK', $("#id_noKK").val());
+                form_data.append('foto_rmh[]', file);
+            });
+
+            $.ajax({
+                url: "<?php echo base_url("transaksi/trans_kk/ajax_UploadRumah"); ?>?sPID="+iPID, // json datasource
+                type: 'POST',
+                data: form_data,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "JSON",
+                success: function (e) {
+                    if(e.act){
+                        UIToastr.init(e.tipePesan, e.pesan);
+                        iPID=e.iPid;
+                        // $("#id_btnBatalCpa").trigger('click');
+                    }else{
+                        UIToastr.init(e.tipePesan, e.pesan);
+                    }
+                },
+                complete:function(e){
+                    $('#idGridFotoRumah').DataTable().ajax.reload();
+                }
+            });
+    }
+});
+function loadGridRumah(){
+    var table2 = $('#idGridFotoRumah');
+    table2.dataTable({
+        'destroy': true,
+        "ajax":{ 
+            "url":"<?php echo base_url("transaksi/trans_kk/getRumah"); ?>",
+            "type": "POST",
+            "data": function (z) {
+                    z.sPID = iPID;
+                }
+        },
+        "columns": [
+            {"data": "no"},
+            {"data": "rumah_path"},
+            {"data": "act"}
+            // {"data": "idsession"}
+        ],
+        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No data available in table",
+            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "infoEmpty": "No entries found",
+            "infoFiltered": "(filtered1 from _MAX_ total entries)",
+            "lengthMenu": "Show _MENU_ entries",
+            "search": "Search:",
+            "zeroRecords": "No matching records found"
+        },
+        "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+
+        "lengthMenu": [
+            [5, 10, 15, 20, -1],
+            [5, 10, 15, 20, "All"] // change per page values here
+        ],
+        // set the initial value
+        "pageLength": 5,
+        "pagingType": "bootstrap_full_number",
+        "language": {
+            "search": "Cari: ",
+            "lengthMenu": "  _MENU_ records",
+            "paginate": {
+                "previous": "Prev",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
+        "columnDefs": [{// set default column settings
+                'orderable': true,
+                "searchable": true,
+                'targets': [0]
+            }],
+        "order": [
+            [0, "asc"]
+        ] // set first column as a default sort by asc
+    });
+}
+function onDelRumah(a){
+    $.ajax({
+        url: "<?php echo base_url("transaksi/trans_kk/ajax_delRumahTemp"); ?>", // json datasource
+        type: "POST",
+        dataType: "json",
+        data: {sId:a,sPID:iPID},
+        success: function (e) {
+            if (e.act == true) {
+                    UIToastr.init(e.tipePesan, e.pesan);
+                    iPID=e.iPid;
+                    $('#idGridFotoRumah').DataTable().ajax.reload();
+            }else{
+                UIToastr.init(e.tipePesan, e.pesan);                    
+                iPID="";
+            }
+        },
+        complete:function(e){
+        }
+    });    
 }
 
 function formClear(e){
@@ -327,7 +460,7 @@ function formClear(e){
     $('#id_btnSimpan').attr('disabled', false);
     $('#id_btnUbah').attr("disabled", true);
     iPID="";
-    
+
     btnStart();
     resetForm();
     readyToStart();
@@ -372,6 +505,10 @@ function getDetailKK_(iKK,iKTP){
     });
 }
 $('#id_btnModalTambah').click(function(){
+    $('#idDivInputProduk').find('.modal-title').text('Data Anggota Keluarga');
+    $("#divftRumah").hide();
+    $("#divktp").show();
+
     $('#id_All').show();
     $('#id_btnBatalCpa').show();
     $('#id_btnEditCpa').hide();

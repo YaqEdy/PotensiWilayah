@@ -130,7 +130,7 @@ class Trans_kk extends CI_Controller {
     }
     public function ajax_getDetailKK(){
         $iPid = $this->input->post('sSes');
-
+// print_r($iPid);die();
         $result = $this->global_m->query("CALL zsp_detail_kk('".$iPid."')");
         $idataKK = $this->global_m->get_data("SELECT * FROM vw_kk where idsession='".$iPid."' and hub_keluarga=1 limit 1")[0];
 // print_r($idataKK);die();
@@ -450,6 +450,115 @@ class Trans_kk extends CI_Controller {
     return $result;
     }
 
+
+    function ajax_UploadRumah() {
+        if(trim($this->input->get('sPID'))==""){
+            $iPID=$this->global_m->get_data('select uuid() as pid')[0]->pid;
+        }else{
+            $iPID=trim($this->input->get('sPID'));
+        }
+        $inoKK=$this->input->post('sNoKK');
+        $path = 'uploads/foto/';
+        $config = array(
+            'upload_path'   => $path,
+            'allowed_types'=>'gif|jpg|png|jpeg',
+            'overwrite'     => 1,                       
+        );
+
+        $this->load->library('upload', $config);
+        $countUPL = count( $_FILES['foto_rmh']['name'] );
+
+        $files = $_FILES;
+        for( $i = 0; $i < $countUPL; $i++ )
+        {
+            $_FILES['foto_rumah'] = [
+                'name'     => $files['foto_rmh']['name'][$i],
+                'type'     => $files['foto_rmh']['type'][$i],
+                'tmp_name' => $files['foto_rmh']['tmp_name'][$i],
+                'error'    => $files['foto_rmh']['error'][$i],
+                'size'     => $files['foto_rmh']['size'][$i]
+            ];
+            $fileName=$this->global_m->get_data('select uuid() as pid')[0]->pid;
+            $config['file_name'] = $fileName;
+            $this->upload->initialize($config);           
+
+            if (!$this->upload->do_upload('foto_rumah')) {
+                $result = array(false,$this->upload->display_errors());
+            }else{
+                $resultUpload = $this->upload->data();
+                $data=array(
+                    'id_master_kk'=>$inoKK,
+                    'rumah_path'=>$path.$fileName.$resultUpload['file_ext'],
+                    'idsession' => $iPID
+                );
+    
+                $model = $this->global_m->simpan('tbl_m_rumah_temp',$data);            
+
+                $result = array(true,'');
+            }
+        }
+
+        if ($result[0]) {
+            $array = array(
+                'act' => 1,
+                'tipePesan' => 'success',
+                'pesan' => 'Upload Success.!',
+                'iPid' =>$iPID
+            );
+        } else {
+            $array = array(
+                'act' => 0,
+                'tipePesan' => 'error',
+                'pesan' => $result[1],
+                'iPid' =>''                
+            );
+        }
+        $this->output->set_output(json_encode($array));
+
+    }
+
+    public function getRumah() {
+        $this->CI = & get_instance(); //and a.kcab_id<>'1100'
+        $iPID=$this->input->post('sPID');
+        $rows = $this->global_m->get_data("SELECT * FROM tbl_m_rumah_temp where idsession='".$iPID."'");
+        // print_r("SELECT * FROM tbl_m_rumah_temp where idsession='".$iPID."'");die();
+        $data['data'] = array();
+        $no = 1;
+        foreach ($rows as $row) {
+            $array = array(
+                'no'=>$no,
+                // 'id_master_kk' => trim($row->id_master_kk),
+                'rumah_path' => '<img src="'.base_url().$row->rumah_path.'" style="width: 150px; "/>',
+                'act' => '<a href="#" class="btn btn-danger" onclick="onDelRumah('.$row->id_ft_rumah.')">Delete</a>',
+                'idsession'=>trim($row->idsession)
+            );
+            array_push($data['data'], $array);
+            $no++;
+        }
+        $this->output->set_output(json_encode($data));
+    }
+    function ajax_delRumahTemp() {
+        $iId = trim($this->input->post('sId'));
+        $iPid=trim($this->input->post('sPID'));
+
+        $model = $this->global_m->query("DELETE FROM `tbl_m_rumah_temp` WHERE id_ft_rumah='".$iId."' and idsession='".$iPid."'");
+        if ($model) {
+            $array = array(
+                'act' => true,
+                'tipePesan' => 'success',
+                'pesan' => 'Data berhasil dihapus.',
+                'iPid' => $iPid
+            );
+        } else {
+            $array = array(
+                'act' => false,
+                'tipePesan' => 'error',
+                'pesan' => 'Data gagal dihapus.',
+                'iPid' => ''
+            );
+        }
+        $this->output->set_output(json_encode($array));
+    }
 
 
     function ajax_Tambah() {
