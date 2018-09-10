@@ -606,40 +606,40 @@ $("#foto_rumah").change(function () {
 readURL(this,'foto_rumah');
 });
 
-    $('#id_formKK_').submit(function (event) {
-        // var r = confirm('Anda yakin menyimpan data ini?');
-        // var r = confirm('Anda yakin merubah data ini?');
-        //     if (r == true) {
-        //     } else {//if(r)
-        //         return false;
-        //     }
+    // $('#id_formKK_').submit(function (event) {
+    //     // var r = confirm('Anda yakin menyimpan data ini?');
+    //     // var r = confirm('Anda yakin merubah data ini?');
+    //     //     if (r == true) {
+    //     //     } else {//if(r)
+    //     //         return false;
+    //     //     }
 
-        ajaxModal();
-        var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-            iLength=iLength+iLength1;
-        event.preventDefault();
-        $.ajax({
-            url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sLength="+iLength, // json datasource
-            type: 'POST',
-            data: new FormData(this),
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "JSON",
-            success: function (e) {
-                // console.log(e);
-                if (e.istatus == true) {
-                    UIToastr.init(e.itype, e.iremarks);
-                    $('#idGridKK').DataTable().ajax.reload();
-                }else{
-                    UIToastr.init('error', e.iremarks);                    
-                }
-                iLength=0;
-            }
-        });
+    //     ajaxModal();
+    //     var iLength1=document.getElementById("id_tabelAnggotaKel").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+    //         iLength=iLength+iLength1;
+    //     event.preventDefault();
+    //     $.ajax({
+    //         url: "<?php echo base_url("transaksi/trans_kk/ajax_simpan_kk"); ?>?sLength="+iLength, // json datasource
+    //         type: 'POST',
+    //         data: new FormData(this),
+    //         async: false,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         dataType: "JSON",
+    //         success: function (e) {
+    //             // console.log(e);
+    //             if (e.istatus == true) {
+    //                 UIToastr.init(e.itype, e.iremarks);
+    //                 $('#idGridKK').DataTable().ajax.reload();
+    //             }else{
+    //                 UIToastr.init('error', e.iremarks);                    
+    //             }
+    //             iLength=0;
+    //         }
+    //     });
 
-    });
+    // });
 
     $('#id_formKK').submit(function (event) {
         // console.log($("#id_pendidikan").val());
@@ -746,6 +746,10 @@ function loadGridAnggotaKel(){
 }
 
 function edit_temp(a){
+    $('#idDivInputProduk').find('.modal-title').text('Update Data Anggota Keluarga');
+    $("#divftRumah").hide();
+    $("#divktp").show();
+
     $('#id_btnBatalCpa').show();
     $("#id_btnEditCpa").show();
     $("#id_All").hide();

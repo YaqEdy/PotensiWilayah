@@ -192,9 +192,10 @@ class Trans_kk extends CI_Controller {
         // $fileName = date('YmdHisu');
         // print_r('ss'.basename( $_FILES[$sNama]['name']));die();
         $iCekFoto = $this->global_m->get_data("select * FROM vw_t_kk where id_master_kk='".$this->input->post('noKK')."'");
-        if(basename( $_FILES['foto_rumah']['name'])==""){
-            $result = array(true,$iCekFoto[0]->link_gambar);
-        }elseif(basename( $_FILES[$sNama]['name'])==""){
+        // if(basename( $_FILES['foto_rumah']['name'])==""){
+        //     $result = array(true,$iCekFoto[0]->link_gambar);
+        // }else
+        if(basename( $_FILES[$sNama]['name'])==""){
             $result = array(true,$iCekFoto[0]->rumah_path);            
         }else{
             $fileName = $this->global_m->get_data("select uuid() as uuid")[0]->uuid;
@@ -228,10 +229,10 @@ class Trans_kk extends CI_Controller {
         $id_master_kk = $this->input->post('noKK');
         $path = 'uploads/foto/';
 
-        $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
-        if(!$iUploadFotoRumah[0]){
-            $result = array('istatus' => false, 'iremarks' => $iUploadFotoRumah[1]);
-        } else {
+        // $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
+        // if(!$iUploadFotoRumah[0]){
+        //     $result = array('istatus' => false, 'iremarks' => $iUploadFotoRumah[1]);
+        // } else {
 
             $iAnggotaKel=$this->input->get('sLength');
             if($iAnggotaKel>0){
@@ -306,7 +307,7 @@ class Trans_kk extends CI_Controller {
                                 'id_ktp' => $this->input->post('nik'.$i),
                                 'pendidikan' => $this->input->post('pendidikan_'.$i),
                                 'hub_keluarga' => $this->input->post('hub_kel_'.$i),
-                                'rumah_path' => $iUploadFotoRumah[1]
+                                // 'rumah_path' => $iUploadFotoRumah[1]
                                 // 'id_ktp' => date('Y-m-d', strtotime($_POST['id_tglLahir_'])),
                                 // 'create_by' => $this->session->userdata('id_user'),
                                 // 'create_date' => date('Y-m-d H:i:s')
@@ -327,7 +328,7 @@ class Trans_kk extends CI_Controller {
             } else {
                 $result = array('istatus' => $istatus,'itype' => 'error', 'iremarks' => $iremarks);
             }
-        }
+        // }
         echo json_encode($result);
     }
 
@@ -574,9 +575,9 @@ class Trans_kk extends CI_Controller {
 // print_r(basename($_FILES['foto_rumah']['name']));die();
         $iCek=$this->global_m->get_data("SELECT * FROM master_ktp_kk_temp where idsession='".$iPid."' and id_ktp='".$idKtp."'");
         if(sizeof($iCek)<1){
-            $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
+            // $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
             $iUploadFoto=$this->upload('foto_ktp',$path,$idKtp);
-            if($iUploadFotoRumah[0] && $iUploadFoto[0]){
+            if($iUploadFoto[0]){
                 $data = array(
                     'idsession' => $iPid,
                     'id_ktp' => $this->input->post('nik'),
@@ -598,8 +599,8 @@ class Trans_kk extends CI_Controller {
                     'link_gambar' => $iUploadFoto[1],
                     'is_delete' => 0,
                     'id_master_kk' => $this->input->post('noKK'),
-                    'hub_keluarga' => $this->input->post('hub_kel'),
-                    'rumah_path' => $iUploadFotoRumah[1]
+                    'hub_keluarga' => $this->input->post('hub_kel')
+                    // 'rumah_path' => $iUploadFotoRumah[1]
                 );
                 // $data_pend_formal=array(
                 //     'id_ktp' => $this->input->post('nik'),
@@ -629,9 +630,9 @@ class Trans_kk extends CI_Controller {
                 $ipesan='Data dan Foto gagal disimpan.!';
             }
         }else{
-            $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
+            // $iUploadFotoRumah=$this->upload('foto_rumah',$path,'');
             $iUploadFoto=$this->upload('foto_ktp',$path,$idKtp);
-            if($iUploadFotoRumah[0] && $iUploadFoto[0]){
+            if($iUploadFoto[0]){
                 $data = array(
                     // 'idsession' => $iPid,
                     // 'id_ktp' => $this->input->post('nik'),
@@ -654,7 +655,7 @@ class Trans_kk extends CI_Controller {
                     'is_delete' => 0,
                     'id_master_kk' => $this->input->post('noKK'),
                     'hub_keluarga' => $this->input->post('hub_kel'),
-                    'rumah_path' => $iUploadFotoRumah[1]
+                    // 'rumah_path' => $iUploadFotoRumah[1]
                 );
                 $model = $this->global_m->ubah('master_ktp_kk_temp', $data, 'id_ktp', $this->input->post('nik'));
                 // $model = $this->global_m->query("UPDATE `master_ktp_kk_temp` SET ".$data." WHERE `id_ktp`='".$this->input->post('nik')."' and idsession='".$iPid."'");
