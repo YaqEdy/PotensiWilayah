@@ -10,6 +10,7 @@ class Main extends CI_Controller {
 
         $this->load->model('home_m');
         $this->load->model('user_m');
+        $this->load->model('global_m');
         $this->load->model('dashboard/dashboard_m');
         $this->load->helper('cookie');
         session_start();
@@ -25,13 +26,11 @@ class Main extends CI_Controller {
             $data['menu_parent'] = '';
             //$data['menu_nama'] = $menuId[0]->menu_nama;
             $tanggal = $this->session->userdata('tgl_d');
-            /*$data['cm_hr_ini'] = $this->dashboard_m->get_cm($this->session->userdata('tgl_y'));
-            $data['ca_hr_ini'] = $this->dashboard_m->get_ca($this->session->userdata('tgl_y'));
-            $data['cs_hr_ini'] = $this->dashboard_m->get_cs($this->session->userdata('tgl_y'));
-            $data['chs_hr_ini'] = $this->dashboard_m->get_chs($this->session->userdata('tgl_y'));
-            $data['um_hr_ini'] = $this->dashboard_m->get_um($this->session->userdata('tgl_y'));
-             * */
-             $data['db_total'] = $this->dashboard_m->get_db_total();
+
+            $data['jml_penduduk'] = $this->global_m->get_data("select xfn_jml_penduduk() as jml")[0]->jml;
+            $data['jml_pria'] = $this->global_m->get_data("select xfn_jml_jekel(0) as jml")[0]->jml;
+            $data['jml_wanita'] = $this->global_m->get_data("select xfn_jml_jekel(1) as jml")[0]->jml;
+            $data['jml_kk'] = $this->global_m->get_data("select xfn_jml_kk() as jml")[0]->jml;
             $this->template->set('title', 'SIM Potensi Wilayah | Beranda');
             $this->template->set('title', 'Home');
             $this->template->load('template/template1', 'dashboard_v', $data);
@@ -45,19 +44,19 @@ class Main extends CI_Controller {
             $this->template->load('template/template_db', 'dashboardpw_v', $data);
         
     }
-    public function getDbSuNusapenida() {
+    public function getJenkel() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        $rows = $this->dashboard_m->getDbSuNusapenida();
+        $rows = $this->global_m->get_data("SELECT distinct a.nama_kec,xfn_jml_jekel_kec(0,a.id_kec) as pria, xfn_jml_jekel_kec(1,a.id_kec) as wanita
+                                            FROM master_kecamatan as a left join
+                                            (select * FROM master_ktp where is_delete =0 ) as b on a.id_kec=b.id_kec
+                                        ");
         $data['data'] = array();
         foreach ($rows as $row) {
             $array = array(
-                'nama_kel' => trim($row->nama_kel),
-                'jml_su' => trim($row->jml_su),
-                'jml_komunitas' => trim($row->jml_komunitas),
-                'jml_pasar' => trim($row->jml_pasar),
-                'jml_lkm' => trim($row->jml_lkm),
-                'jml_kk' => trim($row->jml_kk),
-                'jml_warga' => trim($row->jml_warga)
+                'nama_kec' => trim($row->nama_kec),
+                'jml_pria' => trim($row->pria),
+                'jml_wanita' => trim($row->wanita),
+                'jml_penduduk' => trim($row->pria)+trim($row->wanita)
             );
             array_push($data['data'], $array);
         }
@@ -65,17 +64,18 @@ class Main extends CI_Controller {
     }
     public function getDbBajangkaran() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        $rows = $this->dashboard_m->getDbBajangkaran();
+        $rows = $this->global_m->get_data("SELECT distinct a.nama_kec,b.nama_difabel,xfn_jml_difabel(0,a.id_kec,b.id_difabel) as pria, xfn_jml_difabel(1,a.id_kec,b.id_difabel) as wanita
+                                            FROM master_kecamatan as a left join
+                                            (select * FROM vw_t_kk where is_delete =0 ) as b on a.id_kec=b.id_kec
+                                        ");
         $data['data'] = array();
         foreach ($rows as $row) {
             $array = array(
-                'nama_kel' => trim($row->nama_kel),
-                'jml_su' => trim($row->jml_su),
-                'jml_komunitas' => trim($row->jml_komunitas),
-                'jml_pasar' => trim($row->jml_pasar),
-                'jml_lkm' => trim($row->jml_lkm),
-                'jml_kk' => trim($row->jml_kk),
-                'jml_warga' => trim($row->jml_warga)
+                'nama_kec' => trim($row->nama_kec),
+                'nama_difabel' => trim($row->nama_difabel),
+                'jml_pria' => trim($row->pria),
+                'jml_wanita' => trim($row->wanita),
+                'jml_penduduk' => trim($row->pria)+trim($row->wanita)
             );
             array_push($data['data'], $array);
         }
@@ -83,17 +83,18 @@ class Main extends CI_Controller {
     }
     public function getDbKlungkung() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        $rows = $this->dashboard_m->getDbKlungkung();
+        $rows = $this->global_m->get_data("SELECT distinct a.nama_kec,b.nama_pend,xfn_jml_pend(0,a.id_kec,b.id_pend) as pria, xfn_jml_pend(1,a.id_kec,b.id_pend) as wanita
+                                            FROM master_kecamatan as a left join
+                                            (select * FROM vw_t_kk where is_delete =0 ) as b on a.id_kec=b.id_kec
+                                        ");
         $data['data'] = array();
         foreach ($rows as $row) {
             $array = array(
-                'nama_kel' => trim($row->nama_kel),
-                'jml_su' => trim($row->jml_su),
-                'jml_komunitas' => trim($row->jml_komunitas),
-                'jml_pasar' => trim($row->jml_pasar),
-                'jml_lkm' => trim($row->jml_lkm),
-                'jml_kk' => trim($row->jml_kk),
-                'jml_warga' => trim($row->jml_warga)
+                'nama_kec' => trim($row->nama_kec),
+                'nama_pend' => trim($row->nama_pend),
+                'jml_pria' => trim($row->pria),
+                'jml_wanita' => trim($row->wanita),
+                'jml_penduduk' => trim($row->pria)+trim($row->wanita)
             );
             array_push($data['data'], $array);
         }
@@ -101,23 +102,64 @@ class Main extends CI_Controller {
     }
     public function getDbDawan() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        $rows = $this->dashboard_m->getDbDawan();
+        $rows = $this->global_m->get_data("SELECT distinct a.nama_kec,b.nama_pekerjaan,xfn_jml_pekerjaan(0,a.id_kec,b.pekerjaan) as pria, xfn_jml_pekerjaan(1,a.id_kec,b.pekerjaan) as wanita
+                                            FROM master_kecamatan as a left join
+                                            (select * FROM vw_t_kk where is_delete =0 ) as b on a.id_kec=b.id_kec
+                                        ");
         $data['data'] = array();
         foreach ($rows as $row) {
             $array = array(
-                'nama_kel' => trim($row->nama_kel),
-                'jml_su' => trim($row->jml_su),
-                'jml_komunitas' => trim($row->jml_komunitas),
-                'jml_pasar' => trim($row->jml_pasar),
-                'jml_lkm' => trim($row->jml_lkm),
-                'jml_kk' => trim($row->jml_kk),
-                'jml_warga' => trim($row->jml_warga)
+                'nama_kec' => trim($row->nama_kec),
+                'nama_pekerjaan' => trim($row->nama_pekerjaan),
+                'jml_pria' => trim($row->pria),
+                'jml_wanita' => trim($row->wanita),
+                'jml_penduduk' => trim($row->pria)+trim($row->wanita)
             );
             array_push($data['data'], $array);
         }
         $this->output->set_output(json_encode($data));
     }
-    
+
+    public function getDbAgama() {
+        $this->CI = & get_instance(); //and a.kcab_id<>'1100'
+        $rows = $this->global_m->get_data("SELECT distinct a.nama_kec,b.nama_agama,xfn_jml_agama(0,a.id_kec,b.agama) as pria, xfn_jml_agama(1,a.id_kec,b.agama) as wanita
+                                            FROM master_kecamatan as a left join
+                                            (select * FROM vw_t_kk where is_delete =0 ) as b on a.id_kec=b.id_kec
+                                        ");
+        $data['data'] = array();
+        foreach ($rows as $row) {
+            $array = array(
+                'nama_kec' => trim($row->nama_kec),
+                'nama_agama' => trim($row->nama_agama),
+                'jml_pria' => trim($row->pria),
+                'jml_wanita' => trim($row->wanita),
+                'jml_penduduk' => trim($row->pria)+trim($row->wanita)
+            );
+            array_push($data['data'], $array);
+        }
+        $this->output->set_output(json_encode($data));
+    }
+
+    public function getDbGolDarah() {
+        $this->CI = & get_instance(); //and a.kcab_id<>'1100'
+        $rows = $this->global_m->get_data("SELECT distinct a.nama_kec,b.gol_darah,xfn_jml_gol_darah(0,a.id_kec,b.gol_darah) as pria, xfn_jml_gol_darah(1,a.id_kec,b.gol_darah) as wanita
+                                            FROM master_kecamatan as a left join
+                                            (select * FROM vw_t_kk where is_delete =0 ) as b on a.id_kec=b.id_kec
+                                        ");
+        $data['data'] = array();
+        foreach ($rows as $row) {
+            $array = array(
+                'nama_kec' => trim($row->nama_kec),
+                'gol_darah' => trim($row->gol_darah),
+                'jml_pria' => trim($row->pria),
+                'jml_wanita' => trim($row->wanita),
+                'jml_penduduk' => trim($row->pria)+trim($row->wanita)
+            );
+            array_push($data['data'], $array);
+        }
+        $this->output->set_output(json_encode($data));
+    }
+
 
     public function login() {
 

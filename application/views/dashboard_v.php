@@ -16,57 +16,57 @@
     <div class="col-md-12">
         <!-- BEGIN DASHBOARD STATS 1-->
         <div class="row">
-            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2 blue-madison" href="#">
                     <div class="visual">
                         <i class="fa fa-comments"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?php echo $db_total[0]->jumlah; ?>"><?php echo $db_total[0]->jumlah; ?></span>
+                            <span data-counter="counterup" data-value="<?php echo $jml_penduduk; ?>"><?php echo $jml_penduduk; ?></span>
                         </div>
-                        <div class="desc"> Sentra Usaha </div>
+                        <div class="desc"> Jumlah Penduduk </div>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2 yellow-lemon" href="#">
                     <div class="visual">
                         <i class="fa fa-bar-chart-o"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?php echo $db_total[1]->jumlah; ?>"><?php echo $db_total[1]->jumlah; ?></span> </div>
-                        <div class="desc"> Komunitas </div>
+                            <span data-counter="counterup" data-value="<?php echo $jml_pria; ?>"><?php echo $jml_pria; ?></span> </div>
+                        <div class="desc"> Laki-laki </div>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2 green-haze" href="#">
                     <div class="visual">
                         <i class="fa fa-shopping-cart"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?php echo $db_total[2]->jumlah; ?>"><?php echo $db_total[2]->jumlah; ?></span>
+                            <span data-counter="counterup" data-value="<?php echo $jml_wanita; ?>"><?php echo $jml_wanita; ?></span>
                         </div>
-                        <div class="desc"> Pasar </div>
+                        <div class="desc"> Perempuan </div>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2 red-flamingo" href="#">
                     <div class="visual">
                         <i class="fa fa-globe"></i>
                     </div>
                     <div class="details">
                         <div class="number"> 
-                            <span data-counter="counterup" data-value="<?php echo $db_total[3]->jumlah; ?>"><?php echo $db_total[3]->jumlah; ?></span> </div>
-                        <div class="desc"> Lembaga Keuangan </div>
+                            <span data-counter="counterup" data-value="<?php echo $jml_kk; ?>"><?php echo $jml_kk; ?></span> </div>
+                        <div class="desc"> Jumlah KK </div>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+            <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2 green-turquoise" href="#">
                     <div class="visual">
                         <i class="fa fa-comments"></i>
@@ -91,7 +91,7 @@
                         <div class="desc"> Jumlah Penduduk </div>
                     </div>
                 </a>
-            </div>
+            </div> -->
         </div>
         <div class="row">
 
@@ -111,7 +111,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-cogs"></i>Statistik Kecamatan Nusapenida
+                    <i class="fa fa-cogs"></i>Statistik Laki-laki dan Perempuan
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -129,30 +129,22 @@
                 </div>
 
                 <div class="table-toolbar">
-                    <table class="table table-striped table-bordered table-hover text_kanan" id="id_TabelNusapenida">
+                    <table class="table table-striped table-bordered table-hover text_kanan" id="id_TabelJekel">
                         <thead>
                             <tr>
                                 <th>
-                                    Kelurahan
+                                    Kecamatan
                                 </th>
                                 <th>
-                                    Jml Sentra Usaha
+                                    Laki-laki
                                 </th>
                                 <th>
-                                    Jml Komunitas
+                                    perempuan
                                 </th>
                                 <th>
-                                    Jml Pasar
+                                    Total
                                 </th>
-                                <th>
-                                    Jml LK
-                                </th>
-                                <th>
-                                    Jml KK
-                                </th>
-                                <th>
-                                    Jml Penduduk
-                                </th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -176,7 +168,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-cogs"></i>Statistik Kecamatan Bajangkaran
+                    <i class="fa fa-cogs"></i>Statistik Difabel
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -194,26 +186,21 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Kelurahan
+                                    Kecamatan
                                 </th>
                                 <th>
-                                    Jml Sentra Usaha
+                                    Difabel
                                 </th>
                                 <th>
-                                    Jml Komunitas
+                                    Laki-laki
                                 </th>
                                 <th>
-                                    Jml Pasar
+                                    perempuan
                                 </th>
                                 <th>
-                                    Jml LK
+                                    Total
                                 </th>
-                                <th>
-                                    Jml KK
-                                </th>
-                                <th>
-                                    Jml Penduduk
-                                </th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -236,7 +223,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-cogs"></i>Statistik Kecamatan Klungkung
+                    <i class="fa fa-cogs"></i>Statistik Pendidikan
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -258,25 +245,19 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Kelurahan
+                                    Kecamatan
                                 </th>
                                 <th>
-                                    Jml Sentra Usaha
+                                    Pendidikan
                                 </th>
                                 <th>
-                                    Jml Komunitas
+                                    Laki-laki
                                 </th>
                                 <th>
-                                    Jml Pasar
+                                    perempuan
                                 </th>
                                 <th>
-                                    Jml LK
-                                </th>
-                                <th>
-                                    Jml KK
-                                </th>
-                                <th>
-                                    Jml Penduduk
+                                    Total
                                 </th>
                             </tr>
                         </thead>
@@ -301,7 +282,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-cogs"></i>Statistik Kecamatan Dawan
+                    <i class="fa fa-cogs"></i>Statistik Pekerjaan
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -319,26 +300,21 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Kelurahan
+                                    Kecamatan
                                 </th>
                                 <th>
-                                    Jml Sentra Usaha
+                                    Pekerjaan
                                 </th>
                                 <th>
-                                    Jml Komunitas
+                                    Laki-laki
                                 </th>
                                 <th>
-                                    Jml Pasar
+                                    perempuan
                                 </th>
                                 <th>
-                                    Jml LK
+                                    Total
                                 </th>
-                                <th>
-                                    Jml KK
-                                </th>
-                                <th>
-                                    Jml Penduduk
-                                </th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -356,6 +332,118 @@
 </div>
 <!-- END ROW -->
 
+    <div class="row">
+        <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Statistik Agama
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                    <a href="javascript:;" class="reload">
+                    </a>
+                    <a href="javascript:;" class="fullscreen">
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <table class="table table-striped table-bordered table-hover text_kanan" id="id_TabelAgama">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Kecamatan
+                                </th>
+                                <th>
+                                    Agama
+                                </th>
+                                <th>
+                                    Laki-laki
+                                </th>
+                                <th>
+                                    perempuan
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+
+        <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Statistik Golongan Darah
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                    <a href="javascript:;" class="reload">
+                    </a>
+                    <a href="javascript:;" class="fullscreen">
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <table class="table table-striped table-bordered table-hover text_kanan" id="id_TabelGolDarah">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Kecamatan
+                                </th>
+                                <th>
+                                    Gol Darah
+                                </th>
+                                <th>
+                                    Laki-laki
+                                </th>
+                                <th>
+                                    perempuan
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+
+    </div>
+<!-- END ROW -->
+
+
+
+
+    </div>
 <!-- END PAGE CONTENT-->
 
 <!-- BEGIN CORE PLUGINS -->
@@ -369,19 +457,16 @@
 
         var initTable1 = function () {
 
-            var table = $('#id_TabelNusapenida');
+            var table = $('#id_TabelJekel');
 
             // begin first table
             table.dataTable({
-                "ajax": "<?php echo base_url("/main/getDbSuNusapenida"); ?>",
+                "ajax": "<?php echo base_url("/main/getJenkel"); ?>",
                 "columns": [
-                    {"data": "nama_kel"},
-                    {"data": "jml_su"},
-                    {"data": "jml_komunitas"},
-                    {"data": "jml_pasar"},
-                    {"data": "jml_lkm"},
-                    {"data": "jml_kk"},
-                    {"data": "jml_warga"},
+                    {"data": "nama_kec"},
+                    {"data": "jml_pria"},
+                    {"data": "jml_wanita"},
+                    {"data": "jml_penduduk"},
 
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -477,13 +562,11 @@
             table.dataTable({
                 "ajax": "<?php echo base_url("/main/getDbBajangkaran"); ?>",
                 "columns": [
-                    {"data": "nama_kel"},
-                    {"data": "jml_su"},
-                    {"data": "jml_komunitas"},
-                    {"data": "jml_pasar"},
-                    {"data": "jml_lkm"},
-                    {"data": "jml_kk"},
-                    {"data": "jml_warga"},
+                    {"data": "nama_kec"},
+                    {"data": "nama_difabel"},
+                    {"data": "jml_pria"},
+                    {"data": "jml_wanita"},
+                    {"data": "jml_penduduk"},
 
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -579,13 +662,11 @@
             table.dataTable({
                 "ajax": "<?php echo base_url("/main/getDbKlungkung"); ?>",
                 "columns": [
-                    {"data": "nama_kel"},
-                    {"data": "jml_su"},
-                    {"data": "jml_komunitas"},
-                    {"data": "jml_pasar"},
-                    {"data": "jml_lkm"},
-                    {"data": "jml_kk"},
-                    {"data": "jml_warga"},
+                    {"data": "nama_kec"},
+                    {"data": "nama_pend"},
+                    {"data": "jml_pria"},
+                    {"data": "jml_wanita"},
+                    {"data": "jml_penduduk"},
 
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -681,13 +762,213 @@
             table.dataTable({
                 "ajax": "<?php echo base_url("/main/getDbDawan"); ?>",
                 "columns": [
-                    {"data": "nama_kel"},
-                    {"data": "jml_su"},
-                    {"data": "jml_komunitas"},
-                    {"data": "jml_pasar"},
-                    {"data": "jml_lkm"},
-                    {"data": "jml_kk"},
-                    {"data": "jml_warga"},
+                    {"data": "nama_kec"},
+                    {"data": "nama_pekerjaan"},
+                    {"data": "jml_pria"},
+                    {"data": "jml_wanita"},
+                    {"data": "jml_penduduk"},
+
+                ],
+                // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries found",
+                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                    "lengthMenu": "Show _MENU_ entries",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+
+                "lengthMenu": [
+                    [5, 10, 15, 20, -1],
+                    [5, 10, 15, 20, "All"] // change per page values here
+                ],
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "language": {
+                    "search": "Cari: ",
+                    "lengthMenu": "  _MENU_ records",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+                "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
+                "columnDefs": [{// set default column settings
+                        'orderable': true,
+                        "searchable": true,
+                        'targets': [0]
+                    }],
+                "order": [
+                    [0, "asc"]
+                ] // set first column as a default sort by asc
+            });
+            $('#id_Reload').click(function () {
+                table.api().ajax.reload();
+            });
+
+            var tableWrapper = jQuery('#example_wrapper');
+
+            table.find('.group-checkable').change(function () {
+                var set = jQuery(this).attr("data-set");
+                var checked = jQuery(this).is(":checked");
+                jQuery(set).each(function () {
+                    if (checked) {
+                        $(this).attr("checked", true);
+                        $(this).parents('tr').addClass("active");
+                    } else {
+                        $(this).attr("checked", false);
+                        $(this).parents('tr').removeClass("active");
+                    }
+                });
+                jQuery.uniform.update(set);
+            });
+
+            table.on('change', 'tbody tr .checkboxes', function () {
+                $(this).parents('tr').toggleClass("active");
+            });
+            table.on('click', 'tbody tr', function () {
+                var idKel = $(this).find("td").eq(0).html();
+
+                $('#id_kelId').val(idKel);
+                getDescKel(idKel);
+                $("#navitab_2_2").trigger('click');
+                //$('#').val();
+                $('#btnCloseModalDataUser').trigger('click');
+                $('#id_btnSimpan').attr('disabled', true);
+                $('#id_btnUbah').attr("disabled", false);
+                $('#id_btnHapus').attr("disabled", false);
+                $('#id_namaKel').focus();
+
+            });
+
+            tableWrapper.find('.dataTables_length select').addClass("form-control input-xsmall input-inline"); // modify table per page dropdown
+        }
+
+        var initTable5 = function () {
+
+            var table = $('#id_TabelAgama');
+
+            // begin first table
+            table.dataTable({
+                "ajax": "<?php echo base_url("/main/getDbAgama"); ?>",
+                "columns": [
+                    {"data": "nama_kec"},
+                    {"data": "nama_agama"},
+                    {"data": "jml_pria"},
+                    {"data": "jml_wanita"},
+                    {"data": "jml_penduduk"},
+
+                ],
+                // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries found",
+                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                    "lengthMenu": "Show _MENU_ entries",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found"
+                },
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+
+                "lengthMenu": [
+                    [5, 10, 15, 20, -1],
+                    [5, 10, 15, 20, "All"] // change per page values here
+                ],
+                // set the initial value
+                "pageLength": 5,
+                "pagingType": "bootstrap_full_number",
+                "language": {
+                    "search": "Cari: ",
+                    "lengthMenu": "  _MENU_ records",
+                    "paginate": {
+                        "previous": "Prev",
+                        "next": "Next",
+                        "last": "Last",
+                        "first": "First"
+                    }
+                },
+                "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
+                "columnDefs": [{// set default column settings
+                        'orderable': true,
+                        "searchable": true,
+                        'targets': [0]
+                    }],
+                "order": [
+                    [0, "asc"]
+                ] // set first column as a default sort by asc
+            });
+            $('#id_Reload').click(function () {
+                table.api().ajax.reload();
+            });
+
+            var tableWrapper = jQuery('#example_wrapper');
+
+            table.find('.group-checkable').change(function () {
+                var set = jQuery(this).attr("data-set");
+                var checked = jQuery(this).is(":checked");
+                jQuery(set).each(function () {
+                    if (checked) {
+                        $(this).attr("checked", true);
+                        $(this).parents('tr').addClass("active");
+                    } else {
+                        $(this).attr("checked", false);
+                        $(this).parents('tr').removeClass("active");
+                    }
+                });
+                jQuery.uniform.update(set);
+            });
+
+            table.on('change', 'tbody tr .checkboxes', function () {
+                $(this).parents('tr').toggleClass("active");
+            });
+            table.on('click', 'tbody tr', function () {
+                var idKel = $(this).find("td").eq(0).html();
+
+                $('#id_kelId').val(idKel);
+                getDescKel(idKel);
+                $("#navitab_2_2").trigger('click');
+                //$('#').val();
+                $('#btnCloseModalDataUser').trigger('click');
+                $('#id_btnSimpan').attr('disabled', true);
+                $('#id_btnUbah').attr("disabled", false);
+                $('#id_btnHapus').attr("disabled", false);
+                $('#id_namaKel').focus();
+
+            });
+
+            tableWrapper.find('.dataTables_length select').addClass("form-control input-xsmall input-inline"); // modify table per page dropdown
+        }
+
+        var initTable6 = function () {
+
+            var table = $('#id_TabelGolDarah');
+
+            // begin first table
+            table.dataTable({
+                "ajax": "<?php echo base_url("/main/getDbGolDarah"); ?>",
+                "columns": [
+                    {"data": "nama_kec"},
+                    {"data": "gol_darah"},
+                    {"data": "jml_pria"},
+                    {"data": "jml_wanita"},
+                    {"data": "jml_penduduk"},
 
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -787,6 +1068,8 @@
                 initTable2();
                 initTable3();
                 initTable4();
+                initTable5();
+                initTable6();
             }
         };
     }();
