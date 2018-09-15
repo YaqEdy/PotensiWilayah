@@ -1,4 +1,5 @@
 <script>
+var table;
     jQuery(document).ready(function () {
         ComponentsDateTimePickers.init();
         TableManaged.init();
@@ -16,7 +17,7 @@
 
         var initTable1 = function () {
 
-            var table = $('#idTabelBantuan');
+            table = $('#idTabelBantuan');
 
             // begin first table
             table.dataTable({
@@ -73,7 +74,8 @@
                         "searchable": true,
                         'targets': [0]
                     },
-                    // {"targets": [2], "visible": false, "searchable": false},
+                    {"targets": [1], "visible": false, "searchable": false},
+                    {"targets": [6], "visible": false, "searchable": false},
                     ],
                 "order": [
                     [0, "asc"]
@@ -104,6 +106,9 @@
                 $(this).parents('tr').toggleClass("active");
             });
             table.on('click', 'tbody tr', function () {
+                table.fnSetColumnVis(1, true);
+                table.fnSetColumnVis(6, true);
+
                 var idSession = $(this).find("td").eq(6).html();
                 var idinstansi = $(this).find("td").eq(5).html();
                 var tglBantuan = $(this).find("td").eq(7).html();
@@ -135,6 +140,11 @@
             }
         };
     }();
+
+$("#navitab_2_2").click(function(e){
+    table.fnSetColumnVis(1, false);
+    table.fnSetColumnVis(6, false);
+});
 
     // getDetailBantuan(idSession,tglBantuan,idinstansi,iBantuan,iKet);
 

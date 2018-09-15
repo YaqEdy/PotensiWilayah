@@ -1,4 +1,5 @@
 <script>
+var table,table2;
 var iLength=0;
 var iEdit=0;
 $("#id_btnBatalCpa").hide();
@@ -179,7 +180,7 @@ var TableManaged = function () {
 
 var initTable1 = function () {
 
-    var table = $('#idGridKK');
+     table = $('#idGridKK');
 
     // begin first table
     table.dataTable({
@@ -234,7 +235,7 @@ var initTable1 = function () {
         "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
         "columnDefs": [
             {"targets": [0],"orderable": true,"searchable": true},
-            // {"targets":[1],"visible":false,"searchable":false}
+            {"targets":[1],"visible":false,"searchable":false}
  
             ],
         "order": [
@@ -267,6 +268,8 @@ var initTable1 = function () {
     });
     table.on('click', 'tbody tr', function () {
         // iEdit=1;
+        table.fnSetColumnVis(1, true);
+        table2.fnSetColumnVis(14, false);
         var idSes = $(this).find("td").eq(1).html();
         // console.log(idSes);
         // var idKtp = $(this).find("td").eq(2).html();
@@ -298,6 +301,9 @@ return {
 };
 }();
 
+$("#navitab_2_2").click(function(e){
+    table.fnSetColumnVis(1, false);
+});
 function getDetailKK(iSes){
     $.ajax({
         url: "<?php echo base_url("transaksi/trans_kk/ajax_getDetailKK"); ?>", // json datasource
@@ -673,7 +679,7 @@ readURL(this,'foto_rumah');
     });
 
 function loadGridAnggotaKel(){
-    var table2 = $('#idGridAnggotaKel');
+    table2 = $('#idGridAnggotaKel');
     table2.dataTable({
         "ajax":{ 
             "url":"<?php echo base_url("transaksi/trans_kk/getAnggotaKel"); ?>",
@@ -734,11 +740,14 @@ function loadGridAnggotaKel(){
             }
         },
         "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
-        "columnDefs": [{// set default column settings
+        "columnDefs": [
+            {// set default column settings
                 'orderable': true,
                 "searchable": true,
                 'targets': [0]
-            }],
+            },
+            {"targets":[14],"visible":false,"searchable":false}
+            ],
         "order": [
             [0, "asc"]
         ] // set first column as a default sort by asc

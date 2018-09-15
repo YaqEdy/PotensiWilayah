@@ -20,7 +20,6 @@
     function cetak() {
         var ktp = $('#id_ktp').val();//select2('val');
         if (ktp==''){ktp='-';}
-            window.open("<?php echo base_url('laporan/lap_ktp/cetak/'); ?>/" + ktp , '_blank');//+ idAdvance + masterId
-        
+            window.open("<?php echo base_url('laporan/lap_ktp/cetak/'); ?>/" + ktp , '_blank');//+ idAdvance + masterId        
     }
 </script>
