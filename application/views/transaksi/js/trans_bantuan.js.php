@@ -26,13 +26,15 @@ var table;
                     {"data": "no"},
                     {"data": "id_t_bantuan"},
                     {"data": "id_ktp"},
+                    {"data": "id_jns_bantuan"},
+                    {"data": "jns_bantuan"},
                     {"data": "nama_bantuan"},
                     {"data": "nama_ktp"},
                     {"data": "id_m_instansi"},
                     {"data": "idsession"},
                     {"data": "tgl_bantuan"},
                     {"data": "nama_instansi"},
-                    {"data": "ket"},
+                    {"data": "ket"}
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -75,7 +77,8 @@ var table;
                         'targets': [0]
                     },
                     {"targets": [1], "visible": false, "searchable": false},
-                    {"targets": [6], "visible": false, "searchable": false},
+                    {"targets": [3], "visible": false, "searchable": false},
+                    {"targets": [8], "visible": false, "searchable": false},
                     ],
                 "order": [
                     [0, "asc"]
@@ -107,15 +110,17 @@ var table;
             });
             table.on('click', 'tbody tr', function () {
                 table.fnSetColumnVis(1, true);
-                table.fnSetColumnVis(6, true);
+                table.fnSetColumnVis(3, true);
+                table.fnSetColumnVis(8, true);
 
-                var idSession = $(this).find("td").eq(6).html();
-                var idinstansi = $(this).find("td").eq(5).html();
-                var tglBantuan = $(this).find("td").eq(7).html();
-                var iBantuan = $(this).find("td").eq(3).html();
-                var iKet = $(this).find("td").eq(9).html();
+                var idjnsbantuan = $(this).find("td").eq(3).html();
+                var idSession = $(this).find("td").eq(8).html();
+                var idinstansi = $(this).find("td").eq(7).html();
+                var tglBantuan = $(this).find("td").eq(9).html();
+                var iBantuan = $(this).find("td").eq(5).html();
+                var iKet = $(this).find("td").eq(11).html();
 
-                getDetailBantuan(idSession,tglBantuan,idinstansi,iBantuan,iKet);
+                getDetailBantuan(idjnsbantuan,idSession,tglBantuan,idinstansi,iBantuan,iKet);
                  $("#navitab_2_2").trigger('click');
                 //$('#').val();
                 $('#btnCloseModalDataUser').trigger('click');
@@ -143,12 +148,13 @@ var table;
 
 $("#navitab_2_2").click(function(e){
     table.fnSetColumnVis(1, false);
-    table.fnSetColumnVis(6, false);
+    table.fnSetColumnVis(3, false);
+    table.fnSetColumnVis(8, false);
 });
 
     // getDetailBantuan(idSession,tglBantuan,idinstansi,iBantuan,iKet);
 
-function getDetailBantuan(a,tgl,idInstansi,iBantuan,iKet){
+function getDetailBantuan(idjnsbantuan,a,tgl,idInstansi,iBantuan,iKet){
     $.ajax({
         url: "<?php echo base_url("transaksi/trans_bantuan/ajax_detail"); ?>", // json datasource
         type: "POST",
@@ -158,6 +164,7 @@ function getDetailBantuan(a,tgl,idInstansi,iBantuan,iKet){
             if (e.act == true) {
                 iPID=e.iPid;
                 $('#idGridPenerima').DataTable().ajax.reload();
+                $('#id_jns_bantuan').select2('val',idjnsbantuan);
                 $('#id_bantuan').val(iBantuan);
                 $('#id_tgl_bantuan').val(tgl);
                 $('#id_instansi').select2('val',idInstansi);
@@ -420,7 +427,7 @@ function select(a){
         url: "<?php echo base_url("transaksi/trans_bantuan/ajax_saveSelect"); ?>", // json datasource
         type: "POST",
         dataType: "json",
-        data: {sKtp:a,sBantuan:$("#id_bantuan").val(),sInstansi:$("#id_instansi").val(),sTgl:$("#id_tgl_bantuan").val(),sKet:$("#id_ket").val(),sPID:iPID},
+        data: {sKtp:a,sjns_bantuan:$("#id_jns_bantuan").val(),sBantuan:$("#id_bantuan").val(),sInstansi:$("#id_instansi").val(),sTgl:$("#id_tgl_bantuan").val(),sKet:$("#id_ket").val(),sPID:iPID},
         success: function (e) {
             if (e.act == true) {
                     UIToastr.init(e.tipePesan, e.pesan);

@@ -11,6 +11,7 @@ class Lap_ktp extends CI_Controller {
         $this->load->model('home_m');
         $this->load->model('global_m');
         $this->load->model('laporan/kedatangan_m');
+        $this->load->model('transaksi/trans_bantuan_m');
         $this->load->library('pdf1');
         session_start();
     }
@@ -87,6 +88,31 @@ class Lap_ktp extends CI_Controller {
         }
     }
 
+    public function getKTP() {
+        $this->CI = & get_instance(); //and a.kcab_id<>'1100'
+        $rows = $this->trans_bantuan_m->getKtpAll();
+        $data['data'] = array();
+        foreach ($rows as $row) {
+            if($row->jekel=='0'){
+                $ijekel="Pria";
+            }else{
+                $ijekel="Wanita";                
+            }
+            $array = array(
+                'select' => "<button id='".trim($row->id_ktp)."' name='".trim($row->nama_ktp)."' onclick='select(this)' class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-ok'></i> Select</button>",
+                'id_ktp' => trim($row->id_ktp),
+                'nama_ktp' => trim($row->nama_ktp),
+                'jekel' => $ijekel,
+                'tanggal_lahir' => trim($row->tanggal_lahir),
+                /*,
+                'alamatBantuan' => trim($row->alamat),
+                'telpBantuan' => trim($row->telp)*/
+            );
+
+            array_push($data['data'], $array);
+        }
+        $this->output->set_output(json_encode($data));
+    }
 
 
 

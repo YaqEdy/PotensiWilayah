@@ -62,6 +62,12 @@
                                                             id KTP
                                                         </th>
                                                         <th>
+                                                            id jns bantuan
+                                                        </th>
+                                                        <th>
+                                                            Jenis Bantuan
+                                                        </th>
+                                                        <th>
                                                             Nama Bantuan
                                                         </th>
                                                         <th>
@@ -103,6 +109,24 @@
                     
                             <div class="row">
                                 <div class="form-body">
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Instansi</label>
+                                            <?php
+                                            $data = array();
+                                            $data[''] = '';
+                                            foreach ($jns_bantuan as $row) :
+                                                $data[$row['id_jns_bantuan']] = $row['jns_bantuan'];
+                                            endforeach;
+                                            echo form_dropdown('jns_bantuan', $data, '', ' id="id_jns_bantuan" class="form-control input-sm select2me "');
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+    
+                            <div class="row">
+                                <div class="form-body">
                                     <div class="col-md-6">
                                         <div class="form-group hidden">
                                             <div class="row">
@@ -116,7 +140,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Jenis Bantuan</label>
+                                            <label>Bantuan</label>
                                             <input id="id_bantuan" class="form-control" type="text">
                                         </div>
                                         <div class="form-group">

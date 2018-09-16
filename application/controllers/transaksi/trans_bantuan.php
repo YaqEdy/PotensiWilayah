@@ -44,6 +44,7 @@ class Trans_bantuan extends CI_Controller {
             $data['multilevel'] = $this->user_m->get_data(0, $this->session->userdata('usergroup'));
             $data['menu_all'] = $this->user_m->get_menu_all(0);
             $data['instansi'] = $this->global_m->getSelectOption('tbl_m_instansi','','','','','id_instansi');
+            $data['jns_bantuan'] = $this->global_m->getSelectOption('tbl_r_jns_bantuan','','','','','id_jns_bantuan');
 
             $this->template->set('title', $data['menu_nama']);
             $this->template->load('template/template_dataTable', 'transaksi/trans_bantuan_v', $data);
@@ -61,6 +62,8 @@ class Trans_bantuan extends CI_Controller {
                 'id_t_bantuan' => trim($row->id_t_bantuan),
                 'id_m_instansi' => trim($row->id_m_instansi),
                 'id_ktp' => trim($row->id_ktp),
+                'id_jns_bantuan' => trim($row->id_jns_bantuan),
+                'jns_bantuan' => trim($row->jns_bantuan),
                 'nama_bantuan' => trim($row->nama_bantuan),
                 'nama_ktp' => trim($row->nama_ktp),
                 'idsession' => trim($row->idsession),
@@ -153,6 +156,7 @@ class Trans_bantuan extends CI_Controller {
     }
 
     function ajax_saveSelect() {
+        $ijns_bantuan = trim($this->input->post('sjns_bantuan'));
         $idKtp = trim($this->input->post('sKtp'));
         $iBantuan = trim($this->input->post('sBantuan'));
         $idInstansi = trim($this->input->post('sInstansi'));
@@ -167,6 +171,7 @@ class Trans_bantuan extends CI_Controller {
         if(sizeof($iCek)<1){
             $data = array(
                 'idsession' => $iPid,
+                'id_jns_bantuan' => $ijns_bantuan,
                 'id_m_instansi' => $idInstansi,
                 'id_ktp' => $idKtp,
                 'tgl_bantuan' => date('Y-m-d', strtotime($sTgl)),
@@ -203,6 +208,7 @@ class Trans_bantuan extends CI_Controller {
 
     function ajax_simpanBantuan() {
         $iPid=trim($this->input->post('sPID'));
+        $ijns_bantuan = trim($this->input->post('sjns_bantuan'));
         $iBantuan=$this->input->post('sBantuan');
         $iInstansi=$this->input->post('sInstansi');
         $iTgl=date('Y-m-d', strtotime($this->input->post('sTgl')));

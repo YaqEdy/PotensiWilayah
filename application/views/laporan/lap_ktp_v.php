@@ -60,14 +60,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <?php
-                                    $data = array();
-                                    $data[''] = '';
-                                    foreach ($ktp as $row) :
-                                        $data[$row['id_ktp']] = $row['id_ktp'].' - '.$row['nama_ktp'];
-                                    endforeach;
-                                    echo form_dropdown('ktp', $data, '', 'id="id_ktp" class="form-control input-sm select2me"');
-                                    ?>
+                                    <input type="hidden" id="id_ktp">                                    
+                                    <input type="text" id="id_nama" class="form-control input-sm" onclick="onModal()">                                    
                                 </div>   
                             </div>
                             <div class="col-md-4">
@@ -104,6 +98,57 @@
     -->
     <!-- end <div class="col-md-6"> -->
 </div>
+
+<!--  MODAL -->
+<div class="modal fade draggable-modal" id="idDivSelectKTP"  role="basic" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Data Masyarakat</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-hover text_kanan" id="idGridSelectPenerima">
+                    <thead>
+                        <tr>
+                            <th>
+                                Select
+                            </th>
+                            <th>
+                                id KTP
+                            </th>
+                            <th>
+                                Nama
+                            </th>
+                            <th>
+                                Jenis Kelamin
+                            </th>
+                            <th>
+                                Tgl Lahir
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+
+            </div>
+            <!-- END MODAL BODY-->
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal" id="id_btnBatalSelect"><i class="fa fa-times"></i>&nbsp;Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- End MODAL Input Data Cucian Masuk -->
+
 
 <?php $this->load->view('app.min.inc.php'); ?>
 <?php $this->load->view('laporan/js/lap_ktp.js.php'); ?>

@@ -128,7 +128,8 @@ class Master_pend_non_formal extends CI_Controller {
 
     public function getKTP() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        $rows = $this->trans_bantuan_m->getKtpAll();
+        // $rows = $this->trans_bantuan_m->getKtpAll();
+        $rows = $this->global_m->get_data("SELECT * from vw_t_bantuan where id_jns_bantuan=1");
         $data['data'] = array();
         foreach ($rows as $row) {
             if($row->jekel=='0'){
