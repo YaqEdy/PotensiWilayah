@@ -78,6 +78,7 @@ var table;
                     },
                     {"targets": [1], "visible": false, "searchable": false},
                     {"targets": [3], "visible": false, "searchable": false},
+                    {"targets": [7], "visible": false, "searchable": false},
                     {"targets": [8], "visible": false, "searchable": false},
                     ],
                 "order": [
@@ -111,6 +112,7 @@ var table;
             table.on('click', 'tbody tr', function () {
                 table.fnSetColumnVis(1, true);
                 table.fnSetColumnVis(3, true);
+                table.fnSetColumnVis(7, true);
                 table.fnSetColumnVis(8, true);
 
                 var idjnsbantuan = $(this).find("td").eq(3).html();
@@ -149,6 +151,7 @@ var table;
 $("#navitab_2_2").click(function(e){
     table.fnSetColumnVis(1, false);
     table.fnSetColumnVis(3, false);
+    table.fnSetColumnVis(7, false);
     table.fnSetColumnVis(8, false);
 });
 

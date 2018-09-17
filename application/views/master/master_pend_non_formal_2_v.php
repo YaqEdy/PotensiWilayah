@@ -10,7 +10,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-cogs  font-red-sunglo"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Data Bantuan</span>
+                    <span class="caption-subject font-red-sunglo bold uppercase">Data pendidikan non formal</span>
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -28,11 +28,11 @@
                 <ul class="nav nav-pills">
                     <li class="linav active" id="linav1">
                         <a href="#tab_2_1" data-toggle="tab" id="navitab_2_1" class="anavitab">
-                            Data Bantuan </a>
+                            Data pendidikan non formal </a>
                     </li>
                     <li class="linav" id="linav2">
                         <a href="#tab_2_2" data-toggle="tab" id="navitab_2_2" class="anavitab">
-                            Form Bantuan</a>
+                            Form pendidikan non formal</a>
                     </li>
 
                 </ul>
@@ -52,33 +52,21 @@
                                                    id="idTabelBantuan">
                                                 <thead>
                                                     <tr>
-                                                        <th>
-                                                            No
-                                                        </th>
-                                                        <th>
-                                                            Nama Pendidikan
-                                                        </th>
-                                                        <th>
-                                                            Jenis Pendidikan
-                                                        </th>
-                                                        <th>
-                                                            Tahun
-                                                        </th>
-                                                        <th>
-                                                            Nama Instansi
-                                                        </th>
-                                                        <th>
-                                                            Keterangan
-                                                        </th>
-                                                        <th>
-                                                            Id
-                                                        </th>
-                                                        <th>
-                                                            ses
-                                                        </th>
-                                                        <th>
-                                                            id instansi
-                                                        </th>
+                                                    <th>
+                                                        No
+                                                    </th>
+                                                    <th>
+                                                        id KTP
+                                                    </th>
+                                                    <th>
+                                                        Nama
+                                                    </th>
+                                                    <th>
+                                                        Jenis Kelamin
+                                                    </th>
+                                                    <th>
+                                                        Tanggal Lahir
+                                                    </th>
 
                                                     </tr>
                                                 </thead>
@@ -99,6 +87,54 @@
                             <!-- <form role="form" method="post" class="" id="id_formBantuan"> -->
                     
                             <div class="row">
+                            <div class="col-md-3">
+                                <label>Nik</label>
+                                <input id="idNIK" class="form-control input-sm" type="text" disabled>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Nama </label>
+                                <input id="idNama" class="form-control input-sm" type="text" disabled>
+                            </div>
+                            <!-- <div class="col-md-6">&nbsp;</div> -->
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="col-md-12"><hr></div>
+
+                            <div>
+                                <table class="table table-striped table-bordered table-hover text_kanan" id="idGridbantuan">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                no
+                                            </th>
+                                            <th>
+                                                jenis bantuan
+                                            </th>
+                                            <th>
+                                                nama bantuan
+                                            </th>
+                                            <th>
+                                                instansi
+                                            </th>
+                                            <th>
+                                                Tanggal
+                                            </th>
+                                            <th>
+                                                keterangan
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                            
+                            <hr>
+
                                 <div class="form-body">
                                     <div class="col-md-6">
                                         <div class="form-group hidden">
@@ -147,7 +183,10 @@
                                     <!--end <div class="col-md-6"> 1 -->
                                     <div class="col-md-6"></div>
                                     <div class="col-md-12">
-                                    <button id="idAddPeserta" onclick="tambahPeserta()" class="btn blue"> Peserta</button>
+                                        <button id="idSave" onclick="save()" class="btn blue"> Simpan</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                    <br>
                                         <table class="table table-striped table-bordered table-hover text_kanan" id="idGridPenerima">
                                             <thead>
                                                 <tr>
@@ -155,22 +194,19 @@
                                                         No
                                                     </th>
                                                     <th>
-                                                        id KTP
+                                                        nama pendidikan
                                                     </th>
                                                     <th>
-                                                        Nama
+                                                        jenis pendidikan
                                                     </th>
                                                     <th>
-                                                        Jenis Kelamin
+                                                        tahun
                                                     </th>
                                                     <th>
-                                                        Tanggal Lahir
+                                                        nama instansi
                                                     </th>
                                                     <th>
-                                                        Bantuan
-                                                    </th>
-                                                    <th>
-                                                        Act
+                                                        Ket
                                                     </th>
 
                                                 </tr>
@@ -191,25 +227,6 @@
 
                             </div>
                             <!--END ROW 1 -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-actions">
-
-                                        <button onclick="simpanBantuan()" name="btnSimpan" class="btn blue" id="id_btnSimpan">
-                                            <!--<i class="fa fa-check"></i>--> Simpan
-                                        </button>
-                                        <button name="btnUbah" onclick="simpanBantuan()" class="btn yellow" id="id_btnUbah">
-                                            <!--<i class="fa fa-edit"></i>--> Ubah
-                                        </button>
-                                        <button name="btnHapus" class="btn red" id="id_btnHapus">
-                                            <!--<i class="fa fa-trash"></i>-->
-                                            Hapus
-                                        </button>
-                                        <button id="id_btnBatal" type="reset" class="btn default">Batal</button>
-                                    </div>
-                                </div>
-
-                            </div>
                             <!-- </form> -->
                         </div>    
                     </div>    
@@ -222,56 +239,6 @@
 </div>
 <!-- END PAGE CONTENT-->
 
-<!--  MODAL -->
-<div class="modal fade draggable-modal" id="idDivSelectKTP"  role="basic" aria-hidden="true">
-    <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Data Masyarakat</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped table-bordered table-hover text_kanan" id="idGridSelectPenerima">
-                    <thead>
-                        <tr>
-                            <th>
-                                Select
-                            </th>
-                            <th>
-                                id KTP
-                            </th>
-                            <th>
-                                Nama
-                            </th>
-                            <th>
-                                Jenis Kelamin
-                            </th>
-                            <th>
-                                Tgl Lahir
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                    <tfoot>
-
-                    </tfoot>
-                </table>
-
-            </div>
-            <!-- END MODAL BODY-->
-            <div class="modal-footer">
-                <button type="button" class="btn default" data-dismiss="modal" id="id_btnBatalSelect"><i class="fa fa-times"></i>&nbsp;Close</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- End MODAL Input Data Cucian Masuk -->
-
 <?php $this->load->view('app.min.inc.php'); ?>
-<?php $this->load->view('master/js/master_pend_non_formal.js.php'); ?>
+<?php $this->load->view('master/js/master_pend_non_formal_2.js.php'); ?>
 

@@ -28,17 +28,14 @@ var table;
 
             // begin first table
             table.dataTable({
-                "ajax": "<?php echo base_url("master/master_pend_non_formal/getBantuanAll"); ?>",
-                "columns": [
-                    {"data": "no"},
-                    {"data": "nama_pend"},
-                    {"data": "jenis_pend"},
-                    {"data": "tahun"},
-                    {"data": "nama_instansi"},
-                    {"data": "ket"},
-                    {"data": "id_pend_non_formal"},
-                    {"data": "idsession"},
-                    {"data": "instansi"},
+        "ajax": "<?php echo base_url("/master/master_pend_non_formal_2/getKTP"); ?>",
+        "columns": [
+            {"data": "no"},
+            {"data": "id_ktp"},
+            {"data": "nama_ktp"},
+            {"data": "jekel"},
+            {"data": "tanggal_lahir"},
+
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -80,9 +77,9 @@ var table;
                         "searchable": true,
                         'targets': [0]
                     },
-                    {"targets": [6], "visible": false, "searchable": false},
-                    {"targets": [7], "visible": false, "searchable": false},
-                    {"targets": [8], "visible": false, "searchable": false},
+                    // {"targets": [6], "visible": false, "searchable": false},
+                    // {"targets": [7], "visible": false, "searchable": false},
+                    // {"targets": [8], "visible": false, "searchable": false},
                     ],
                 "order": [
                     [0, "asc"]
@@ -113,20 +110,19 @@ var table;
                 $(this).parents('tr').toggleClass("active");
             });
             table.on('click', 'tbody tr', function () {
-                table.fnSetColumnVis(6, true);
-                table.fnSetColumnVis(7, true);
-                table.fnSetColumnVis(8, true);
 
-                var idSession = $(this).find("td").eq(7).html();
-                var idinstansi = $(this).find("td").eq(8).html();
-                var itahun = $(this).find("td").eq(3).html();
-                var iNamaPend = $(this).find("td").eq(1).html();
-                var iJnsPend = $(this).find("td").eq(2).html();
-                var iKet = $(this).find("td").eq(5).html();
-
-                getDetailBantuan(idSession,itahun,idinstansi,iNamaPend,iJnsPend,iKet);
+                // getDetailBantuan(idSession,itahun,idinstansi,iNamaPend,iJnsPend,iKet);
                  $("#navitab_2_2").trigger('click');
-                //$('#').val();
+                 var idKtp = $(this).find("td").eq(1).html();
+                 var nama = $(this).find("td").eq(2).html();
+                 $('#idNIK').val(idKtp);
+                 $('#idNama').val(nama);
+                iPID=idKtp;
+
+                $('#idGridPenerima').DataTable().ajax.reload();
+                $('#idGridbantuan').DataTable().ajax.reload();
+                $('#idSave').attr('disabled', false);
+
                 $('#btnCloseModalDataUser').trigger('click');
                 $('#id_btnSimpan').attr('disabled', true);
                 $('#id_btnUbah').attr("disabled", false);
@@ -149,45 +145,46 @@ var table;
             }
         };
     }();
-$("#navitab_2_2").click(function(e){
-    table.fnSetColumnVis(6, false);
-    table.fnSetColumnVis(7, false);
-    table.fnSetColumnVis(8, false);
-});
 
     // getDetailBantuan(idSession,tglBantuan,idinstansi,iBantuan,iKet);
 
-function getDetailBantuan(a,itahun,idinstansi,iNamaPend,iJnsPend,iKet){
-// console.log(itahun,'-',idinstansi,'-',iNamaPend,'-',iJnsPend,'-',iKet)
-    $.ajax({
-        url: "<?php echo base_url("master/master_pend_non_formal/ajax_detail"); ?>", // json datasource
-        type: "POST",
-        dataType: "json",
-        data: {sSes:a},
-        success: function (e) {
-            if (e.act == true) {
-                iPID=e.iPid;
-                $('#idGridPenerima').DataTable().ajax.reload();
-                $('#id_nama_pend').val(iNamaPend);
-                $('#id_jns_pend').val(iJnsPend);
-                $('#id_tahun').val(itahun);
-                $('#id_instansi').select2('val',idinstansi);
-                $('#id_ket').val(iKet);
-            }
-        },
-        complete:function(e){
-        }
-    });    
-}
+// function getDetailBantuan(a,itahun,idinstansi,iNamaPend,iJnsPend,iKet){
+// // console.log(itahun,'-',idinstansi,'-',iNamaPend,'-',iJnsPend,'-',iKet)
+//     $.ajax({
+//         url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_detail"); ?>", // json datasource
+//         type: "POST",
+//         dataType: "json",
+//         data: {sSes:a},
+//         success: function (e) {
+//             if (e.act == true) {
+//                 iPID=e.iPid;
+//                 $('#idGridPenerima').DataTable().ajax.reload();
+//                 $('#id_nama_pend').val(iNamaPend);
+//                 $('#id_jns_pend').val(iJnsPend);
+//                 $('#id_tahun').val(itahun);
+//                 $('#id_instansi').select2('val',idinstansi);
+//                 $('#id_ket').val(iKet);
+//             }
+//         },
+//         complete:function(e){
+//         }
+//     });    
+// }
 
 $("#navitab_2_2").click(function(){
-    iPID="";
+    iPID="0";
+    $('#idSave').attr('disabled', true);
+    $('#idGridbantuan').DataTable().ajax.reload();
+    $('#idGridPenerima').DataTable().ajax.reload();
+
+    $('#idNIK').val('');
+    $('#idNama').val('');
+
     $('#id_nama_pend').val('');
     $('#id_jns_pend').val('');
     $('#id_tahun').val('');
     $('#id_instansi').select2('val','');
     $('#id_ket').val('');
-    $('#idGridPenerima').DataTable().ajax.reload();
 });
 //Grid penerima bantuan
 var TableManaged2 = function () {
@@ -199,7 +196,7 @@ var initTable2 = function () {
     // begin first table
     table2.dataTable({
         "ajax":{ 
-            "url":"<?php echo base_url("master/master_pend_non_formal/getPenerima"); ?>",
+            "url":"<?php echo base_url("master/master_pend_non_formal_2/getBantuanAll"); ?>",
             "type": "POST",
             "data": function (z) {
                     z.sPID = iPID;
@@ -207,12 +204,11 @@ var initTable2 = function () {
         },
         "columns": [
             {"data": "no"},
-            {"data": "id_ktp"},
-            {"data": "nama_ktp"},
-            {"data": "jekel"},
-            {"data": "tanggal_lahir"},
-            {"data": "bantuan"},
-            {"data": "act"},
+            {"data": "nama_pend"},
+            {"data": "jenis_pend"},
+            {"data": "tahun"},
+            {"data": "nama_instansi"},
+            {"data": "ket"},
         ],
         // Internationalisation. For more info refer to http://datatables.net/manual/i18n
         "language": {
@@ -298,48 +294,71 @@ return {
 };
 }();
 
-function del_temp(a){
+// function del_temp(a){
+//     $.ajax({
+//         url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_delTemp"); ?>", // json datasource
+//         type: "POST",
+//         dataType: "json",
+//         data: {sId:a,sPID:iPID},
+//         success: function (e) {
+//             if (e.act == true) {
+//                     UIToastr.init(e.tipePesan, e.pesan);
+//                     iPID=e.iPid;
+//                     $('#idGridPenerima').DataTable().ajax.reload();
+//             }else{
+//                 UIToastr.init(e.tipePesan, e.pesan);                    
+//                 iPID="";
+//             }
+//         },
+//         complete:function(e){
+//         }
+//     });    
+// }
+
+function save(){ 
     $.ajax({
-        url: "<?php echo base_url("master/master_pend_non_formal/ajax_delTemp"); ?>", // json datasource
+        url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_save"); ?>", // json datasource
         type: "POST",
         dataType: "json",
-        data: {sId:a,sPID:iPID},
+        data: {sKtp:iPID,sNamaPend:$("#id_nama_pend").val(),sInstansi:$("#id_instansi").val(),sJnsPend:$("#id_jns_pend").val(),sKet:$("#id_ket").val(),sTahun:$("#id_tahun").val()},
         success: function (e) {
             if (e.act == true) {
                     UIToastr.init(e.tipePesan, e.pesan);
-                    iPID=e.iPid;
                     $('#idGridPenerima').DataTable().ajax.reload();
+                    $('#id_nama_pend').val('');
+                    $('#id_jns_pend').val('');
+                    $('#id_tahun').val('');
+                    $('#id_instansi').select2('val','');
+                    $('#id_ket').val('');
             }else{
                 UIToastr.init(e.tipePesan, e.pesan);                    
-                iPID="";
             }
         },
         complete:function(e){
         }
     });    
-}
-
-function tambahPeserta(){ 
-    if($("#id_nama_pend").val()==""||$("#id_jns_pend").val()==""
-    ||$("#id_instansi").val()==""||$("#id_ket").val()==""||$("#id_tahun").val()==""){
-        alert("Data harus diisi semua.!")
-    }else{
-        $("#idDivSelectKTP").modal();
-    }
+    
 }
 //Grid penerima bantuan
 var TableManaged3 = function () {
 var initTable3 = function () {
-    var table3 = $('#idGridSelectPenerima');
+    var table3 = $('#idGridbantuan');
     // begin first table
     table3.dataTable({
-        "ajax": "<?php echo base_url("master/master_pend_non_formal/getKTP"); ?>",
+        "ajax":{ 
+            "url":"<?php echo base_url("master/master_pend_non_formal_2/getBantuan"); ?>",
+            "type": "POST",
+            "data": function (z) {
+                    z.sPID = iPID;
+                }
+        },
         "columns": [
-            {"data": "select"},
-            {"data": "id_ktp"},
-            {"data": "nama_ktp"},
-            {"data": "jekel"},
-            {"data": "tanggal_lahir"},
+            {"data": "no"},
+            {"data": "jns_bantuan"},
+            {"data": "nama_bantuan"},
+            {"data": "nama_instansi"},
+            {"data": "tgl_bantuan"},
+            {"data": "ket"},
         ],
         // Internationalisation. For more info refer to http://datatables.net/manual/i18n
         "language": {
@@ -425,55 +444,55 @@ return {
 };
 }();
 
-var iPID="";
-function select(a){
-    $('#idAddPeserta').attr('disabled', true);
-    $("#id_btnBatalSelect").trigger("click");
-    $.ajax({
-        url: "<?php echo base_url("master/master_pend_non_formal/ajax_saveSelect"); ?>", // json datasource
-        type: "POST",
-        dataType: "json",
-        data: {sKtp:a,sNamaPend:$("#id_nama_pend").val(),sInstansi:$("#id_instansi").val(),sJnsPend:$("#id_jns_pend").val(),sKet:$("#id_ket").val(),sTahun:$("#id_tahun").val(),sPID:iPID},
-        success: function (e) {
-            if (e.act == true) {
-                    UIToastr.init(e.tipePesan, e.pesan);
-                    iPID=e.iPid;
-                    $('#idGridPenerima').DataTable().ajax.reload();
-            }else{
-                UIToastr.init(e.tipePesan, e.pesan);                    
-                iPID="";
-            }
-        },
-        complete:function(e){
-        }
-    });
-}
+var iPID="0";
+// function select(a){
+//     $('#idAddPeserta').attr('disabled', true);
+//     $("#id_btnBatalSelect").trigger("click");
+//     $.ajax({
+//         url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_saveSelect"); ?>", // json datasource
+//         type: "POST",
+//         dataType: "json",
+//         data: {sKtp:a,sNamaPend:$("#id_nama_pend").val(),sInstansi:$("#id_instansi").val(),sJnsPend:$("#id_jns_pend").val(),sKet:$("#id_ket").val(),sTahun:$("#id_tahun").val(),sPID:iPID},
+//         success: function (e) {
+//             if (e.act == true) {
+//                     UIToastr.init(e.tipePesan, e.pesan);
+//                     iPID=e.iPid;
+//                     $('#idGridPenerima').DataTable().ajax.reload();
+//             }else{
+//                 UIToastr.init(e.tipePesan, e.pesan);                    
+//                 iPID="";
+//             }
+//         },
+//         complete:function(e){
+//         }
+//     });
+// }
 
-function simpanBantuan(){
-    var r = confirm('Anda yakin menyimpan data ini?');
-        if (r == true) {
-            $.ajax({
-                url: "<?php echo base_url("master/master_pend_non_formal/ajax_simpanBantuan"); ?>", // json datasource
-                type: "POST",
-                dataType: "json",
-                data: {sPID:iPID,sNamaPend:$("#id_nama_pend").val(),sInstansi:$("#id_instansi").val(),sJnsPend:$("#id_jns_pend").val(),sKet:$("#id_ket").val(),sTahun:$("#id_tahun").val()},
-                success: function (e) {
-                    if (e.act == true) {
-                            UIToastr.init(e.tipePesan, e.pesan);
-                            // $('#idGridPenerima').DataTable().ajax.reload();
-                            $('#idTabelBantuan').DataTable().ajax.reload();
-                            $("#navitab_2_1").trigger('click');
-                    }else{
-                        UIToastr.init(e.tipePesan, e.pesan);                    
-                    }
-                },
-                complete:function(e){
-                }
-            });
-        } else {
-            return false;
-        }
-}
+// function simpanBantuan(){
+//     var r = confirm('Anda yakin menyimpan data ini?');
+//         if (r == true) {
+//             $.ajax({
+//                 url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_simpanBantuan"); ?>", // json datasource
+//                 type: "POST",
+//                 dataType: "json",
+//                 data: {sPID:iPID,sNamaPend:$("#id_nama_pend").val(),sInstansi:$("#id_instansi").val(),sJnsPend:$("#id_jns_pend").val(),sKet:$("#id_ket").val(),sTahun:$("#id_tahun").val()},
+//                 success: function (e) {
+//                     if (e.act == true) {
+//                             UIToastr.init(e.tipePesan, e.pesan);
+//                             // $('#idGridPenerima').DataTable().ajax.reload();
+//                             $('#idTabelBantuan').DataTable().ajax.reload();
+//                             $("#navitab_2_1").trigger('click');
+//                     }else{
+//                         UIToastr.init(e.tipePesan, e.pesan);                    
+//                     }
+//                 },
+//                 complete:function(e){
+//                 }
+//             });
+//         } else {
+//             return false;
+//         }
+// }
 
 
 
@@ -487,111 +506,6 @@ function simpanBantuan(){
 //end dipakai
 
     btnStart();
-    $("#id_namaBantuan").focus();
-    $('#id_btnBatal').click(function () {
-        btnStart();
-    });
-    $("#id_BantuanId").focusout(function () {
-        var id_t_bantuan = $(this).val();
-        getDescBantuan(id_t_bantuan);
-    });
-    function getDescBantuan(id_t_bantuan) {
-        ajaxModal();
-        if (id_t_bantuan != '') {
-            $.post("<?php echo site_url('master/master_pend_non_formal/getDescBantuan'); ?>",
-                    {
-                        'id_t_bantuan': id_t_bantuan
-                    }, function (data) {
-                if (data.baris == 1) {
-                    $('#id_namaBantuan').val(data.nama_Bantuan);
-                    $('#id_alamat').val(data.alamat);
-                    $('#id_telp').val(data.telp);
-                    $('#id_npwp').val(data.npwp);
-                    /*
-                     $('#').val(data.); */
-                } else {
-                    alert('Data tidak ditemukan!');
-                    $('#id_btnBatal').trigger('click');
-                }
-            }, "json");
-        }//if kd<>''
-    }
-    // function ajaxSubmit() {
-    //     ajaxModal();
-    //     $.ajax({
-    //         type: "POST",
-    //         dataType: "json",
-    //         url: "<?php echo base_url(); ?>master/master_pend_non_formal/simpan",
-    //         data: dataString,
-    //         success: function (data) {
-    //             $('#id_Reload').trigger('click');
-    //             $('#id_btnBatal').trigger('click');
-    //             UIToastr.init(data.tipePesan, data.pesan);
-    //         }
-
-    //     });
-    // }
-    function ajaxUbah() {
-        ajaxModal();
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "<?php echo base_url(); ?>master/master_pend_non_formal/ubah",
-            data: dataString,
-            success: function (data) {
-                $('#id_Reload').trigger('click');
-                $('#id_btnBatal').trigger('click');
-                UIToastr.init(data.tipePesan, data.pesan);
-            }
-
-        });
-    }
-    function ajaxHapus() {
-        ajaxModal();
-        var id_t_bantuan = $('#id_BantuanId').val();
-        id_t_bantuan = id_t_bantuan.trim();
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "<?php echo base_url(); ?>master/master_pend_non_formal/hapus",
-            data: {id_t_bantuan: id_t_bantuan},
-            success: function (data) {
-                $('#id_Reload').trigger('click');
-                $('#id_btnBatal').trigger('click');
-                UIToastr.init(data.tipePesan, data.pesan);
-            }
-
-        });
-        
-    }
-    $('#id_formBantuan').submit(function (event) {
-        dataString = $("#id_formBantuan").serialize();
-        
-        var aksiBtn = $('#idTmpAksiBtn').val();
-        if (aksiBtn == '1') {
-            var r = confirm('Anda yakin menyimpan data ini?');
-            if (r == true) {
-                ajaxSubmit();
-            } else {//if(r)
-                return false;
-            }
-        } else if (aksiBtn == '2') {
-            var r = confirm('Anda yakin merubah data ini?');
-            if (r == true) {
-                ajaxUbah();
-            } else {//if(r)
-                return false;
-            }
-        } else if (aksiBtn == '3') {
-            var r = confirm('Anda yakin menghapus data ini?');
-            if (r == true) {
-                ajaxHapus();
-            } else {//if(r)
-                return false;
-            }
-        }
-        event.preventDefault();
-    });
 
 </script>
 
