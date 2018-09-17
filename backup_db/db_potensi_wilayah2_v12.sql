@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: db_potensi_wilayah2
 Target Host: localhost
 Target Database: db_potensi_wilayah2
-Date: 9/17/2018 10:25:25 PM
+Date: 9/18/2018 1:03:05 AM
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -304,7 +304,7 @@ CREATE TABLE `master_ktp_kk_temp` (
   `ibu` varchar(50) DEFAULT NULL,
   `rumah_path` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for master_layanan
@@ -460,7 +460,7 @@ CREATE TABLE `sec_menu` (
   `parent` int(11) DEFAULT '0',
   `lvl` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=218 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Table structure for sec_menu_copy
@@ -619,7 +619,7 @@ CREATE TABLE `tbl_m_pend_non_formal` (
   `instansi` varchar(50) DEFAULT NULL,
   `idsession` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_pend_non_formal`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for tbl_m_pend_non_formal_temp
@@ -634,7 +634,7 @@ CREATE TABLE `tbl_m_pend_non_formal_temp` (
   `instansi` varchar(50) DEFAULT NULL,
   `idsession` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_pend_non_formal`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for tbl_m_rumah
@@ -656,7 +656,7 @@ CREATE TABLE `tbl_m_rumah_temp` (
   `rumah_path` varchar(100) DEFAULT NULL,
   `idsession` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_ft_rumah`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for tbl_r_hub_kel
@@ -749,7 +749,7 @@ CREATE TABLE `tbl_t_bantuan_temp` (
   `create_by` varchar(50) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id_t_bantuan`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for tbl_t_difabel
@@ -946,7 +946,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- ----------------------------
 -- View structure for vw_pend_non_formal_temp
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pend_non_formal_temp` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`d`.`nama_instansi` AS `nama_instansi_bantuan`,`d`.`nama_bantuan` AS `nama_bantuan`,`d`.`tgl_bantuan` AS `tgl_bantuan` from (((`tbl_m_pend_non_formal_temp` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pend_non_formal_temp` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`d`.`nama_instansi` AS `nama_instansi_bantuan`,`d`.`nama_bantuan` AS `nama_bantuan`,`d`.`tgl_bantuan` AS `tgl_bantuan`,`e`.`nama_pend` AS `nama_pend2`,`e`.`jenis_pend` AS `jenis_pend2`,`e`.`tahun` AS `tahun2`,`e`.`ket` AS `ket2`,`e`.`instansi` AS `instansi2` from ((((`tbl_m_pend_non_formal_temp` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`))) left join `vw_pend_non_formal` `e` on((`a`.`id_ktp` = `e`.`id_ktp`)));
 
 -- ----------------------------
 -- View structure for vw_t_bantuan_temp
@@ -2214,7 +2214,7 @@ INSERT INTO `master_komunitas` VALUES ('000004', 'Komunitas Mobil Jadul', 'Nusap
 INSERT INTO `master_ktp` VALUES ('9887', 'Eko P', 'skjbdv', '2018-09-09', '0', 'O', 'bekasi', '9', '9', '5105020002', '5105020', '0', '0', '000001', '000002', '0', '', 'uploads/foto/748e299c-b515-11e8-b5ce-782bcbdbdcb7.jpg', '0', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
 INSERT INTO `master_ktp` VALUES ('998', 'hbi', 'jhvb', '2018-09-15', '1', 'A', 'bali', '8', '8', '5105020002', '5105020', '5', '3', '000004', '000003', '3', '', 'uploads/foto/e6363794-b902-11e8-b64e-782bcbdbdcb7.jpg', '0', 'c895e07b-b902-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `master_ktp_kk_temp` VALUES ('25', 'c895e07b-b902-11e8-b64e-782bcbdbdcb7', '998', 'hbi', 'jhvb', '2018-09-15', '1', 'A', 'bali', '8', '8', '5105020002', '5105020', '5', '3', '000004', '000003', '3', null, 'uploads/foto/e6363794-b902-11e8-b64e-782bcbdbdcb7.jpg', '0', '6669', '1', null, null, null, null, null);
-INSERT INTO `master_ktp_kk_temp` VALUES ('30', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7', '9887', 'Eko P', 'skjbdv', '2018-09-09', '0', 'O', 'bekasi', '9', '9', '5105020002', '5105020', '0', '0', '000001', '000002', '0', null, 'uploads/foto/748e299c-b515-11e8-b5ce-782bcbdbdcb7.jpg', '0', '999', '1', null, null, null, null, null);
+INSERT INTO `master_ktp_kk_temp` VALUES ('31', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7', '9887', 'Eko P', 'skjbdv', '2018-09-09', '0', 'O', 'bekasi', '9', '9', '5105020002', '5105020', '0', '0', '000001', '000002', '0', null, 'uploads/foto/748e299c-b515-11e8-b5ce-782bcbdbdcb7.jpg', '0', '999', '1', null, null, null, null, null);
 INSERT INTO `master_layanan` VALUES ('1', 'Cuci Setrika Biasa');
 INSERT INTO `master_layanan` VALUES ('2', 'Cuci Setrika Express');
 INSERT INTO `master_layanan` VALUES ('3', 'Setrika Aja Biasa');
@@ -2568,7 +2568,8 @@ INSERT INTO `sec_menu` VALUES ('212', 'Pekerjaan', 'master/master_pekerjaan/home
 INSERT INTO `sec_menu` VALUES ('213', 'Instansi', 'master/master_instansi/home', 'Instansi', '+2+3', '9', '207', '0');
 INSERT INTO `sec_menu` VALUES ('214', 'Bantuan', 'transaksi/trans_bantuan/home', 'Bantuan', '+2+3', '10', '64', '0');
 INSERT INTO `sec_menu` VALUES ('215', 'Report', 'laporan/lap_ktp/home', 'Laporan', '+2+3', '11', '64', '0');
-INSERT INTO `sec_menu` VALUES ('216', 'Pendidikan non formal', 'master/master_pend_non_formal/home', 'Pendidikan non formal', '+2+3', '12', '64', '0');
+INSERT INTO `sec_menu` VALUES ('216', 'Pendidikan non formal', 'master/master_pend_non_formal_2/home', 'Pendidikan non formal', '+2+3', '12', '64', '0');
+INSERT INTO `sec_menu` VALUES ('217', 'Kematian', 'master/master_kematian/home', 'Kematian', '+2+3', '13', '64', '0');
 INSERT INTO `sec_menu_copy` VALUES ('1', 'Konfigurasi', '#', '', '+1+2', '5', '0', '0');
 INSERT INTO `sec_menu_copy` VALUES ('2', 'Group User', 'admin/sec_group_user/home', 'Konfigurasi Group User', '+1+2', '1', '1', '0');
 INSERT INTO `sec_menu_copy` VALUES ('3', 'Group Menu', 'admin/konfigurasi_menu_status_user/home', 'Konfigurasi Group Menu', '+1+2', '2', '1', '0');
@@ -2738,19 +2739,18 @@ INSERT INTO `tbl_m_pend_formal_temp` VALUES ('46', '7678', '0', '', '', '', '5e5
 INSERT INTO `tbl_m_pend_formal_temp` VALUES ('100', '5543', '0', '', '', '', '061cb085-aec6-11e8-9980-782bcbdbdcb7');
 INSERT INTO `tbl_m_pend_formal_temp` VALUES ('125', '999', '0', '', '', '', 'ecc4cbec-aeb8-11e8-9980-782bcbdbdcb7');
 INSERT INTO `tbl_m_pend_formal_temp` VALUES ('126', '8998789', '0', '', '', '', 'ecc4cbec-aeb8-11e8-9980-782bcbdbdcb7');
-INSERT INTO `tbl_m_pend_non_formal` VALUES ('2', '9887', 'mesin', 'training', '2017', 'opoooo', '000002', '5e15ab65-b531-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_pend_non_formal` VALUES ('3', '9887', 'Mable', 'Workshop', '2018', 'apa aj', '000002', '5dbd51e4-ba8d-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_pend_non_formal` VALUES ('4', '998', 'Mable', 'Workshop', '2018', 'apa aj', '000002', '5dbd51e4-ba8d-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_pend_non_formal` VALUES ('6', '998', 'Masak', 'training', '2018', 'ketram[ilan', '000001', 'aee363ab-ba8d-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_pend_non_formal_temp` VALUES ('32', '9887', 'mesin', 'training', '2017', 'opoooo', '000002', '5e15ab65-b531-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_pend_non_formal_temp` VALUES ('33', '9887', 'Mable', 'Workshop', '2018', 'apa aj', '000002', '5dbd51e4-ba8d-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_pend_non_formal_temp` VALUES ('34', '998', 'Mable', 'Workshop', '2018', 'apa aj', '000002', '5dbd51e4-ba8d-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `tbl_m_pend_non_formal` VALUES ('13', '9887', 'Menjahit', 'Training', '2017', 'ooop', '000002', null);
+INSERT INTO `tbl_m_pend_non_formal` VALUES ('14', '998', 'Masak', 'Workshop', '2018', 'pppp', '000002', null);
+INSERT INTO `tbl_m_pend_non_formal` VALUES ('15', '9887', 'Gambar', 'training', '2018', 'yyyy', '000001', null);
+INSERT INTO `tbl_m_pend_non_formal_temp` VALUES ('40', '9887', 'mesin', 'training', '2017', 'opoooo', '000002', '5e15ab65-b531-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `tbl_m_pend_non_formal_temp` VALUES ('44', '9887', 'Mable', 'Workshop', '2018', 'apa aj', '000002', '5dbd51e4-ba8d-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `tbl_m_pend_non_formal_temp` VALUES ('45', '998', 'Mable', 'Workshop', '2018', 'apa aj', '000002', '5dbd51e4-ba8d-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `tbl_m_rumah` VALUES ('7', '999', 'uploads/foto/2e1a9a35-b38f-11e8-b5ce-782bcbdbdcb7.jpg', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
 INSERT INTO `tbl_m_rumah` VALUES ('8', '999', 'uploads/foto/2e3c49cf-b38f-11e8-b5ce-782bcbdbdcb7.jpg', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
 INSERT INTO `tbl_m_rumah` VALUES ('9', '6669', 'uploads/foto/c8a2760b-b902-11e8-b64e-782bcbdbdcb7.jpg', 'c895e07b-b902-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `tbl_m_rumah_temp` VALUES ('70', '6669', 'uploads/foto/c8a2760b-b902-11e8-b64e-782bcbdbdcb7.jpg', 'c895e07b-b902-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_rumah_temp` VALUES ('83', '999', 'uploads/foto/2e1a9a35-b38f-11e8-b5ce-782bcbdbdcb7.jpg', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
-INSERT INTO `tbl_m_rumah_temp` VALUES ('84', '999', 'uploads/foto/2e3c49cf-b38f-11e8-b5ce-782bcbdbdcb7.jpg', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
+INSERT INTO `tbl_m_rumah_temp` VALUES ('86', '999', 'uploads/foto/2e1a9a35-b38f-11e8-b5ce-782bcbdbdcb7.jpg', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
+INSERT INTO `tbl_m_rumah_temp` VALUES ('87', '999', 'uploads/foto/2e3c49cf-b38f-11e8-b5ce-782bcbdbdcb7.jpg', '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
 INSERT INTO `tbl_r_hub_kel` VALUES ('1', 'KEPALA KELUARGA');
 INSERT INTO `tbl_r_hub_kel` VALUES ('2', 'ISTRI');
 INSERT INTO `tbl_r_hub_kel` VALUES ('3', 'ANAK');
@@ -2778,8 +2778,8 @@ INSERT INTO `tbl_t_bantuan` VALUES ('56', '28347c80-aec7-11e8-9980-782bcbdbdcb7'
 INSERT INTO `tbl_t_bantuan` VALUES ('58', 'e5d42d66-b525-11e8-b5ce-782bcbdbdcb7', '2', '000001', '9887', '2018-09-11', 'Kursi Roda', 'Kegiatan sosial', '40', '2018-09-16 22:51:26', null, null);
 INSERT INTO `tbl_t_bantuan` VALUES ('59', 'e5d42d66-b525-11e8-b5ce-782bcbdbdcb7', '1', '000001', '998', '2018-09-11', 'Kursi Roda', 'Kegiatan sosial', '40', '2018-09-16 22:51:26', null, null);
 INSERT INTO `tbl_t_bantuan_temp` VALUES ('3', '82aea924-b52c-11e8-b5ce-782bcbdbdcb7', null, '000001', '9887', '1970-01-01', '', 'bh', '40', '2018-09-10 21:05:41');
-INSERT INTO `tbl_t_bantuan_temp` VALUES ('21', 'e5d42d66-b525-11e8-b5ce-782bcbdbdcb7', '2', '000001', '9887', '2018-09-11', 'Kursi Roda', 'Kegiatan sosial', '40', '2018-09-17 20:54:28');
-INSERT INTO `tbl_t_bantuan_temp` VALUES ('22', 'e5d42d66-b525-11e8-b5ce-782bcbdbdcb7', '1', '000001', '998', '2018-09-11', 'Kursi Roda', 'Kegiatan sosial', '40', '2018-09-17 20:54:28');
+INSERT INTO `tbl_t_bantuan_temp` VALUES ('27', 'e5d42d66-b525-11e8-b5ce-782bcbdbdcb7', '2', '000001', '9887', '2018-09-11', 'Kursi Roda', 'Kegiatan sosial', '40', '2018-09-17 23:03:32');
+INSERT INTO `tbl_t_bantuan_temp` VALUES ('28', 'e5d42d66-b525-11e8-b5ce-782bcbdbdcb7', '1', '000001', '998', '2018-09-11', 'Kursi Roda', 'Kegiatan sosial', '40', '2018-09-17 23:03:32');
 INSERT INTO `trans_kk` VALUES ('3', '999', '9887', '0', '1', null, null, null, null, null, '90b3e051-b38e-11e8-b5ce-782bcbdbdcb7');
 INSERT INTO `trans_kk` VALUES ('4', '6669', '998', '0', '1', null, null, null, null, null, 'c895e07b-b902-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `utility_db` VALUES ('1', 'backup-on-2016-06-25-07-03.sql', 'backup_db/backup-on-2016-06-25-07-03.sql', '2016-06-25', '07:03:30');

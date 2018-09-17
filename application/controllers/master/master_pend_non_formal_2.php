@@ -26,7 +26,7 @@ class Master_pend_non_formal_2 extends CI_Controller {
     }
 
     function home() {
-        $menuId = $this->home_m->get_menu_id('master/master_pend_non_formal/home');
+        $menuId = $this->home_m->get_menu_id('master/master_pend_non_formal_2/home');
         $data['menu_id'] = $menuId[0]->menu_id;
         $data['menu_parent'] = $menuId[0]->parent;
         $data['menu_nama'] = $menuId[0]->menu_nama;
