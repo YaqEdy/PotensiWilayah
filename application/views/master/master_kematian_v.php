@@ -104,5 +104,5 @@
 
 
 <?php $this->load->view('app.min.inc.php'); ?>
-<?php $this->load->view('laporan/js/lap_ktp.js.php'); ?>
+<?php $this->load->view('master/js/master_kematian.js.php'); ?>
 

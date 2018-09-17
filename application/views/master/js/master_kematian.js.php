@@ -8,41 +8,6 @@
 //Ready Doc
     btnStart();
     readyToStart();
-    // tglTransStart();
-    // $("#id_tgltrans").focus();
-    // $("#id_btnSimpan").click(function () {
-    //     $('#idTmpAksiBtn').val('1');
-    // });
-    // $('#id_btnBatal').click(function () {
-    //     resetForm();
-    //     readyToStart();
-    //     tglTransStart();
-    // });
-    function cetak(ktp) {
-        // var ktp = $('#id_ktp').val();//select2('val');
-        if (ktp==''){ktp='-';}
-            window.open("<?php echo base_url('laporan/lap_ktp/cetak/'); ?>/" + ktp , '_blank');//+ idAdvance + masterId        
-    }
-
-// function onModal(){
-//     $("#idDivSelectKTP").modal();
-// }
-
-// $('#idGridSelectPenerima').on('click', '#btnSelect', function () {
-//   $("#id_btnBatalSelect").trigger("click");
-//   var iclosestRow = $(this).closest('tr');
-//   var idata = $('#idGridSelectPenerima').row(iclosestRow).data();
-// console.log(idata);
-// //   $("#txtPid").val(idata.pid_employee);
-// //   $("#txtFname").val(idata.firstName);
-// //   $("#txtLname").val(idata.lastName);
-// });
-
-// function select(a){
-//     $("#id_ktp").val(a.id);
-//     $("#id_nama").val(a.name);
-//     $("#id_btnBatalSelect").trigger("click");
-// }
 
 //Grid penerima bantuan
 var TableManaged3 = function () {
@@ -50,7 +15,7 @@ var initTable3 = function () {
     var table3 = $('#idGridSelectPenerima');
     // begin first table
     table3.dataTable({
-        "ajax": "<?php echo base_url("/laporan/lap_ktp/getKTP"); ?>",
+        "ajax": "<?php echo base_url("/master/master_kematian/getKTP"); ?>",
         "columns": [
             {"data": "select"},
             {"data": "id_ktp"},
@@ -141,5 +106,25 @@ return {
     }
 };
 }();
+
+function wafat(iKtp){
+    $.ajax({
+        url: "<?php echo base_url("master/master_kematian/ajax_wafat"); ?>", // json datasource
+        type: "POST",
+        dataType: "json",
+        data: {sKtp:iKtp},
+        success: function (e) {
+            if (e.act == true) {
+                    UIToastr.init(e.tipePesan, e.pesan);
+                    $('#idGridSelectPenerima').DataTable().ajax.reload();
+            }else{
+                UIToastr.init(e.tipePesan, e.pesan);                    
+            }
+        },
+        complete:function(e){
+        }
+    });
+
+}
 
 </script>

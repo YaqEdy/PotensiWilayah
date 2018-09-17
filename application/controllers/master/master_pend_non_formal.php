@@ -52,7 +52,7 @@ class Master_pend_non_formal extends CI_Controller {
 
     public function getBantuanAll() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        $rows=$this->global_m->get_data("SELECT * FROM vw_pend_non_formal");
+        $rows=$this->global_m->get_data("SELECT distinct nama_pend,jenis_pend,tahun,ket,nama_instansi,idsession,instansi FROM vw_pend_non_formal");
         // $rows = $this->trans_bantuan_m->getBantuanAll();
         $data['data'] = array();
         $no=1;
@@ -64,7 +64,7 @@ class Master_pend_non_formal extends CI_Controller {
                 'tahun' => trim($row->tahun),
                 'ket' => trim($row->ket),
                 'nama_instansi' => trim($row->nama_instansi),
-                'id_pend_non_formal' => trim($row->id_pend_non_formal),
+                'id_pend_non_formal' => "",
                 'idsession' => trim($row->idsession),
                 'instansi' => trim($row->instansi),
             );
@@ -93,6 +93,8 @@ class Master_pend_non_formal extends CI_Controller {
                 'nama_ktp' => trim($row->nama_ktp),
                 'jekel' => $ijekel,
                 'tanggal_lahir' => trim($row->tanggal_lahir),
+                // 'bantuan' => "Bantuan : ".$row->nama_bantuan." Instansi : ".$row->nama_instansi_bantuan." Tanggal : ".$row->tgl_bantuan,
+                'bantuan' => "<p>Bantuan : ".$row->nama_bantuan."</p><p>Instansi : ".$row->nama_instansi_bantuan."</p><p>Tanggal : ".$row->tgl_bantuan."</p>",
                 'act' => "<button id='btnDel' onclick='del_temp(".trim($row->id_pend_non_formal).")' class='btn btn-danger btn-sm'><i class='glyphicon glyphicon-remove'></i> Delete</button>",
                 /*,
                 'alamatBantuan' => trim($row->alamat),
@@ -128,8 +130,8 @@ class Master_pend_non_formal extends CI_Controller {
 
     public function getKTP() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        // $rows = $this->trans_bantuan_m->getKtpAll();
-        $rows = $this->global_m->get_data("SELECT * from vw_t_bantuan where id_jns_bantuan=1");
+        $rows = $this->trans_bantuan_m->getKtpAll();
+        // $rows = $this->global_m->get_data("SELECT * from vw_t_bantuan where id_jns_bantuan=1");
         $data['data'] = array();
         foreach ($rows as $row) {
             if($row->jekel=='0'){

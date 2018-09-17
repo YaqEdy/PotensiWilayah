@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Lap_ktp extends CI_Controller {
+class Master_kematian extends CI_Controller {
 
     function __construct() {
         parent::__construct();
@@ -28,7 +28,7 @@ class Lap_ktp extends CI_Controller {
     }
 
     function home() {
-        $menuId = $this->home_m->get_menu_id('laporan/lap_ktp/home');
+        $menuId = $this->home_m->get_menu_id('master/master_kematian/home');
         $data['menu_id'] = $menuId[0]->menu_id;
         $data['menu_parent'] = $menuId[0]->parent;
         $data['menu_nama'] = $menuId[0]->menu_nama;
@@ -46,46 +46,27 @@ class Lap_ktp extends CI_Controller {
             $data['menu_all'] = $this->user_m->get_menu_all(0);
 
             $this->template->set('title', $data['menu_nama']);
-            $this->template->load('template/template_dataTable', 'laporan/lap_ktp_v', $data);
+            $this->template->load('template/template_dataTable', 'master/master_kematian_v', $data);
         }
     }
 
-    // function PdfCreate($data, $viewName, $createName) {
-    //     $html = $this->load->view('cetak/' . $viewName, $data, true);
-    //     $this->pdf1->pdf_create($html, $createName, true);
-    // }
-
-    // function cetak($id_ktp) {
-    //     if ($this->auth->is_logged_in() == false) {
-    //         redirect('main/index');
-    //     } else {
-    //         // $data['tglAwal'] = $tglAwal;
-    //         // $data['tglAkhir'] = $tglAkhir;
-    //         // $tglAwal = date("Y-m-d", strtotime($tglAwal));
-    //         // $tglAkhir = date("Y-m-d", strtotime($tglAkhir));
-    //         $data['po'] = $this->kedatangan_m->get_Po($tglAwal, $tglAkhir, $id_spl);
-    //         //print_r($data['stok_produk']);
-    //         $data['tgl_skrg'] = $this->session->userdata('tgl_d');
-    //         $data['header'] = 'Laporan';
-    //         //print_r($data['po']);
-    //         //$this->load->view('cetak/RekapStok_v', $data);
-    //         $this->PdfCreate($data, 'Lap_kedatangan_v', 'Lap_kedatangan_v');
-    //     }
-    // }
-
-    function cetak($id_ktp) {
-        if ($this->auth->is_logged_in() == false) {
-            redirect('main/index');
+    function ajax_wafat() {
+        $id_ktp=$this->input->post('sKtp');
+        $return = $this->global_m->query("UPDATE `master_ktp` SET `is_delete`='1' WHERE id_ktp=".$id_ktp);
+        if ($return) {
+            $array = array(
+                'act' => 1,
+                'tipePesan' => 'success',
+                'pesan' => 'Nik :'.$id_ktp.' telah meninggal.!'
+            );
         } else {
-            // $data['data_ktp'] = '';
-            $data['data_ktp'] = $this->global_m->get_data("select * from vw_t_kk where id_ktp=".$id_ktp)[0];
-            $data['komunitas'] = $this->global_m->get_data("select * from vw_komunitas where id_ktp=".$id_ktp);
-            $data['bantuan'] = $this->global_m->get_data("select * from vw_t_bantuan where id_ktp=".$id_ktp);
-            // print_r($data['data_ktp']->id_ktp);die();
-
-            $this->load->view('laporan/cetak_ktp_pdf_v.php',$data);
-            // $this->template->load('laporan/lap_ktp_v', $data);            
+            $array = array(
+                'act' => 0,
+                'tipePesan' => 'error',
+                'pesan' => 'Gagal'
+            );
         }
+        $this->output->set_output(json_encode($array));
     }
 
     public function getKTP() {
@@ -99,8 +80,7 @@ class Lap_ktp extends CI_Controller {
                 $ijekel="Wanita";                
             }
             $array = array(
-                // 'select' => "<button id='".trim($row->id_ktp)."' name='".trim($row->nama_ktp)."' onclick='select(this)' class='btn primary btn-sm'><i class='fa fa-print'></i> Cetak</button>",
-                'select' => "<button onclick='cetak(".trim($row->id_ktp).")' class='btn primary btn-sm'><i class='fa fa-print'></i> Cetak</button>",
+                'select' => ($row->is_delete==0)?"<button onclick='wafat(".trim($row->id_ktp).")' class='btn primary btn-sm'><i class='glyphicon glyphicon-remove'></i> Wafat</button>":"Wafat",
                 'id_ktp' => trim($row->id_ktp),
                 'nama_ktp' => trim($row->nama_ktp),
                 'jekel' => $ijekel,

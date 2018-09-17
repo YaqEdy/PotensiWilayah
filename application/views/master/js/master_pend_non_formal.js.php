@@ -211,6 +211,7 @@ var initTable2 = function () {
             {"data": "nama_ktp"},
             {"data": "jekel"},
             {"data": "tanggal_lahir"},
+            {"data": "bantuan"},
             {"data": "act"},
         ],
         // Internationalisation. For more info refer to http://datatables.net/manual/i18n

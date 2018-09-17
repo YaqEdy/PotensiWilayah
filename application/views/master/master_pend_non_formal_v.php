@@ -167,6 +167,9 @@
                                                         Tanggal Lahir
                                                     </th>
                                                     <th>
+                                                        Bantuan
+                                                    </th>
+                                                    <th>
                                                         Act
                                                     </th>
 
