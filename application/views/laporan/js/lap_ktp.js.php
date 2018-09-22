@@ -5,44 +5,13 @@
         TableManaged3.init();
 
     });
-//Ready Doc
+
     btnStart();
     readyToStart();
-    // tglTransStart();
-    // $("#id_tgltrans").focus();
-    // $("#id_btnSimpan").click(function () {
-    //     $('#idTmpAksiBtn').val('1');
-    // });
-    // $('#id_btnBatal').click(function () {
-    //     resetForm();
-    //     readyToStart();
-    //     tglTransStart();
-    // });
     function cetak(ktp) {
-        // var ktp = $('#id_ktp').val();//select2('val');
         if (ktp==''){ktp='-';}
             window.open("<?php echo base_url('laporan/lap_ktp/cetak/'); ?>/" + ktp , '_blank');//+ idAdvance + masterId        
     }
-
-// function onModal(){
-//     $("#idDivSelectKTP").modal();
-// }
-
-// $('#idGridSelectPenerima').on('click', '#btnSelect', function () {
-//   $("#id_btnBatalSelect").trigger("click");
-//   var iclosestRow = $(this).closest('tr');
-//   var idata = $('#idGridSelectPenerima').row(iclosestRow).data();
-// console.log(idata);
-// //   $("#txtPid").val(idata.pid_employee);
-// //   $("#txtFname").val(idata.firstName);
-// //   $("#txtLname").val(idata.lastName);
-// });
-
-// function select(a){
-//     $("#id_ktp").val(a.id);
-//     $("#id_nama").val(a.name);
-//     $("#id_btnBatalSelect").trigger("click");
-// }
 
 //Grid penerima bantuan
 var TableManaged3 = function () {

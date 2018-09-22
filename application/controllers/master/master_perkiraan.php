@@ -261,171 +261,171 @@ class Master_perkiraan extends CI_Controller {
         }
     }
 
-    function proses_upload_perkiraan() {
-        $this->load->library('upload');
-        $config['upload_path'] = './uploads/'; //path folder
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp|xls|xlsx'; //type yang dapat diakses bisa anda sesuaikan
-        $config['max_size'] = '5048'; //maksimum besar file 5M
-        $config['file_name'] = $_FILES['file_excel']['name']; //nama yang terupload nantinya
-        $this->upload->initialize($config);
+    // function proses_upload_perkiraan() {
+    //     $this->load->library('upload');
+    //     $config['upload_path'] = './uploads/'; //path folder
+    //     $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp|xls|xlsx'; //type yang dapat diakses bisa anda sesuaikan
+    //     $config['max_size'] = '5048'; //maksimum besar file 5M
+    //     $config['file_name'] = $_FILES['file_excel']['name']; //nama yang terupload nantinya
+    //     $this->upload->initialize($config);
 
-        $maxRow = str_replace(',', '', trim($this->input->post('max_row')));
-        $nama_file = $_FILES['file_excel']['name'];
-        $maxRow = $maxRow;
+    //     $maxRow = str_replace(',', '', trim($this->input->post('max_row')));
+    //     $nama_file = $_FILES['file_excel']['name'];
+    //     $maxRow = $maxRow;
 
-        //$id = $this->master_sitemap_m->getIdSitemap();
-        if ($_FILES['file_excel']['name']) {
-            if ($this->upload->do_upload('file_excel')) {
-                $gbr = $this->upload->data();
+    //     //$id = $this->master_sitemap_m->getIdSitemap();
+    //     if ($_FILES['file_excel']['name']) {
+    //         if ($this->upload->do_upload('file_excel')) {
+    //             $gbr = $this->upload->data();
 
-                $this->load->library("Excel/PHPExcel");
+    //             $this->load->library("Excel/PHPExcel");
 
-                $reader = PHPExcel_IOFactory::createReader('Excel2007');
-                $reader->setReadDataOnly(true);
-                $file_excelnya = $config['upload_path'] . $nama_file;
-                $excel = $reader->load($file_excelnya);
+    //             $reader = PHPExcel_IOFactory::createReader('Excel2007');
+    //             $reader->setReadDataOnly(true);
+    //             $file_excelnya = $config['upload_path'] . $nama_file;
+    //             $excel = $reader->load($file_excelnya);
 
-                $sheet = $excel->setActiveSheetIndex(0);
-
-
-                for ($i = 2; $i <= $maxRow; $i++):// dicetak mulai baris 3
-                    //		$no = $sheet->getCellByColumnAndRow(0, $i)->getValue();
-                    //	$tglTrans = PHPExcel_Shared_Date::ExcelToPHP($sheet->getCellByColumnAndRow(1, $i)->getValue()); //getCalculatedValue();
-                    //	$id_invoice = $sheet->getCellByColumnAndRow(0, $i)->getValue();
-                    //	$nama_invoice = $sheet->getCellByColumnAndRow(1, $i)->getValue();
-                    $userid = $this->session->userdata('id_user');
-                    $no_reg = $sheet->getCellByColumnAndRow(0, $i)->getValue();
-                    $no_fas = $sheet->getCellByColumnAndRow(1, $i)->getValue();
-                    $nama_nasabah = $sheet->getCellByColumnAndRow(2, $i)->getValue();
-                    $alamat = $sheet->getCellByColumnAndRow(3, $i)->getValue();
-                    $nilai_manfaat = $sheet->getCellByColumnAndRow(4, $i)->getValue();
-                    $premi = $sheet->getCellByColumnAndRow(5, $i)->getValue();
-                    $tipe_asuransi = $sheet->getCellByColumnAndRow(6, $i)->getValue();
-
-                    if ($sheet->getCellByColumnAndRow(5, $i)->getValue() <= 25000) {
-                        $premi_dibayar = '25000';
-                    } else {
-                        $premi_dibayar = $premi;
-                    }
-                    $tgl_mulai = $sheet->getCellByColumnAndRow(8, $i)->getValue();
-                    $jkw = $sheet->getCellByColumnAndRow(9, $i)->getValue();
-                    $kodeCabang = $sheet->getCellByColumnAndRow(11, $i)->getValue();
-                    $jumlahBulan = "+" . $jkw . " month";
-                    $tgl_akhir = date('Y-m-d', strtotime($jumlahBulan, strtotime($tgl_mulai)));
-                    //	$ = $sheet->getCellByColumnAndRow(8, $i)->getValue();
-                    $no_invoice = $sheet->getCellByColumnAndRow(15, $i)->getValue();
-                    $tgl_invoice = $sheet->getCellByColumnAndRow(13, $i)->getValue();
-                    $tgl_input = $sheet->getCellByColumnAndRow(7, $i)->getValue();
-                    $Cabang = $this->data_cabang_m->getCabangInfoByKodeCabang($kodeCabang);
-                    foreach ($Cabang as $row) {
-                        $kode_group = $row->kodeGroup;
-                        $kode_unit = $row->kodeCabang;
-                    }
+    //             $sheet = $excel->setActiveSheetIndex(0);
 
 
-                    //	$tglTrans	= date('Y-m-d', trim($tglTrans));
-                    if ($this->data_invoice_m->cekNoInvoice($no_invoice) == true) {
-                        // Jika No Invoice sudah maka akan menambah di tabel transaksi detail saja 
-                        //	$tglTrans 	= date('Y-m-d', strtotime($tgl_invoice));
-                        //	$bulan = date('m', strtotime($tglTrans));//$tglTrans->format("m");
-                        //	$tahun = date('Y', strtotime($tglTrans)); //$tglTrans->format("Y");
-                        //	$tglTrans 	= date('Y-m-d', strtotime($tgl_invoice));
-                        $bulan = date('m'); //$tglTrans->format("m");
-                        $tahun = date('Y'); //$tglTrans->format("Y");
+    //             for ($i = 2; $i <= $maxRow; $i++):// dicetak mulai baris 3
+    //                 //		$no = $sheet->getCellByColumnAndRow(0, $i)->getValue();
+    //                 //	$tglTrans = PHPExcel_Shared_Date::ExcelToPHP($sheet->getCellByColumnAndRow(1, $i)->getValue()); //getCalculatedValue();
+    //                 //	$id_invoice = $sheet->getCellByColumnAndRow(0, $i)->getValue();
+    //                 //	$nama_invoice = $sheet->getCellByColumnAndRow(1, $i)->getValue();
+    //                 $userid = $this->session->userdata('id_user');
+    //                 $no_reg = $sheet->getCellByColumnAndRow(0, $i)->getValue();
+    //                 $no_fas = $sheet->getCellByColumnAndRow(1, $i)->getValue();
+    //                 $nama_nasabah = $sheet->getCellByColumnAndRow(2, $i)->getValue();
+    //                 $alamat = $sheet->getCellByColumnAndRow(3, $i)->getValue();
+    //                 $nilai_manfaat = $sheet->getCellByColumnAndRow(4, $i)->getValue();
+    //                 $premi = $sheet->getCellByColumnAndRow(5, $i)->getValue();
+    //                 $tipe_asuransi = $sheet->getCellByColumnAndRow(6, $i)->getValue();
 
-                        $id_invoice = $this->data_invoice_m->getIdInvoiceBeforeByNoInvoice($no_invoice, $bulan, $tahun); // 0000 0003
-                        $id_trans_invoice = $this->data_trans_invoice_m->getIdTransInvoice($bulan, $tahun, $id_invoice); //002
-                        $Invoice = $this->data_invoice_m->getAllInvoiceByIdInvoice($id_invoice);
+    //                 if ($sheet->getCellByColumnAndRow(5, $i)->getValue() <= 25000) {
+    //                     $premi_dibayar = '25000';
+    //                 } else {
+    //                     $premi_dibayar = $premi;
+    //                 }
+    //                 $tgl_mulai = $sheet->getCellByColumnAndRow(8, $i)->getValue();
+    //                 $jkw = $sheet->getCellByColumnAndRow(9, $i)->getValue();
+    //                 $kodeCabang = $sheet->getCellByColumnAndRow(11, $i)->getValue();
+    //                 $jumlahBulan = "+" . $jkw . " month";
+    //                 $tgl_akhir = date('Y-m-d', strtotime($jumlahBulan, strtotime($tgl_mulai)));
+    //                 //	$ = $sheet->getCellByColumnAndRow(8, $i)->getValue();
+    //                 $no_invoice = $sheet->getCellByColumnAndRow(15, $i)->getValue();
+    //                 $tgl_invoice = $sheet->getCellByColumnAndRow(13, $i)->getValue();
+    //                 $tgl_input = $sheet->getCellByColumnAndRow(7, $i)->getValue();
+    //                 $Cabang = $this->data_cabang_m->getCabangInfoByKodeCabang($kodeCabang);
+    //                 foreach ($Cabang as $row) {
+    //                     $kode_group = $row->kodeGroup;
+    //                     $kode_unit = $row->kodeCabang;
+    //                 }
 
-                        foreach ($Invoice as $row) {
-                            $data_total_premi = $row->total_premi + $premi;
-                            $data_total_manfaat = $row->total_manfaat + $nilai_manfaat;
-                            $data_total_premi_dibayar = $row->total_premi_dibayar + $premi_dibayar;
-                        }
-                        $dataInvoice = array(
-                            'total_premi' => trim($data_total_premi),
-                            'total_premi_dibayar' => trim($data_total_premi_dibayar),
-                            'total_manfaat' => trim($data_total_manfaat),
-                        );
-                        $this->data_invoice_m->updateInvoice($dataInvoice, $id_invoice);
-                        echo "<br>" . $i . "Ada " . $premi . " | " . $id_invoice . " | " . $premi_dibayar;
-                        echo '<br>';
-                        $dataTransInvoice = array(
-                            'id_trans_invoice' => trim($id_trans_invoice),
-                            'id_invoice' => trim($id_invoice),
-                            'no_invoice' => trim($no_invoice),
-                            'no_reg' => trim($no_reg),
-                            'no_fas' => trim($no_fas),
-                            'nama' => trim($nama_nasabah),
-                            'alamat' => trim($alamat),
-                            'nilai_manfaat' => trim($nilai_manfaat),
-                            'premi' => trim($premi),
-                            'tipe_asuransi' => trim($tipe_asuransi),
-                            'premi_dibayar' => trim($premi_dibayar),
-                            'tgl_mulai' => trim($tgl_mulai),
-                            'jkw' => trim($jkw),
-                            'kode_group' => trim($kode_group),
-                            'kode_unit' => trim($kode_unit),
-                            'tgl_akhir' => trim($tgl_akhir)
-                        );
-                        $this->data_trans_invoice_m->insertTransInvoice($dataTransInvoice);
-                    } else {
-                        //$tglTrans 	= trim($this->input->post('tglTrans'));
-                        $bulan = date('m'); //$tglTrans->format("m");
-                        $tahun = date('Y'); //$tglTrans->format("Y");
-                        $id_invoice = $this->data_invoice_m->getIdInvoice($bulan, $tahun);
 
-                        $dataInvoice = array(
-                            'id_invoice' => trim($id_invoice),
-                            'no_invoice' => trim($no_invoice),
-                            'tgl_invoice' => trim($tgl_invoice),
-                            'kode_grup' => trim($kode_group),
-                            'total_premi' => trim($premi),
-                            'total_premi_dibayar' => trim($premi_dibayar),
-                            'total_manfaat' => trim($nilai_manfaat),
-                            'userid' => trim($userid),
-                            'tgl_input' => trim($tgl_input)
-                        );
-                        $this->data_invoice_m->insertInvoice($dataInvoice);
-                        $id_trans_invoice = $this->data_trans_invoice_m->getIdTransInvoice($bulan, $tahun, $id_invoice);
-                        $dataTransInvoice = array(
-                            'id_trans_invoice' => trim($id_trans_invoice),
-                            'id_invoice' => trim($id_invoice),
-                            'no_invoice' => trim($no_invoice),
-                            'no_reg' => trim($no_reg),
-                            'no_fas' => trim($no_fas),
-                            'nama' => trim($nama_nasabah),
-                            'alamat' => trim($alamat),
-                            'nilai_manfaat' => trim($nilai_manfaat),
-                            'premi' => trim($premi),
-                            'tipe_asuransi' => trim($tipe_asuransi),
-                            'premi_dibayar' => trim($premi_dibayar),
-                            'tgl_mulai' => trim($tgl_mulai),
-                            'jkw' => trim($jkw),
-                            'kode_group' => trim($kode_group),
-                            'kode_unit' => trim($kode_unit),
-                            'tgl_akhir' => trim($tgl_akhir)
-                        );
-                        $this->data_trans_invoice_m->insertTransInvoice($dataTransInvoice);
-                        echo "<br>" . $i . "Tidka " . $premi . " | " . $id_invoice . " | " . $premi_dibayar;
-                        echo '<br>';
-                    }
+    //                 //	$tglTrans	= date('Y-m-d', trim($tglTrans));
+    //                 if ($this->data_invoice_m->cekNoInvoice($no_invoice) == true) {
+    //                     // Jika No Invoice sudah maka akan menambah di tabel transaksi detail saja 
+    //                     //	$tglTrans 	= date('Y-m-d', strtotime($tgl_invoice));
+    //                     //	$bulan = date('m', strtotime($tglTrans));//$tglTrans->format("m");
+    //                     //	$tahun = date('Y', strtotime($tglTrans)); //$tglTrans->format("Y");
+    //                     //	$tglTrans 	= date('Y-m-d', strtotime($tgl_invoice));
+    //                     $bulan = date('m'); //$tglTrans->format("m");
+    //                     $tahun = date('Y'); //$tglTrans->format("Y");
 
-                    //$this->data_invoice_m->insertInvoice($data);
-                    //	echo $nama_invoice;
-                endfor;
-                break;
-                unlink($file_excelnya);
+    //                     $id_invoice = $this->data_invoice_m->getIdInvoiceBeforeByNoInvoice($no_invoice, $bulan, $tahun); // 0000 0003
+    //                     $id_trans_invoice = $this->data_trans_invoice_m->getIdTransInvoice($bulan, $tahun, $id_invoice); //002
+    //                     $Invoice = $this->data_invoice_m->getAllInvoiceByIdInvoice($id_invoice);
 
-                $this->session->set_flashdata('success', 'Data pembayaran telah selesai diupload');
-                redirect('data_invoice/home');
-            } else {
-                $this->session->set_flashdata('error', $this->upload->display_errors());
-                redirect('data_invoice/home');
-            }
-        }
-        //$this->output->set_output(json_encode($array));
-    }
+    //                     foreach ($Invoice as $row) {
+    //                         $data_total_premi = $row->total_premi + $premi;
+    //                         $data_total_manfaat = $row->total_manfaat + $nilai_manfaat;
+    //                         $data_total_premi_dibayar = $row->total_premi_dibayar + $premi_dibayar;
+    //                     }
+    //                     $dataInvoice = array(
+    //                         'total_premi' => trim($data_total_premi),
+    //                         'total_premi_dibayar' => trim($data_total_premi_dibayar),
+    //                         'total_manfaat' => trim($data_total_manfaat),
+    //                     );
+    //                     $this->data_invoice_m->updateInvoice($dataInvoice, $id_invoice);
+    //                     echo "<br>" . $i . "Ada " . $premi . " | " . $id_invoice . " | " . $premi_dibayar;
+    //                     echo '<br>';
+    //                     $dataTransInvoice = array(
+    //                         'id_trans_invoice' => trim($id_trans_invoice),
+    //                         'id_invoice' => trim($id_invoice),
+    //                         'no_invoice' => trim($no_invoice),
+    //                         'no_reg' => trim($no_reg),
+    //                         'no_fas' => trim($no_fas),
+    //                         'nama' => trim($nama_nasabah),
+    //                         'alamat' => trim($alamat),
+    //                         'nilai_manfaat' => trim($nilai_manfaat),
+    //                         'premi' => trim($premi),
+    //                         'tipe_asuransi' => trim($tipe_asuransi),
+    //                         'premi_dibayar' => trim($premi_dibayar),
+    //                         'tgl_mulai' => trim($tgl_mulai),
+    //                         'jkw' => trim($jkw),
+    //                         'kode_group' => trim($kode_group),
+    //                         'kode_unit' => trim($kode_unit),
+    //                         'tgl_akhir' => trim($tgl_akhir)
+    //                     );
+    //                     $this->data_trans_invoice_m->insertTransInvoice($dataTransInvoice);
+    //                 } else {
+    //                     //$tglTrans 	= trim($this->input->post('tglTrans'));
+    //                     $bulan = date('m'); //$tglTrans->format("m");
+    //                     $tahun = date('Y'); //$tglTrans->format("Y");
+    //                     $id_invoice = $this->data_invoice_m->getIdInvoice($bulan, $tahun);
+
+    //                     $dataInvoice = array(
+    //                         'id_invoice' => trim($id_invoice),
+    //                         'no_invoice' => trim($no_invoice),
+    //                         'tgl_invoice' => trim($tgl_invoice),
+    //                         'kode_grup' => trim($kode_group),
+    //                         'total_premi' => trim($premi),
+    //                         'total_premi_dibayar' => trim($premi_dibayar),
+    //                         'total_manfaat' => trim($nilai_manfaat),
+    //                         'userid' => trim($userid),
+    //                         'tgl_input' => trim($tgl_input)
+    //                     );
+    //                     $this->data_invoice_m->insertInvoice($dataInvoice);
+    //                     $id_trans_invoice = $this->data_trans_invoice_m->getIdTransInvoice($bulan, $tahun, $id_invoice);
+    //                     $dataTransInvoice = array(
+    //                         'id_trans_invoice' => trim($id_trans_invoice),
+    //                         'id_invoice' => trim($id_invoice),
+    //                         'no_invoice' => trim($no_invoice),
+    //                         'no_reg' => trim($no_reg),
+    //                         'no_fas' => trim($no_fas),
+    //                         'nama' => trim($nama_nasabah),
+    //                         'alamat' => trim($alamat),
+    //                         'nilai_manfaat' => trim($nilai_manfaat),
+    //                         'premi' => trim($premi),
+    //                         'tipe_asuransi' => trim($tipe_asuransi),
+    //                         'premi_dibayar' => trim($premi_dibayar),
+    //                         'tgl_mulai' => trim($tgl_mulai),
+    //                         'jkw' => trim($jkw),
+    //                         'kode_group' => trim($kode_group),
+    //                         'kode_unit' => trim($kode_unit),
+    //                         'tgl_akhir' => trim($tgl_akhir)
+    //                     );
+    //                     $this->data_trans_invoice_m->insertTransInvoice($dataTransInvoice);
+    //                     echo "<br>" . $i . "Tidka " . $premi . " | " . $id_invoice . " | " . $premi_dibayar;
+    //                     echo '<br>';
+    //                 }
+
+    //                 //$this->data_invoice_m->insertInvoice($data);
+    //                 //	echo $nama_invoice;
+    //             endfor;
+    //             break;
+    //             unlink($file_excelnya);
+
+    //             $this->session->set_flashdata('success', 'Data pembayaran telah selesai diupload');
+    //             redirect('data_invoice/home');
+    //         } else {
+    //             $this->session->set_flashdata('error', $this->upload->display_errors());
+    //             redirect('data_invoice/home');
+    //         }
+    //     }
+    //     //$this->output->set_output(json_encode($array));
+    // }
 
 }
 

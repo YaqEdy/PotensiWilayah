@@ -1,5 +1,6 @@
 <script>
 var table;
+var iPID="0";
     jQuery(document).ready(function () {
         ComponentsDateTimePickers.init();
         TableManaged.init();
@@ -146,31 +147,6 @@ var table;
         };
     }();
 
-    // getDetailBantuan(idSession,tglBantuan,idinstansi,iBantuan,iKet);
-
-// function getDetailBantuan(a,itahun,idinstansi,iNamaPend,iJnsPend,iKet){
-// // console.log(itahun,'-',idinstansi,'-',iNamaPend,'-',iJnsPend,'-',iKet)
-//     $.ajax({
-//         url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_detail"); ?>", // json datasource
-//         type: "POST",
-//         dataType: "json",
-//         data: {sSes:a},
-//         success: function (e) {
-//             if (e.act == true) {
-//                 iPID=e.iPid;
-//                 $('#idGridPenerima').DataTable().ajax.reload();
-//                 $('#id_nama_pend').val(iNamaPend);
-//                 $('#id_jns_pend').val(iJnsPend);
-//                 $('#id_tahun').val(itahun);
-//                 $('#id_instansi').select2('val',idinstansi);
-//                 $('#id_ket').val(iKet);
-//             }
-//         },
-//         complete:function(e){
-//         }
-//     });    
-// }
-
 $("#navitab_2_2").click(function(){
     iPID="0";
     $('#idSave').attr('disabled', true);
@@ -293,27 +269,6 @@ return {
     }
 };
 }();
-
-// function del_temp(a){
-//     $.ajax({
-//         url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_delTemp"); ?>", // json datasource
-//         type: "POST",
-//         dataType: "json",
-//         data: {sId:a,sPID:iPID},
-//         success: function (e) {
-//             if (e.act == true) {
-//                     UIToastr.init(e.tipePesan, e.pesan);
-//                     iPID=e.iPid;
-//                     $('#idGridPenerima').DataTable().ajax.reload();
-//             }else{
-//                 UIToastr.init(e.tipePesan, e.pesan);                    
-//                 iPID="";
-//             }
-//         },
-//         complete:function(e){
-//         }
-//     });    
-// }
 
 function save(){ 
     $.ajax({
@@ -443,64 +398,6 @@ return {
     }
 };
 }();
-
-var iPID="0";
-// function select(a){
-//     $('#idAddPeserta').attr('disabled', true);
-//     $("#id_btnBatalSelect").trigger("click");
-//     $.ajax({
-//         url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_saveSelect"); ?>", // json datasource
-//         type: "POST",
-//         dataType: "json",
-//         data: {sKtp:a,sNamaPend:$("#id_nama_pend").val(),sInstansi:$("#id_instansi").val(),sJnsPend:$("#id_jns_pend").val(),sKet:$("#id_ket").val(),sTahun:$("#id_tahun").val(),sPID:iPID},
-//         success: function (e) {
-//             if (e.act == true) {
-//                     UIToastr.init(e.tipePesan, e.pesan);
-//                     iPID=e.iPid;
-//                     $('#idGridPenerima').DataTable().ajax.reload();
-//             }else{
-//                 UIToastr.init(e.tipePesan, e.pesan);                    
-//                 iPID="";
-//             }
-//         },
-//         complete:function(e){
-//         }
-//     });
-// }
-
-// function simpanBantuan(){
-//     var r = confirm('Anda yakin menyimpan data ini?');
-//         if (r == true) {
-//             $.ajax({
-//                 url: "<?php echo base_url("master/master_pend_non_formal_2/ajax_simpanBantuan"); ?>", // json datasource
-//                 type: "POST",
-//                 dataType: "json",
-//                 data: {sPID:iPID,sNamaPend:$("#id_nama_pend").val(),sInstansi:$("#id_instansi").val(),sJnsPend:$("#id_jns_pend").val(),sKet:$("#id_ket").val(),sTahun:$("#id_tahun").val()},
-//                 success: function (e) {
-//                     if (e.act == true) {
-//                             UIToastr.init(e.tipePesan, e.pesan);
-//                             // $('#idGridPenerima').DataTable().ajax.reload();
-//                             $('#idTabelBantuan').DataTable().ajax.reload();
-//                             $("#navitab_2_1").trigger('click');
-//                     }else{
-//                         UIToastr.init(e.tipePesan, e.pesan);                    
-//                     }
-//                 },
-//                 complete:function(e){
-//                 }
-//             });
-//         } else {
-//             return false;
-//         }
-// }
-
-
-
-
-
-
-
-
 
 
 //end dipakai

@@ -8,6 +8,8 @@ error_reporting(0);
         <link href="<?php echo base_url('metronic/global/plugins/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
         <title>Report</title>
     </head>
+    <center><h2>Form Data Personal</h2></center>
+    <br>
     <body class="tabel">
                 <table width="100%" border=0>
                     <tr>
@@ -18,7 +20,7 @@ error_reporting(0);
                         <p><?php echo $data_ktp->id_ktp; ?></p>
                         </td>
                         <td rowspan="17" valign="top" style="text-align:center">
-                            <img src="<?= site_url().$data_ktp->link_gambar; ?>" id="gambar_foto_ktp" alt="" />    
+                            <img src="<?= site_url().$data_ktp->link_gambar; ?>" id="gambar_foto_ktp" alt="" style="border: 1px #000  solid; padding: 15px;"/>    
                         </td>
                     </tr>
                     <tr>

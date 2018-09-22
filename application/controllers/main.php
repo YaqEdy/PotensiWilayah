@@ -38,10 +38,14 @@ class Main extends CI_Controller {
     }
     public function dashboard() {
         
-           $data['db_total'] = $this->dashboard_m->get_db_total();
-            $this->template->set('title', 'SIM PW | Beranda');
-            $this->template->set('title', 'Home');
-            $this->template->load('template/template_db', 'dashboardpw_v', $data);
+        //    $data['db_total'] = $this->dashboard_m->get_db_total();
+           $data['jml_penduduk'] = $this->global_m->get_data("select xfn_jml_penduduk() as jml")[0]->jml;
+           $data['jml_pria'] = $this->global_m->get_data("select xfn_jml_jekel(0) as jml")[0]->jml;
+           $data['jml_wanita'] = $this->global_m->get_data("select xfn_jml_jekel(1) as jml")[0]->jml;
+           $data['jml_kk'] = $this->global_m->get_data("select xfn_jml_kk() as jml")[0]->jml;
+           $this->template->set('title', 'SIPWY | Beranda');
+           $this->template->set('title', 'Home');
+           $this->template->load('template/template_db', 'dashboardpw_v', $data);
         
     }
     public function getJenkel() {

@@ -10,7 +10,6 @@ class Lap_ktp extends CI_Controller {
 
         $this->load->model('home_m');
         $this->load->model('global_m');
-        $this->load->model('laporan/kedatangan_m');
         $this->load->model('transaksi/trans_bantuan_m');
         $this->load->library('pdf1');
         session_start();
@@ -50,41 +49,15 @@ class Lap_ktp extends CI_Controller {
         }
     }
 
-    // function PdfCreate($data, $viewName, $createName) {
-    //     $html = $this->load->view('cetak/' . $viewName, $data, true);
-    //     $this->pdf1->pdf_create($html, $createName, true);
-    // }
-
-    // function cetak($id_ktp) {
-    //     if ($this->auth->is_logged_in() == false) {
-    //         redirect('main/index');
-    //     } else {
-    //         // $data['tglAwal'] = $tglAwal;
-    //         // $data['tglAkhir'] = $tglAkhir;
-    //         // $tglAwal = date("Y-m-d", strtotime($tglAwal));
-    //         // $tglAkhir = date("Y-m-d", strtotime($tglAkhir));
-    //         $data['po'] = $this->kedatangan_m->get_Po($tglAwal, $tglAkhir, $id_spl);
-    //         //print_r($data['stok_produk']);
-    //         $data['tgl_skrg'] = $this->session->userdata('tgl_d');
-    //         $data['header'] = 'Laporan';
-    //         //print_r($data['po']);
-    //         //$this->load->view('cetak/RekapStok_v', $data);
-    //         $this->PdfCreate($data, 'Lap_kedatangan_v', 'Lap_kedatangan_v');
-    //     }
-    // }
-
     function cetak($id_ktp) {
         if ($this->auth->is_logged_in() == false) {
             redirect('main/index');
         } else {
-            // $data['data_ktp'] = '';
             $data['data_ktp'] = $this->global_m->get_data("select * from vw_t_kk where id_ktp=".$id_ktp)[0];
             $data['komunitas'] = $this->global_m->get_data("select * from vw_komunitas where id_ktp=".$id_ktp);
             $data['bantuan'] = $this->global_m->get_data("select * from vw_t_bantuan where id_ktp=".$id_ktp);
-            // print_r($data['data_ktp']->id_ktp);die();
 
             $this->load->view('laporan/cetak_ktp_pdf_v.php',$data);
-            // $this->template->load('laporan/lap_ktp_v', $data);            
         }
     }
 
@@ -105,9 +78,6 @@ class Lap_ktp extends CI_Controller {
                 'nama_ktp' => trim($row->nama_ktp),
                 'jekel' => $ijekel,
                 'tanggal_lahir' => trim($row->tanggal_lahir),
-                /*,
-                'alamatBantuan' => trim($row->alamat),
-                'telpBantuan' => trim($row->telp)*/
             );
 
             array_push($data['data'], $array);

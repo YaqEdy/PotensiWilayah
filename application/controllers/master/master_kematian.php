@@ -10,7 +10,6 @@ class Master_kematian extends CI_Controller {
 
         $this->load->model('home_m');
         $this->load->model('global_m');
-        $this->load->model('laporan/kedatangan_m');
         $this->load->model('transaksi/trans_bantuan_m');
         $this->load->library('pdf1');
         session_start();

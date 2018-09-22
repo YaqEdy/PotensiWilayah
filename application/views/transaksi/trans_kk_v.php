@@ -381,15 +381,14 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Agama</label>
-                                                <select name="agama" id="id_agama" class="select2me">
-                                                    <option value="">--Pilih--</option>
-                                                    <option value="0">Islam</option>
-                                                    <option value="1">Khatolik</option>
-                                                    <option value="2">Kristen</option>
-                                                    <option value="3">Hindu</option>
-                                                    <option value="4">Budha</option>
-                                                    <option value="5">Lain-lain</option>
-                                                </select>
+                                                <?php
+                                                $data = array();
+                                                $data[''] = '';
+                                                foreach ($agama as $row) :
+                                                    $data[$row['id_agama']] = $row['nama_agama'];
+                                                endforeach;
+                                                echo form_dropdown('agama', $data, '', ' id="id_agama" class="form-control input-sm select2me "');
+                                                ?>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Status Kawin</label>
