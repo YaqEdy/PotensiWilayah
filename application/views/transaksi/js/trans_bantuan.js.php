@@ -453,7 +453,7 @@ function simpanBantuan(){
                 url: "<?php echo base_url("transaksi/trans_bantuan/ajax_simpanBantuan"); ?>", // json datasource
                 type: "POST",
                 dataType: "json",
-                data: {sPID:iPID,sBantuan:$("#id_bantuan").val(),sInstansi:$("#id_instansi").val(),sTgl:$("#id_tgl_bantuan").val(),sKet:$("#id_ket").val()},
+                data: {sPID:iPID,sBantuan:$("#id_bantuan").val(),sjns_bantuan:$("#id_jns_bantuan").val(),sInstansi:$("#id_instansi").val(),sTgl:$("#id_tgl_bantuan").val(),sKet:$("#id_ket").val()},
                 success: function (e) {
                     if (e.act == true) {
                             UIToastr.init(e.tipePesan, e.pesan);

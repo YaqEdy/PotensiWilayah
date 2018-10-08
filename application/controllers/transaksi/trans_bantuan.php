@@ -179,7 +179,7 @@ class Trans_bantuan extends CI_Controller {
                 'ket' => $iKet,
                 'create_by' => $this->session->userdata('id_user'),
                 'create_date' => date('Y-m-d H:i:s')
-            );    
+            );   
             $model = $this->global_m->simpan('tbl_t_bantuan_temp',$data);            
             $itipePesan='success';
             $ipesan='Peserta berhasil dipilih.';
@@ -217,7 +217,7 @@ class Trans_bantuan extends CI_Controller {
         $idate=date('Y-m-d H:i:s');
 
         // print_r($iBantuan);die();
-        $model = $this->trans_bantuan_m->query("CALL zsp_simpan_bantuan('".$iUser."','".$iPid."','".$iBantuan."','".$iInstansi."','".$iTgl."','".$iKet."')");
+        $model = $this->trans_bantuan_m->query("CALL zsp_simpan_bantuan('".$iUser."','".$iPid."','".$ijns_bantuan."','".$iBantuan."','".$iInstansi."','".$iTgl."','".$iKet."')");
         if ($model) {
             $array = array(
                 'act' => true,

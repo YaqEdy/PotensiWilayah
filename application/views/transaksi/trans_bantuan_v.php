@@ -111,7 +111,7 @@
                                 <div class="form-body">
                                 <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Instansi</label>
+                                            <label>Jenis Bantuan</label>
                                             <?php
                                             $data = array();
                                             $data[''] = '';
