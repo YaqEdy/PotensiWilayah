@@ -109,9 +109,6 @@ class Master_jeniskomunitas extends CI_Controller {
         $namaJeniskomunitas = trim($this->input->post('namaJeniskomunitas'));
         $data = array(
             'nama_jeniskomunitas' => $namaJeniskomunitas,
-            'alamat' => $alamat,
-            'telp' => $telp,
-            'npwp' => $npwp
         );
 
         $model = $this->master_jeniskomunitas_m->update($data, $jeniskomunitasId);

@@ -28,7 +28,7 @@ class Master_jeniskomunitas_m extends CI_Model {
 	}
 	public function getDescJeniskomunitas($idJeniskomunitas)
 	{
-		$this->db->select ( 's.nama_jeniskomunitas, s.alamat, s.telp, s.npwp ' );
+		$this->db->select ( 's.nama_jeniskomunitas, s.id_jeniskomunitas ' );
 		$this->db->from('master_jeniskomunitas s');
 		$this->db->where ( 's.id_jeniskomunitas', $idJeniskomunitas);
 		$query = $this->db->get ();
