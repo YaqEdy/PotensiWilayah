@@ -13,9 +13,9 @@
                     <span class="caption-subject font-blue-chambray bold uppercase"><?php echo $menu_header; ?></span>
                 </div>
                 <div class="actions">
-                    <a href="javascript:;" class="btn btn-default btn-sm" onclick="download_excel();">
+                    <a href="<?php echo base_url("/laporan/lap_ktp/download_excel"); ?>" class="btn btn-default btn-sm">
                         <i class="fa fa-file-excel-o"></i> Download Excel </a>
-                    <a href="javascript:;" class="btn btn-default btn-sm" onclick="cetakall();">
+                    <a href="javascript:;" class="btn btn-default btn-sm" onclick="cetakall()">
                         <i class="fa fa-print"></i> Cetak All </a>
                     <a class="btn btn-icon-only btn-default btn-sm fullscreen" href="javascript:;"
                        data-original-title="" title="">

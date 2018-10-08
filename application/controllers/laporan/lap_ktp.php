@@ -69,7 +69,7 @@ class Lap_ktp extends CI_Controller {
             $this->load->view('laporan/cetak_ktp_pdf_all_v.php',$data);
         }
     }
-
+    
     public function download_excel() {
         $this->load->helper('download');
         $this->load->library('excel/phpexcel');

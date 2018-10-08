@@ -18,19 +18,6 @@
             window.open("<?php echo base_url('laporan/lap_ktp/cetakall/'); ?>", '_blank');//+ idAdvance + masterId        
     }
 
-    function download_excel(){
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "<?php echo base_url(); ?>laporan/lap_ktp/download_excel",
-            // data: {id_t_bantuan: id_t_bantuan},
-            success: function (data) {
-                // UIToastr.init(data.tipePesan, data.pesan);
-            }
-
-        });
-    }
-
 
 //Grid penerima bantuan
 var TableManaged3 = function () {
