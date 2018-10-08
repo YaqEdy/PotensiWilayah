@@ -54,6 +54,7 @@ class Lap_kk extends CI_Controller {
             redirect('main/index');
         } else {
             $data['data_kk'] = $this->global_m->get_data("SELECT * from vw_t_kk where id_master_kk='".$id_kk."'")[0];
+            $data['data_kk2'] = $this->global_m->get_data("SELECT * from vw_t_kk where id_master_kk='".$id_kk."'");
             $this->load->view('laporan/cetak_kk_pdf_v.php',$data);
         }
     }

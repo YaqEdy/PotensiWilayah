@@ -12,7 +12,7 @@ class Trans_bantuan_m extends CI_Model {
 	}
 	public function getKtpAll()
 	{
-		$sql="SELECT * from master_ktp ";
+		$sql="SELECT id_ktp,nama_ktp,jekel,date_format(tanggal_lahir,'%d-%m-%Y') as tanggal_lahir,is_delete FROM master_ktp";
 		$query=$this->db->query($sql);
 		return $query->result(); // returning rows, not row
 	}

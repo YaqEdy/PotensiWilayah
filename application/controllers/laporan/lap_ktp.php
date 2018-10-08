@@ -126,7 +126,7 @@ class Lap_ktp extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('F' . $counter, $key->nama_jekel);
             $objPHPExcel->getActiveSheet()->setCellValue('G' . $counter, $key->nama_agama);
             $objPHPExcel->getActiveSheet()->setCellValue('H' . $counter, $key->gol_darah);
-            $objPHPExcel->getActiveSheet()->setCellValue('I' . $counter, $key->pendidikan);
+            $objPHPExcel->getActiveSheet()->setCellValue('I' . $counter, $key->nama_pend);
             $objPHPExcel->getActiveSheet()->setCellValue('J' . $counter, $key->alamat);
             $objPHPExcel->getActiveSheet()->setCellValue('K' . $counter, $key->rt);
             $objPHPExcel->getActiveSheet()->setCellValue('L' . $counter, $key->rw);

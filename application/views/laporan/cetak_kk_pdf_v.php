@@ -22,7 +22,7 @@ error_reporting(0);
                 <table width="100%" border=0>
                     
                     <tr>
-                        <td>
+                        <td width="20%">
                         <label>No KK</label>
                         </td>
                         <td>
@@ -31,41 +31,6 @@ error_reporting(0);
                     </tr>
                     <tr>
                         <td width="20%">
-                        <label>NIK</label>
-                        </td>
-                        <td width="50%">
-                        <p><?php echo $data_kk->id_ktp; ?></p>
-                        </td>
-                        <!-- <td rowspan="17" valign="top" style="text-align:center">
-                            <img src="<?= site_url().$data_kk->link_gambar; ?>" id="gambar_foto_ktp" alt="" style="border: 1px #000  solid; padding: 15px;"/>    
-                        </td> -->
-                    </tr>
-                    <tr>
-                        <td>
-                        <label>Nama</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_ktp; ?></p>
-                        </td>
-                    </tr>
-                    <!-- <tr>
-                        <td>
-                        <label>Tempat lahir</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->tempat_lahir; ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <label>Tanggal lahir</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->tanggal_lahir; ?></p>
-                        </td>
-                    </tr> -->
-                    <tr>
-                        <td>
                         <label>Alamat</label>
                         </td>
                         <td>
@@ -73,7 +38,7 @@ error_reporting(0);
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td width="20%">
                         <label>Rt</label>
                         </td>
                         <td>
@@ -81,7 +46,7 @@ error_reporting(0);
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td width="20%">
                         <label>Rw</label>
                         </td>
                         <td>
@@ -89,7 +54,7 @@ error_reporting(0);
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td width="20%">
                         <label>Kelurahan</label>
                         </td>
                         <td>
@@ -97,75 +62,73 @@ error_reporting(0);
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td width="20%">
                         <label>Kecamatan</label>
                         </td>
                         <td>
                         <p><?php echo $data_kk->nama_kec; ?></p>
                         </td>
                     </tr>
-                    <!-- <tr>
-                        <td>
-                        <label>Jenis kelamin</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_jekel; ?></p>
-                        </td>
+                    <tr>
+                        <td colspan=3>&nbsp;</td>
                     </tr>
+
                     <tr>
-                        <td>
-                        <label>Gol darah</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->gol_darah; ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <label>Agama</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_agama; ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <label>Status kawin</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_nikah; ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <label>Pekerjaan</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_pekerjaan; ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <label>Difabel</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_difabel; ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <label>Pendidikan</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_pend; ?></p>
-                        </td>
-                    </tr> -->
-                    <tr>
-                        <td>
-                        <label>Hubungan keluarga</label>
-                        </td>
-                        <td>
-                        <p><?php echo $data_kk->nama_hub_kel; ?></p>
+                        <td colspan=3 class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Nik
+                                        </th>
+                                        <th>
+                                            Nama
+                                        </th>
+                                        <th>
+                                            Tempat Lahir
+                                        </th>
+                                        <th>
+                                            Tgl Lahir
+                                        </th>
+                                        <th>
+                                            Jenis Kelamin
+                                        </th>
+                                        <th>
+                                            Agama
+                                        </th>
+                                        <th>
+                                            Hubungan Keluarga
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        // $query = $this->db->query("SELECT * from trans_kk where id_master_kk='".$data_kk->id_master_kk."'");
+                                        // $ktp= $query->result();
+                                        // foreach ($ktp as $row1) {
+                                        //     $query2 = $this->db->query("SELECT * from vw_komunitas where id_ktp='".$row1->id_ktp."'");
+                                        //     $komunitas= $query2->result();
+                                            foreach ($data_kk2 as $row) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $row->id_ktp; ?></td>
+                                            <td><?php echo $row->nama_ktp; ?></td>
+                                            <td><?php echo $row->tempat_lahir; ?></td>
+                                            <td><?php echo $row->tanggal_lahir; ?></td>
+                                            <td><?php echo $row->nama_jekel; ?></td>
+                                            <td><?php echo $row->nama_agama; ?></td>
+                                            <td><?php echo $row->nama_hub_kel; ?></td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    ?>
+
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>                        
                         </td>
                     </tr>
 
