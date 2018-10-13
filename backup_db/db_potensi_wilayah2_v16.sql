@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: db_pw
 Target Host: localhost
 Target Database: db_pw
-Date: 10/13/2018 11:37:04 PM
+Date: 10/14/2018 12:00:34 AM
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -274,7 +274,7 @@ CREATE TABLE `master_ktp_kk_temp` (
   `ibu` varchar(50) DEFAULT NULL,
   `rumah_path` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for master_layanan
@@ -600,7 +600,7 @@ CREATE TABLE `tbl_m_rumah` (
   `rumah_path` varchar(100) DEFAULT NULL,
   `idsession` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_ft_rumah`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for tbl_m_rumah_temp
@@ -611,7 +611,7 @@ CREATE TABLE `tbl_m_rumah_temp` (
   `rumah_path` varchar(100) DEFAULT NULL,
   `idsession` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_ft_rumah`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for tbl_r_hub_kel
@@ -741,7 +741,7 @@ CREATE TABLE `trans_kk` (
   `rumah_path` varchar(100) DEFAULT NULL,
   `idsession` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idtrans_kk`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for web_log
@@ -774,7 +774,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- ----------------------------
 -- View structure for vw_kk
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_kk` AS select `b`.`id_master_kk` AS `id_master_kk`,`b`.`id_ktp` AS `id_ktp`,`a`.`nama_ktp` AS `nama_ktp`,`c`.`nama_kec` AS `nama_kec`,`d`.`nama_kel` AS `nama_kel`,`a`.`rt` AS `rt`,`a`.`rw` AS `rw`,`a`.`id_kec` AS `id_kec`,`a`.`id_kel` AS `id_kel`,`a`.`alamat` AS `alamat`,`b`.`rumah_path` AS `rumah_path`,`b`.`hub_keluarga` AS `hub_keluarga`,`b`.`idsession` AS `idsession`,(select count(1) from (`trans_kk` `z` join `master_ktp` `x` on((`z`.`id_ktp` = `x`.`id_ktp`))) where ((`z`.`id_master_kk` = `b`.`id_master_kk`) and (`x`.`is_delete` = 0))) AS `jml_anggota_keluarga` from (((`master_ktp` `a` join `trans_kk` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `master_kecamatan` `c` on((`a`.`id_kec` = `c`.`id_kec`))) join `master_kelurahan` `d` on((`a`.`id_kel` = `d`.`id_kel`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_kk` AS select `b`.`id_master_kk` AS `id_master_kk`,`b`.`id_ktp` AS `id_ktp`,`a`.`nama_ktp` AS `nama_ktp`,`c`.`nama_kec` AS `nama_kec`,`d`.`nama_kel` AS `nama_kel`,`a`.`rt` AS `rt`,`a`.`rw` AS `rw`,`a`.`id_kec` AS `id_kec`,`a`.`id_kel` AS `id_kel`,`a`.`id_banjar` AS `id_banjar`,`a`.`id_kemiskinan` AS `id_kemiskinan`,`a`.`alamat` AS `alamat`,`b`.`rumah_path` AS `rumah_path`,`b`.`hub_keluarga` AS `hub_keluarga`,`b`.`idsession` AS `idsession`,(select count(1) from (`trans_kk` `z` join `master_ktp` `x` on((`z`.`id_ktp` = `x`.`id_ktp`))) where ((`z`.`id_master_kk` = `b`.`id_master_kk`) and (`x`.`is_delete` = 0))) AS `jml_anggota_keluarga` from (((`master_ktp` `a` join `trans_kk` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `master_kecamatan` `c` on((`a`.`id_kec` = `c`.`id_kec`))) join `master_kelurahan` `d` on((`a`.`id_kel` = `d`.`id_kel`)));
 
 -- ----------------------------
 -- View structure for vw_komunitas
@@ -782,14 +782,14 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_komunitas` AS select `master_komunitas`.`id_komunitas` AS `id_komunitas`,`master_komunitas`.`nama_komunitas` AS `nama_komunitas`,`master_komunitas`.`alamat` AS `alamat`,`master_komunitas`.`id_kec` AS `id_kec`,`master_komunitas`.`id_kel` AS `id_kel`,`master_komunitas`.`nama_koordinator` AS `nama_koordinator`,`master_komunitas`.`no_telp` AS `no_telp`,`master_komunitas`.`id_jeniskomunitas` AS `id_jeniskomunitas`,`master_jeniskomunitas`.`nama_jeniskomunitas` AS `nama_jeniskomunitas`,`master_ktp`.`id_ktp` AS `id_ktp`,`master_ktp`.`nama_ktp` AS `nama_ktp` from (((`master_komunitas` join `tbl_t_anggota_komunitas` on((`master_komunitas`.`id_komunitas` = `tbl_t_anggota_komunitas`.`id_komunitas`))) join `master_ktp` on((`tbl_t_anggota_komunitas`.`id_ktp` = `master_ktp`.`id_ktp`))) join `master_jeniskomunitas` on((`master_komunitas`.`id_jeniskomunitas` = `master_jeniskomunitas`.`id_jeniskomunitas`)));
 
 -- ----------------------------
--- View structure for vw_pend_non_formal
--- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pend_non_formal` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan` from (((`tbl_m_pend_non_formal` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`)));
-
--- ----------------------------
 -- View structure for vw_t_bantuan
 -- ----------------------------
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_bantuan` AS select `a`.`id_t_bantuan` AS `id_t_bantuan`,`a`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`a`.`id_m_instansi` AS `id_m_instansi`,`b`.`nama_instansi` AS `nama_instansi`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_bantuan` AS `nama_bantuan`,`a`.`ket` AS `ket`,date_format(`a`.`tgl_bantuan`,'%d-%m-%Y') AS `tgl_bantuan`,`a`.`idsession` AS `idsession`,`c`.`nama_ktp` AS `nama_ktp`,`c`.`tempat_lahir` AS `tempat_lahir`,`c`.`tanggal_lahir` AS `tanggal_lahir`,`c`.`jekel` AS `jekel`,`c`.`gol_darah` AS `gol_darah`,`c`.`alamat` AS `alamat`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`id_kel` AS `id_kel`,`c`.`id_kec` AS `id_kec`,`c`.`agama` AS `agama`,`c`.`status_kawin` AS `status_kawin`,`c`.`pekerjaan` AS `pekerjaan`,`c`.`warga_negara` AS `warga_negara`,`c`.`link_gambar` AS `link_gambar`,`c`.`is_delete` AS `is_delete` from (((`tbl_t_bantuan` `a` join `tbl_m_instansi` `b` on((`a`.`id_m_instansi` = `b`.`id_instansi`))) join `master_ktp` `c` on((`a`.`id_ktp` = `c`.`id_ktp`))) left join `tbl_r_jns_bantuan` `d` on((`a`.`id_jns_bantuan` = `d`.`id_jns_bantuan`)));
+
+-- ----------------------------
+-- View structure for vw_pend_non_formal
+-- ----------------------------
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pend_non_formal` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan` from (((`tbl_m_pend_non_formal` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`)));
 
 -- ----------------------------
 -- View structure for vw_pend_non_formal_temp
@@ -1511,218 +1511,218 @@ INSERT INTO `master_agen` VALUES ('000002', 'AA23', 'Wisma Asri 2', '08158415636
 INSERT INTO `master_agen` VALUES ('000003', 'Mama sari', 'Wisma asri', '', '201030203', '', '1');
 INSERT INTO `master_agen` VALUES ('000004', 'Masjid', 'Wisma Asri 1', '085691284162', '201030204', '25% .. Dibayar akhir', '1');
 INSERT INTO `master_agen` VALUES ('000005', 'Wahana', 'Wisma Asri 2', '085711623447', '201030205', '', '1');
-INSERT INTO `master_banjar` VALUES ('000001', '5105020013', 'Banjar Dinas Kangin');
-INSERT INTO `master_banjar` VALUES ('000002', '5105020013', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000003', '5105020010', 'Banjar Dinas  Kaleran');
-INSERT INTO `master_banjar` VALUES ('000004', '5105020010', 'Banjar Dinas  Bale Agung');
-INSERT INTO `master_banjar` VALUES ('000005', '5105020010', 'Banjar Dinas  Jungut');
-INSERT INTO `master_banjar` VALUES ('000006', '5105020010', 'Banjar Dinas Penarukan');
-INSERT INTO `master_banjar` VALUES ('000007', '5105020009', 'Banjar Dinas  Kelodan');
-INSERT INTO `master_banjar` VALUES ('000008', '5105020009', 'Banjar Dinas  Pekandelan');
-INSERT INTO `master_banjar` VALUES ('000009', '5105020009', 'Banjar Dinas  Geria');
-INSERT INTO `master_banjar` VALUES ('000010', '5105020009', 'Banjar Dinas  Kapit');
-INSERT INTO `master_banjar` VALUES ('000011', '5105020009', 'Banjar Dinas  Umanyar');
-INSERT INTO `master_banjar` VALUES ('000012', '5105020009', 'Banjar Dinas  Pemenang');
-INSERT INTO `master_banjar` VALUES ('000013', '5105020009', 'Banjar Dinas  Dukuh');
-INSERT INTO `master_banjar` VALUES ('000014', '5105020009', 'Banjar Dinas Tegal Wangi');
-INSERT INTO `master_banjar` VALUES ('000015', '5105020005', 'Banjar Dinas Kangin');
-INSERT INTO `master_banjar` VALUES ('000016', '5105020005', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000017', '5105020005', 'Banjar Dinas Peken');
-INSERT INTO `master_banjar` VALUES ('000018', '5105020003', 'Banjar Dinas  Nesa');
-INSERT INTO `master_banjar` VALUES ('000019', '5105020003', 'Banjar Dinas  Selat');
-INSERT INTO `master_banjar` VALUES ('000020', '5105020003', 'Banjar Dinas  Pagutan');
-INSERT INTO `master_banjar` VALUES ('000021', '5105020003', 'Banjar Dinas  Koripan Kangin');
-INSERT INTO `master_banjar` VALUES ('000022', '5105020003', 'Banjar Dinas Koripan Tengah');
-INSERT INTO `master_banjar` VALUES ('000023', '5105020004', 'Banjar Dinas  Kaler');
-INSERT INTO `master_banjar` VALUES ('000024', '5105020004', 'Banjar Dinas  Kawan');
-INSERT INTO `master_banjar` VALUES ('000025', '5105020004', 'Banjar Dinas Kangin');
-INSERT INTO `master_banjar` VALUES ('000026', '5105020004', 'Banjar Dinas Semagung');
-INSERT INTO `master_banjar` VALUES ('000027', '5105020001', 'Banjar Dinas Negari');
-INSERT INTO `master_banjar` VALUES ('000028', '5105020001', 'Banjar Dinas Tegal Besar');
-INSERT INTO `master_banjar` VALUES ('000029', '5105020001', 'Banjar Dinas Sarimerta');
-INSERT INTO `master_banjar` VALUES ('000030', '5105020012', 'Banjar Dinas Tengah');
-INSERT INTO `master_banjar` VALUES ('000031', '5105020012', 'Banjar Dinas Kelod');
-INSERT INTO `master_banjar` VALUES ('000032', '5105020011', 'Banjar Dinas Tengah');
-INSERT INTO `master_banjar` VALUES ('000033', '5105020011', 'Banjar Dinas Kaler');
-INSERT INTO `master_banjar` VALUES ('000034', '5105020011', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000035', '5105020008', 'Banjar Dinas Peken');
-INSERT INTO `master_banjar` VALUES ('000036', '5105020008', 'Banjar Dinas Pasek');
-INSERT INTO `master_banjar` VALUES ('000037', '5105020008', 'Banjar Dinas Suwela Giri');
-INSERT INTO `master_banjar` VALUES ('000038', '5105020008', 'Banjar Dinas Sengkiding');
-INSERT INTO `master_banjar` VALUES ('000039', '5105020006', 'Banjar Dinas Getakan');
-INSERT INTO `master_banjar` VALUES ('000040', '5105020006', 'Banjar Dinas Gunung Rata');
-INSERT INTO `master_banjar` VALUES ('000041', '5105020006', 'Banjar Dinas Beneng');
-INSERT INTO `master_banjar` VALUES ('000042', '5105020006', 'Banjar Dinas Anjingan');
-INSERT INTO `master_banjar` VALUES ('000043', '5105020007', 'Banjar Dinas Tihingan ');
-INSERT INTO `master_banjar` VALUES ('000044', '5105020007', 'Banjar Dinas Pau');
-INSERT INTO `master_banjar` VALUES ('000045', '5105020007', 'Banjar Dinas Mungguna');
-INSERT INTO `master_banjar` VALUES ('000046', '5105020007', 'Banjar Dinas Penasan');
-INSERT INTO `master_banjar` VALUES ('000047', '5105020002', 'Banjar Dinas Takmung Kawan');
-INSERT INTO `master_banjar` VALUES ('000048', '5105020002', 'Banjar Dinas Takmung Kangin');
-INSERT INTO `master_banjar` VALUES ('000049', '5105020002', 'Banjar Dinas Sidayu Nyuh Aya');
-INSERT INTO `master_banjar` VALUES ('000050', '5105020002', 'Banjar Dinas Losan');
-INSERT INTO `master_banjar` VALUES ('000051', '5105020002', 'Banjar Dinas Sidayu Tojan');
-INSERT INTO `master_banjar` VALUES ('000052', '5105020002', 'Banjar Dinas Banda');
-INSERT INTO `master_banjar` VALUES ('000053', '5105020002', 'Banjar Dinas Umasalakan');
-INSERT INTO `master_banjar` VALUES ('000054', '5105020002', 'Banjar Dinas Lepang Kangin');
-INSERT INTO `master_banjar` VALUES ('000055', '5105020002', 'Banjar Dinas Lepang Kawan');
-INSERT INTO `master_banjar` VALUES ('000056', '5105040004', 'Banjar Dinas Pande');
-INSERT INTO `master_banjar` VALUES ('000057', '5105040004', 'Banjar Dinas Sangging');
-INSERT INTO `master_banjar` VALUES ('000058', '5105040004', 'Banjar Dinas Tengah');
-INSERT INTO `master_banjar` VALUES ('000059', '5105040004', 'Banjar Dinas Dlod Buug');
-INSERT INTO `master_banjar` VALUES ('000060', '5105040009', 'Banjar Dinas Kanginan  ');
-INSERT INTO `master_banjar` VALUES ('000061', '5105040009', 'Banjar Dinas Peninjauan');
-INSERT INTO `master_banjar` VALUES ('000062', '5105040009', 'Banjar Dinas Bucu');
-INSERT INTO `master_banjar` VALUES ('000063', '5105040009', 'Banjar Dinas Timrah');
-INSERT INTO `master_banjar` VALUES ('000064', '5105040009', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000065', '5105040003', 'Banjar Dinas Sukahati');
-INSERT INTO `master_banjar` VALUES ('000066', '5105040003', 'Banjar Dinas Suwitrayasa');
-INSERT INTO `master_banjar` VALUES ('000067', '5105040003', 'Banjar Dinas Kanginan');
-INSERT INTO `master_banjar` VALUES ('000068', '5105040003', 'Banjar Dinas Punduk Dawa');
-INSERT INTO `master_banjar` VALUES ('000069', '5105040003', 'Banjar Dinas Belatung');
-INSERT INTO `master_banjar` VALUES ('000070', '5105040011', 'Banjar Dinas Gelogor');
-INSERT INTO `master_banjar` VALUES ('000071', '5105040011', 'Banjar Dinas Cempaka');
-INSERT INTO `master_banjar` VALUES ('000072', '5105040011', 'Banjar Dinas Intaran');
-INSERT INTO `master_banjar` VALUES ('000073', '5105040011', 'Banjar Dinas Buug');
-INSERT INTO `master_banjar` VALUES ('000074', '5105040011', 'Banjar Dinas Sente');
-INSERT INTO `master_banjar` VALUES ('000075', '5105040011', 'Banjar Dinas Pangi Kawan');
-INSERT INTO `master_banjar` VALUES ('000076', '5105040011', 'Banjar Dinas Pangi Timur');
-INSERT INTO `master_banjar` VALUES ('000077', '5105040007', 'Banjar Dinas Papaan');
-INSERT INTO `master_banjar` VALUES ('000078', '5105040007', 'Banjar Dinas Jabon');
-INSERT INTO `master_banjar` VALUES ('000079', '5105040007', 'Banjar Dinas Pakel');
-INSERT INTO `master_banjar` VALUES ('000080', '5105040010', 'Banjar Dinas Sengguan');
-INSERT INTO `master_banjar` VALUES ('000081', '5105040010', 'Banjar Dinas Metulis');
-INSERT INTO `master_banjar` VALUES ('000082', '5105040010', 'Banjar Dinas Pasekan');
-INSERT INTO `master_banjar` VALUES ('000083', '5105040010', 'Banjar Dinas Kayehan');
-INSERT INTO `master_banjar` VALUES ('000084', '5105040008', 'Banjar Dinas Sulang');
-INSERT INTO `master_banjar` VALUES ('000085', '5105040008', 'Banjar Dinas Gerombong');
-INSERT INTO `master_banjar` VALUES ('000086', '5105040001', 'Banjar Dinas Bias');
-INSERT INTO `master_banjar` VALUES ('000087', '5105040001', 'Banjar Dinas Bingin');
-INSERT INTO `master_banjar` VALUES ('000088', '5105040001', 'Banjar Dinas Rame');
-INSERT INTO `master_banjar` VALUES ('000089', '5105040001', 'Banjar Dinas Presatria');
-INSERT INTO `master_banjar` VALUES ('000090', '5105040001', 'Banjar Dinas Pande');
-INSERT INTO `master_banjar` VALUES ('000091', '5105040006', 'Banjar Dinas Lekok');
-INSERT INTO `master_banjar` VALUES ('000092', '5105040006', 'Banjar Dinas Ulunsui');
-INSERT INTO `master_banjar` VALUES ('000093', '5105040006', 'Banjar Dinas Bokong');
-INSERT INTO `master_banjar` VALUES ('000094', '5105040006', 'Banjar Dinas Tatag');
-INSERT INTO `master_banjar` VALUES ('000095', '5105040012', 'Banjar Dinas Kelodan');
-INSERT INTO `master_banjar` VALUES ('000096', '5105040012', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000097', '5105040012', 'Banjar Dinas Kanginan');
-INSERT INTO `master_banjar` VALUES ('000098', '5105040005', 'Banjar Dinas Buayang');
-INSERT INTO `master_banjar` VALUES ('000099', '5105040005', 'Banjar Dinas Patus');
-INSERT INTO `master_banjar` VALUES ('000100', '5105040005', 'Banjar Dinas Bandung');
-INSERT INTO `master_banjar` VALUES ('000101', '5105040005', 'Banjar Dinas Nyamping');
-INSERT INTO `master_banjar` VALUES ('000102', '5105040005', 'Banjar Dinas Kebon');
-INSERT INTO `master_banjar` VALUES ('000103', '5105040005', 'Banjar Dinas Tengah');
-INSERT INTO `master_banjar` VALUES ('000104', '5105040005', 'Banjar Dinas Babung');
-INSERT INTO `master_banjar` VALUES ('000105', '5105010010', 'Banjar Dinas Batununggul');
-INSERT INTO `master_banjar` VALUES ('000106', '5105010010', 'Banjar Dinas Kutapang Kangin');
-INSERT INTO `master_banjar` VALUES ('000107', '5105010010', 'Banjar Dinas Kutapang Kauh');
-INSERT INTO `master_banjar` VALUES ('000108', '5105010010', 'Banjar Dinas Batumulapan');
-INSERT INTO `master_banjar` VALUES ('000109', '5105010011', 'Banjar Dinas Pulagan');
-INSERT INTO `master_banjar` VALUES ('000110', '5105010011', 'Banjar Dinas Ponjok');
-INSERT INTO `master_banjar` VALUES ('000111', '5105010011', 'Banjar Dinas Bayuh');
-INSERT INTO `master_banjar` VALUES ('000112', '5105010011', 'Banjar Dinas Gelagah');
-INSERT INTO `master_banjar` VALUES ('000113', '5105010011', 'Banjar Dinas Jurangaya');
-INSERT INTO `master_banjar` VALUES ('000114', '5105010011', 'Banjar Dinas Jurangpahit');
-INSERT INTO `master_banjar` VALUES ('000115', '5105010009', 'Banjar Dinas Carangsari');
-INSERT INTO `master_banjar` VALUES ('000116', '5105010009', 'Banjar Dinas Celagilandan');
-INSERT INTO `master_banjar` VALUES ('000117', '5105010009', 'Banjar Dinas Kelemahan');
-INSERT INTO `master_banjar` VALUES ('000118', '5105010009', 'Banjar Dinas Semaya');
-INSERT INTO `master_banjar` VALUES ('000119', '5105010007', 'Banjar Dinas Tanglad');
-INSERT INTO `master_banjar` VALUES ('000120', '5105010007', 'Banjar Dinas Julingan');
-INSERT INTO `master_banjar` VALUES ('000121', '5105010007', 'Banjar Dinas Wates');
-INSERT INTO `master_banjar` VALUES ('000122', '5105010007', 'Banjar Dinas Anta');
-INSERT INTO `master_banjar` VALUES ('000123', '5105010006', 'Banjar Dinas Sedihing');
-INSERT INTO `master_banjar` VALUES ('000124', '5105010006', 'Banjar Dinas Ramuan');
-INSERT INTO `master_banjar` VALUES ('000125', '5105010006', 'Banjar Dinas Sekartaji');
-INSERT INTO `master_banjar` VALUES ('000126', '5105010006', 'Banjar Dinas Bungkil');
-INSERT INTO `master_banjar` VALUES ('000127', '5105010006', 'Banjar Dinas Tabuana');
-INSERT INTO `master_banjar` VALUES ('000128', '5105010006', 'Banjar Dinas Delundung');
-INSERT INTO `master_banjar` VALUES ('000129', '5105010005', 'Banjar Dinas Batukandik I');
-INSERT INTO `master_banjar` VALUES ('000130', '5105010005', 'Banjar Dinas Batukandik II');
-INSERT INTO `master_banjar` VALUES ('000131', '5105010005', 'Banjar Dinas Dungkap I');
-INSERT INTO `master_banjar` VALUES ('000132', '5105010005', 'Banjar Dinas Dungkap II');
-INSERT INTO `master_banjar` VALUES ('000133', '5105010005', 'Banjar Dinas Bangunurip');
-INSERT INTO `master_banjar` VALUES ('000134', '5105010005', 'Banjar Dinas Sukun');
-INSERT INTO `master_banjar` VALUES ('000135', '5105010005', 'Banjar Dinas Antapan');
-INSERT INTO `master_banjar` VALUES ('000136', '5105010005', 'Banjar Dinas Bingin');
-INSERT INTO `master_banjar` VALUES ('000137', '5105010003', 'Banjar Dinas Penutuk');
-INSERT INTO `master_banjar` VALUES ('000138', '5105010003', 'Banjar Dinas Batumadeg Klod');
-INSERT INTO `master_banjar` VALUES ('000139', '5105010003', 'Banjar Dinas Batumadeg Kaja');
-INSERT INTO `master_banjar` VALUES ('000140', '5105010003', 'Banjar Dinas Saren I');
-INSERT INTO `master_banjar` VALUES ('000141', '5105010003', 'Banjar Dinas Saren II');
-INSERT INTO `master_banjar` VALUES ('000142', '5105010003', 'Banjar Dinas Pangkung Gede');
-INSERT INTO `master_banjar` VALUES ('000143', '5105010001', 'Banjar Dinas Sebunibus');
-INSERT INTO `master_banjar` VALUES ('000144', '5105010001', 'Banjar Dinas Penaga');
-INSERT INTO `master_banjar` VALUES ('000145', '5105010001', 'Banjar Dinas Sakti');
-INSERT INTO `master_banjar` VALUES ('000157', '5105010015', 'Banjar Dinas Klod');
-INSERT INTO `master_banjar` VALUES ('000158', '5105010015', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000159', '5105010015', 'Banjar Dinas Kaja');
-INSERT INTO `master_banjar` VALUES ('000160', '5105010015', 'Banjar Dinas Kangin');
-INSERT INTO `master_banjar` VALUES ('000161', '5105010015', 'Banjar Dinas Ceningan Kangin');
-INSERT INTO `master_banjar` VALUES ('000162', '5105010015', 'Banjar Dinas Ceningan Kawan');
-INSERT INTO `master_banjar` VALUES ('000163', '5105010016', 'Banjar Dinas Jungutbatu Kaja I');
-INSERT INTO `master_banjar` VALUES ('000164', '5105010016', 'Banjar Dinas Jungutbatu Kaja II');
-INSERT INTO `master_banjar` VALUES ('000165', '5105010016', 'Banjar Dinas Jungutbatu Klod I');
-INSERT INTO `master_banjar` VALUES ('000166', '5105010016', 'Banjar Dinas Jungutbatu Klod II');
-INSERT INTO `master_banjar` VALUES ('000167', '5105010016', 'Banjar Dinas Jungutbatu Kangin I');
-INSERT INTO `master_banjar` VALUES ('000168', '5105010016', 'Banjar Dinas Jungutbatu Kangin II');
-INSERT INTO `master_banjar` VALUES ('000169', '5105010014', '-');
-INSERT INTO `master_banjar` VALUES ('000170', '5105010008', 'Banjar Dinas Pejukutan');
-INSERT INTO `master_banjar` VALUES ('000171', '5105010008', 'Banjar Dinas Pendem');
-INSERT INTO `master_banjar` VALUES ('000172', '5105010008', 'Banjar Dinas Pelilit');
-INSERT INTO `master_banjar` VALUES ('000173', '5105010008', 'Banjar Dinas Ampel');
-INSERT INTO `master_banjar` VALUES ('000174', '5105010008', 'Banjar Dinas Karang');
-INSERT INTO `master_banjar` VALUES ('000175', '5105010002', 'Banjar Dinas Pundukahe Kaja');
-INSERT INTO `master_banjar` VALUES ('000176', '5105010002', 'Banjar Dinas Pundukahe Klod');
-INSERT INTO `master_banjar` VALUES ('000177', '5105010002', 'Banjar Dinas Sebuluh Kawan');
-INSERT INTO `master_banjar` VALUES ('000178', '5105010002', 'Banjar Dinas Batugaing');
-INSERT INTO `master_banjar` VALUES ('000179', '5105010002', 'Banjar Dinas Karang Dawa');
-INSERT INTO `master_banjar` VALUES ('000180', '5105010002', 'Banjar Dinas Penangkidan');
-INSERT INTO `master_banjar` VALUES ('000181', '5105010002', 'Banjar Dinas Sompang');
-INSERT INTO `master_banjar` VALUES ('000182', '5105010012', 'Banjar Dinas Kutampi');
-INSERT INTO `master_banjar` VALUES ('000183', '5105010012', 'Banjar Dinas Telaga');
-INSERT INTO `master_banjar` VALUES ('000184', '5105010012', 'Banjar Dinas Limo');
-INSERT INTO `master_banjar` VALUES ('000185', '5105030015', 'Banjar Dinas Tengah');
-INSERT INTO `master_banjar` VALUES ('000186', '5105030015', 'Banjar Dinas Kaleran');
-INSERT INTO `master_banjar` VALUES ('000187', '5105030015', 'Banjar Dinas Tubuh');
-INSERT INTO `master_banjar` VALUES ('000188', '5105030018', 'Banjar Dinas Kangin');
-INSERT INTO `master_banjar` VALUES ('000189', '5105030018', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000190', '5105030017', 'Banjar Dinas Bajing');
-INSERT INTO `master_banjar` VALUES ('000191', '5105030017', 'Banjar Dinas Kaja Kangin');
-INSERT INTO `master_banjar` VALUES ('000192', '5105030017', 'Banjar Dinas Tengah');
-INSERT INTO `master_banjar` VALUES ('000193', '5105030017', 'Banjar Dinas Tulang Nyuh');
-INSERT INTO `master_banjar` VALUES ('000194', '5105030016', 'Banjar Dinas Apet');
-INSERT INTO `master_banjar` VALUES ('000195', '5105030016', 'Banjar Dinas Tabu');
-INSERT INTO `master_banjar` VALUES ('000196', '5105030016', 'Banjar Dinas Payungan');
-INSERT INTO `master_banjar` VALUES ('000197', '5105030016', 'Banjar Dinas Gembalan');
-INSERT INTO `master_banjar` VALUES ('000198', '5105030016', 'Banjar Dinas Cucukan');
-INSERT INTO `master_banjar` VALUES ('000199', '5105030016', 'Banjar Dinas Selat');
-INSERT INTO `master_banjar` VALUES ('000200', '5105030016', 'Banjar Dinas Takedan');
-INSERT INTO `master_banjar` VALUES ('000201', '5105030014', 'Banjar Dinas Gingsir');
-INSERT INTO `master_banjar` VALUES ('000202', '5105030014', 'Banjar Dinas Gede');
-INSERT INTO `master_banjar` VALUES ('000203', '5105030014', 'Banjar Dinas Pekandelan');
-INSERT INTO `master_banjar` VALUES ('000204', '5105030014', 'Banjar Dinas Tengah');
-INSERT INTO `master_banjar` VALUES ('000205', '5105030014', 'Banjar Dinas Bungaya');
-INSERT INTO `master_banjar` VALUES ('000206', '5105030014', 'Banjar Dinas Sangging');
-INSERT INTO `master_banjar` VALUES ('000207', '5105030002', 'Banjar Dinas Mamoran');
-INSERT INTO `master_banjar` VALUES ('000208', '5105030002', 'Banjar Dinas Kaler');
-INSERT INTO `master_banjar` VALUES ('000209', '5105030002', 'Banjar Dinas Klod');
-INSERT INTO `master_banjar` VALUES ('000210', '5105030002', 'Banjar Dinas Kuribatu');
-INSERT INTO `master_banjar` VALUES ('000211', '5105030001', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000212', '5105030001', 'Banjar Dinas Kangin');
-INSERT INTO `master_banjar` VALUES ('000213', '5105030007', 'Banjar Dinas Sangging');
-INSERT INTO `master_banjar` VALUES ('000214', '5105030007', 'Banjar Dinas Tabanan');
-INSERT INTO `master_banjar` VALUES ('000215', '5105030007', 'Banjar Dinas Pande Mas');
-INSERT INTO `master_banjar` VALUES ('000216', '5105030007', 'Banjar Dinas Kacangdawa');
-INSERT INTO `master_banjar` VALUES ('000223', '5105030004', '-');
-INSERT INTO `master_banjar` VALUES ('000224', '5105030005', 'Banjar Dinas Kawan');
-INSERT INTO `master_banjar` VALUES ('000225', '5105030005', 'Banjar Dinas Kangin');
-INSERT INTO `master_banjar` VALUES ('000226', '5105030006', 'Banjar Dinas Peken');
-INSERT INTO `master_banjar` VALUES ('000227', '5105030006', 'Banjar Dinas Meranggen');
-INSERT INTO `master_banjar` VALUES ('000228', '5105030006', 'Banjar Dinas Tusan');
-INSERT INTO `master_banjar` VALUES ('000229', '5105030006', 'Banjar Dinas Ambengan');
+INSERT INTO `master_banjar` VALUES ('500001', '5105020013', 'Banjar Dinas Kangin');
+INSERT INTO `master_banjar` VALUES ('500002', '5105020013', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500003', '5105020010', 'Banjar Dinas  Kaleran');
+INSERT INTO `master_banjar` VALUES ('500004', '5105020010', 'Banjar Dinas  Bale Agung');
+INSERT INTO `master_banjar` VALUES ('500005', '5105020010', 'Banjar Dinas  Jungut');
+INSERT INTO `master_banjar` VALUES ('500006', '5105020010', 'Banjar Dinas Penarukan');
+INSERT INTO `master_banjar` VALUES ('500007', '5105020009', 'Banjar Dinas  Kelodan');
+INSERT INTO `master_banjar` VALUES ('500008', '5105020009', 'Banjar Dinas  Pekandelan');
+INSERT INTO `master_banjar` VALUES ('500009', '5105020009', 'Banjar Dinas  Geria');
+INSERT INTO `master_banjar` VALUES ('500010', '5105020009', 'Banjar Dinas  Kapit');
+INSERT INTO `master_banjar` VALUES ('500011', '5105020009', 'Banjar Dinas  Umanyar');
+INSERT INTO `master_banjar` VALUES ('500012', '5105020009', 'Banjar Dinas  Pemenang');
+INSERT INTO `master_banjar` VALUES ('500013', '5105020009', 'Banjar Dinas  Dukuh');
+INSERT INTO `master_banjar` VALUES ('500014', '5105020009', 'Banjar Dinas Tegal Wangi');
+INSERT INTO `master_banjar` VALUES ('500015', '5105020005', 'Banjar Dinas Kangin');
+INSERT INTO `master_banjar` VALUES ('500016', '5105020005', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500017', '5105020005', 'Banjar Dinas Peken');
+INSERT INTO `master_banjar` VALUES ('500018', '5105020003', 'Banjar Dinas  Nesa');
+INSERT INTO `master_banjar` VALUES ('500019', '5105020003', 'Banjar Dinas  Selat');
+INSERT INTO `master_banjar` VALUES ('500020', '5105020003', 'Banjar Dinas  Pagutan');
+INSERT INTO `master_banjar` VALUES ('500021', '5105020003', 'Banjar Dinas  Koripan Kangin');
+INSERT INTO `master_banjar` VALUES ('500022', '5105020003', 'Banjar Dinas Koripan Tengah');
+INSERT INTO `master_banjar` VALUES ('500023', '5105020004', 'Banjar Dinas  Kaler');
+INSERT INTO `master_banjar` VALUES ('500024', '5105020004', 'Banjar Dinas  Kawan');
+INSERT INTO `master_banjar` VALUES ('500025', '5105020004', 'Banjar Dinas Kangin');
+INSERT INTO `master_banjar` VALUES ('500026', '5105020004', 'Banjar Dinas Semagung');
+INSERT INTO `master_banjar` VALUES ('500027', '5105020001', 'Banjar Dinas Negari');
+INSERT INTO `master_banjar` VALUES ('500028', '5105020001', 'Banjar Dinas Tegal Besar');
+INSERT INTO `master_banjar` VALUES ('500029', '5105020001', 'Banjar Dinas Sarimerta');
+INSERT INTO `master_banjar` VALUES ('500030', '5105020012', 'Banjar Dinas Tengah');
+INSERT INTO `master_banjar` VALUES ('500031', '5105020012', 'Banjar Dinas Kelod');
+INSERT INTO `master_banjar` VALUES ('500032', '5105020011', 'Banjar Dinas Tengah');
+INSERT INTO `master_banjar` VALUES ('500033', '5105020011', 'Banjar Dinas Kaler');
+INSERT INTO `master_banjar` VALUES ('500034', '5105020011', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500035', '5105020008', 'Banjar Dinas Peken');
+INSERT INTO `master_banjar` VALUES ('500036', '5105020008', 'Banjar Dinas Pasek');
+INSERT INTO `master_banjar` VALUES ('500037', '5105020008', 'Banjar Dinas Suwela Giri');
+INSERT INTO `master_banjar` VALUES ('500038', '5105020008', 'Banjar Dinas Sengkiding');
+INSERT INTO `master_banjar` VALUES ('500039', '5105020006', 'Banjar Dinas Getakan');
+INSERT INTO `master_banjar` VALUES ('500040', '5105020006', 'Banjar Dinas Gunung Rata');
+INSERT INTO `master_banjar` VALUES ('500041', '5105020006', 'Banjar Dinas Beneng');
+INSERT INTO `master_banjar` VALUES ('500042', '5105020006', 'Banjar Dinas Anjingan');
+INSERT INTO `master_banjar` VALUES ('500043', '5105020007', 'Banjar Dinas Tihingan ');
+INSERT INTO `master_banjar` VALUES ('500044', '5105020007', 'Banjar Dinas Pau');
+INSERT INTO `master_banjar` VALUES ('500045', '5105020007', 'Banjar Dinas Mungguna');
+INSERT INTO `master_banjar` VALUES ('500046', '5105020007', 'Banjar Dinas Penasan');
+INSERT INTO `master_banjar` VALUES ('500047', '5105020002', 'Banjar Dinas Takmung Kawan');
+INSERT INTO `master_banjar` VALUES ('500048', '5105020002', 'Banjar Dinas Takmung Kangin');
+INSERT INTO `master_banjar` VALUES ('500049', '5105020002', 'Banjar Dinas Sidayu Nyuh Aya');
+INSERT INTO `master_banjar` VALUES ('500050', '5105020002', 'Banjar Dinas Losan');
+INSERT INTO `master_banjar` VALUES ('500051', '5105020002', 'Banjar Dinas Sidayu Tojan');
+INSERT INTO `master_banjar` VALUES ('500052', '5105020002', 'Banjar Dinas Banda');
+INSERT INTO `master_banjar` VALUES ('500053', '5105020002', 'Banjar Dinas Umasalakan');
+INSERT INTO `master_banjar` VALUES ('500054', '5105020002', 'Banjar Dinas Lepang Kangin');
+INSERT INTO `master_banjar` VALUES ('500055', '5105020002', 'Banjar Dinas Lepang Kawan');
+INSERT INTO `master_banjar` VALUES ('500056', '5105040004', 'Banjar Dinas Pande');
+INSERT INTO `master_banjar` VALUES ('500057', '5105040004', 'Banjar Dinas Sangging');
+INSERT INTO `master_banjar` VALUES ('500058', '5105040004', 'Banjar Dinas Tengah');
+INSERT INTO `master_banjar` VALUES ('500059', '5105040004', 'Banjar Dinas Dlod Buug');
+INSERT INTO `master_banjar` VALUES ('500060', '5105040009', 'Banjar Dinas Kanginan  ');
+INSERT INTO `master_banjar` VALUES ('500061', '5105040009', 'Banjar Dinas Peninjauan');
+INSERT INTO `master_banjar` VALUES ('500062', '5105040009', 'Banjar Dinas Bucu');
+INSERT INTO `master_banjar` VALUES ('500063', '5105040009', 'Banjar Dinas Timrah');
+INSERT INTO `master_banjar` VALUES ('500064', '5105040009', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500065', '5105040003', 'Banjar Dinas Sukahati');
+INSERT INTO `master_banjar` VALUES ('500066', '5105040003', 'Banjar Dinas Suwitrayasa');
+INSERT INTO `master_banjar` VALUES ('500067', '5105040003', 'Banjar Dinas Kanginan');
+INSERT INTO `master_banjar` VALUES ('500068', '5105040003', 'Banjar Dinas Punduk Dawa');
+INSERT INTO `master_banjar` VALUES ('500069', '5105040003', 'Banjar Dinas Belatung');
+INSERT INTO `master_banjar` VALUES ('500070', '5105040011', 'Banjar Dinas Gelogor');
+INSERT INTO `master_banjar` VALUES ('500071', '5105040011', 'Banjar Dinas Cempaka');
+INSERT INTO `master_banjar` VALUES ('500072', '5105040011', 'Banjar Dinas Intaran');
+INSERT INTO `master_banjar` VALUES ('500073', '5105040011', 'Banjar Dinas Buug');
+INSERT INTO `master_banjar` VALUES ('500074', '5105040011', 'Banjar Dinas Sente');
+INSERT INTO `master_banjar` VALUES ('500075', '5105040011', 'Banjar Dinas Pangi Kawan');
+INSERT INTO `master_banjar` VALUES ('500076', '5105040011', 'Banjar Dinas Pangi Timur');
+INSERT INTO `master_banjar` VALUES ('500077', '5105040007', 'Banjar Dinas Papaan');
+INSERT INTO `master_banjar` VALUES ('500078', '5105040007', 'Banjar Dinas Jabon');
+INSERT INTO `master_banjar` VALUES ('500079', '5105040007', 'Banjar Dinas Pakel');
+INSERT INTO `master_banjar` VALUES ('500080', '5105040010', 'Banjar Dinas Sengguan');
+INSERT INTO `master_banjar` VALUES ('500081', '5105040010', 'Banjar Dinas Metulis');
+INSERT INTO `master_banjar` VALUES ('500082', '5105040010', 'Banjar Dinas Pasekan');
+INSERT INTO `master_banjar` VALUES ('500083', '5105040010', 'Banjar Dinas Kayehan');
+INSERT INTO `master_banjar` VALUES ('500084', '5105040008', 'Banjar Dinas Sulang');
+INSERT INTO `master_banjar` VALUES ('500085', '5105040008', 'Banjar Dinas Gerombong');
+INSERT INTO `master_banjar` VALUES ('500086', '5105040001', 'Banjar Dinas Bias');
+INSERT INTO `master_banjar` VALUES ('500087', '5105040001', 'Banjar Dinas Bingin');
+INSERT INTO `master_banjar` VALUES ('500088', '5105040001', 'Banjar Dinas Rame');
+INSERT INTO `master_banjar` VALUES ('500089', '5105040001', 'Banjar Dinas Presatria');
+INSERT INTO `master_banjar` VALUES ('500090', '5105040001', 'Banjar Dinas Pande');
+INSERT INTO `master_banjar` VALUES ('500091', '5105040006', 'Banjar Dinas Lekok');
+INSERT INTO `master_banjar` VALUES ('500092', '5105040006', 'Banjar Dinas Ulunsui');
+INSERT INTO `master_banjar` VALUES ('500093', '5105040006', 'Banjar Dinas Bokong');
+INSERT INTO `master_banjar` VALUES ('500094', '5105040006', 'Banjar Dinas Tatag');
+INSERT INTO `master_banjar` VALUES ('500095', '5105040012', 'Banjar Dinas Kelodan');
+INSERT INTO `master_banjar` VALUES ('500096', '5105040012', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500097', '5105040012', 'Banjar Dinas Kanginan');
+INSERT INTO `master_banjar` VALUES ('500098', '5105040005', 'Banjar Dinas Buayang');
+INSERT INTO `master_banjar` VALUES ('500099', '5105040005', 'Banjar Dinas Patus');
+INSERT INTO `master_banjar` VALUES ('500100', '5105040005', 'Banjar Dinas Bandung');
+INSERT INTO `master_banjar` VALUES ('500101', '5105040005', 'Banjar Dinas Nyamping');
+INSERT INTO `master_banjar` VALUES ('500102', '5105040005', 'Banjar Dinas Kebon');
+INSERT INTO `master_banjar` VALUES ('500103', '5105040005', 'Banjar Dinas Tengah');
+INSERT INTO `master_banjar` VALUES ('500104', '5105040005', 'Banjar Dinas Babung');
+INSERT INTO `master_banjar` VALUES ('500105', '5105010010', 'Banjar Dinas Batununggul');
+INSERT INTO `master_banjar` VALUES ('500106', '5105010010', 'Banjar Dinas Kutapang Kangin');
+INSERT INTO `master_banjar` VALUES ('500107', '5105010010', 'Banjar Dinas Kutapang Kauh');
+INSERT INTO `master_banjar` VALUES ('500108', '5105010010', 'Banjar Dinas Batumulapan');
+INSERT INTO `master_banjar` VALUES ('500109', '5105010011', 'Banjar Dinas Pulagan');
+INSERT INTO `master_banjar` VALUES ('500110', '5105010011', 'Banjar Dinas Ponjok');
+INSERT INTO `master_banjar` VALUES ('500111', '5105010011', 'Banjar Dinas Bayuh');
+INSERT INTO `master_banjar` VALUES ('500112', '5105010011', 'Banjar Dinas Gelagah');
+INSERT INTO `master_banjar` VALUES ('500113', '5105010011', 'Banjar Dinas Jurangaya');
+INSERT INTO `master_banjar` VALUES ('500114', '5105010011', 'Banjar Dinas Jurangpahit');
+INSERT INTO `master_banjar` VALUES ('500115', '5105010009', 'Banjar Dinas Carangsari');
+INSERT INTO `master_banjar` VALUES ('500116', '5105010009', 'Banjar Dinas Celagilandan');
+INSERT INTO `master_banjar` VALUES ('500117', '5105010009', 'Banjar Dinas Kelemahan');
+INSERT INTO `master_banjar` VALUES ('500118', '5105010009', 'Banjar Dinas Semaya');
+INSERT INTO `master_banjar` VALUES ('500119', '5105010007', 'Banjar Dinas Tanglad');
+INSERT INTO `master_banjar` VALUES ('500120', '5105010007', 'Banjar Dinas Julingan');
+INSERT INTO `master_banjar` VALUES ('500121', '5105010007', 'Banjar Dinas Wates');
+INSERT INTO `master_banjar` VALUES ('500122', '5105010007', 'Banjar Dinas Anta');
+INSERT INTO `master_banjar` VALUES ('500123', '5105010006', 'Banjar Dinas Sedihing');
+INSERT INTO `master_banjar` VALUES ('500124', '5105010006', 'Banjar Dinas Ramuan');
+INSERT INTO `master_banjar` VALUES ('500125', '5105010006', 'Banjar Dinas Sekartaji');
+INSERT INTO `master_banjar` VALUES ('500126', '5105010006', 'Banjar Dinas Bungkil');
+INSERT INTO `master_banjar` VALUES ('500127', '5105010006', 'Banjar Dinas Tabuana');
+INSERT INTO `master_banjar` VALUES ('500128', '5105010006', 'Banjar Dinas Delundung');
+INSERT INTO `master_banjar` VALUES ('500129', '5105010005', 'Banjar Dinas Batukandik I');
+INSERT INTO `master_banjar` VALUES ('500130', '5105010005', 'Banjar Dinas Batukandik II');
+INSERT INTO `master_banjar` VALUES ('500131', '5105010005', 'Banjar Dinas Dungkap I');
+INSERT INTO `master_banjar` VALUES ('500132', '5105010005', 'Banjar Dinas Dungkap II');
+INSERT INTO `master_banjar` VALUES ('500133', '5105010005', 'Banjar Dinas Bangunurip');
+INSERT INTO `master_banjar` VALUES ('500134', '5105010005', 'Banjar Dinas Sukun');
+INSERT INTO `master_banjar` VALUES ('500135', '5105010005', 'Banjar Dinas Antapan');
+INSERT INTO `master_banjar` VALUES ('500136', '5105010005', 'Banjar Dinas Bingin');
+INSERT INTO `master_banjar` VALUES ('500137', '5105010003', 'Banjar Dinas Penutuk');
+INSERT INTO `master_banjar` VALUES ('500138', '5105010003', 'Banjar Dinas Batumadeg Klod');
+INSERT INTO `master_banjar` VALUES ('500139', '5105010003', 'Banjar Dinas Batumadeg Kaja');
+INSERT INTO `master_banjar` VALUES ('500140', '5105010003', 'Banjar Dinas Saren I');
+INSERT INTO `master_banjar` VALUES ('500141', '5105010003', 'Banjar Dinas Saren II');
+INSERT INTO `master_banjar` VALUES ('500142', '5105010003', 'Banjar Dinas Pangkung Gede');
+INSERT INTO `master_banjar` VALUES ('500143', '5105010001', 'Banjar Dinas Sebunibus');
+INSERT INTO `master_banjar` VALUES ('500144', '5105010001', 'Banjar Dinas Penaga');
+INSERT INTO `master_banjar` VALUES ('500145', '5105010001', 'Banjar Dinas Sakti');
+INSERT INTO `master_banjar` VALUES ('500157', '5105010015', 'Banjar Dinas Klod');
+INSERT INTO `master_banjar` VALUES ('500158', '5105010015', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500159', '5105010015', 'Banjar Dinas Kaja');
+INSERT INTO `master_banjar` VALUES ('500160', '5105010015', 'Banjar Dinas Kangin');
+INSERT INTO `master_banjar` VALUES ('500161', '5105010015', 'Banjar Dinas Ceningan Kangin');
+INSERT INTO `master_banjar` VALUES ('500162', '5105010015', 'Banjar Dinas Ceningan Kawan');
+INSERT INTO `master_banjar` VALUES ('500163', '5105010016', 'Banjar Dinas Jungutbatu Kaja I');
+INSERT INTO `master_banjar` VALUES ('500164', '5105010016', 'Banjar Dinas Jungutbatu Kaja II');
+INSERT INTO `master_banjar` VALUES ('500165', '5105010016', 'Banjar Dinas Jungutbatu Klod I');
+INSERT INTO `master_banjar` VALUES ('500166', '5105010016', 'Banjar Dinas Jungutbatu Klod II');
+INSERT INTO `master_banjar` VALUES ('500167', '5105010016', 'Banjar Dinas Jungutbatu Kangin I');
+INSERT INTO `master_banjar` VALUES ('500168', '5105010016', 'Banjar Dinas Jungutbatu Kangin II');
+INSERT INTO `master_banjar` VALUES ('500169', '5105010014', '-');
+INSERT INTO `master_banjar` VALUES ('500170', '5105010008', 'Banjar Dinas Pejukutan');
+INSERT INTO `master_banjar` VALUES ('500171', '5105010008', 'Banjar Dinas Pendem');
+INSERT INTO `master_banjar` VALUES ('500172', '5105010008', 'Banjar Dinas Pelilit');
+INSERT INTO `master_banjar` VALUES ('500173', '5105010008', 'Banjar Dinas Ampel');
+INSERT INTO `master_banjar` VALUES ('500174', '5105010008', 'Banjar Dinas Karang');
+INSERT INTO `master_banjar` VALUES ('500175', '5105010002', 'Banjar Dinas Pundukahe Kaja');
+INSERT INTO `master_banjar` VALUES ('500176', '5105010002', 'Banjar Dinas Pundukahe Klod');
+INSERT INTO `master_banjar` VALUES ('500177', '5105010002', 'Banjar Dinas Sebuluh Kawan');
+INSERT INTO `master_banjar` VALUES ('500178', '5105010002', 'Banjar Dinas Batugaing');
+INSERT INTO `master_banjar` VALUES ('500179', '5105010002', 'Banjar Dinas Karang Dawa');
+INSERT INTO `master_banjar` VALUES ('500180', '5105010002', 'Banjar Dinas Penangkidan');
+INSERT INTO `master_banjar` VALUES ('500181', '5105010002', 'Banjar Dinas Sompang');
+INSERT INTO `master_banjar` VALUES ('500182', '5105010012', 'Banjar Dinas Kutampi');
+INSERT INTO `master_banjar` VALUES ('500183', '5105010012', 'Banjar Dinas Telaga');
+INSERT INTO `master_banjar` VALUES ('500184', '5105010012', 'Banjar Dinas Limo');
+INSERT INTO `master_banjar` VALUES ('500185', '5105030015', 'Banjar Dinas Tengah');
+INSERT INTO `master_banjar` VALUES ('500186', '5105030015', 'Banjar Dinas Kaleran');
+INSERT INTO `master_banjar` VALUES ('500187', '5105030015', 'Banjar Dinas Tubuh');
+INSERT INTO `master_banjar` VALUES ('500188', '5105030018', 'Banjar Dinas Kangin');
+INSERT INTO `master_banjar` VALUES ('500189', '5105030018', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500190', '5105030017', 'Banjar Dinas Bajing');
+INSERT INTO `master_banjar` VALUES ('500191', '5105030017', 'Banjar Dinas Kaja Kangin');
+INSERT INTO `master_banjar` VALUES ('500192', '5105030017', 'Banjar Dinas Tengah');
+INSERT INTO `master_banjar` VALUES ('500193', '5105030017', 'Banjar Dinas Tulang Nyuh');
+INSERT INTO `master_banjar` VALUES ('500194', '5105030016', 'Banjar Dinas Apet');
+INSERT INTO `master_banjar` VALUES ('500195', '5105030016', 'Banjar Dinas Tabu');
+INSERT INTO `master_banjar` VALUES ('500196', '5105030016', 'Banjar Dinas Payungan');
+INSERT INTO `master_banjar` VALUES ('500197', '5105030016', 'Banjar Dinas Gembalan');
+INSERT INTO `master_banjar` VALUES ('500198', '5105030016', 'Banjar Dinas Cucukan');
+INSERT INTO `master_banjar` VALUES ('500199', '5105030016', 'Banjar Dinas Selat');
+INSERT INTO `master_banjar` VALUES ('500200', '5105030016', 'Banjar Dinas Takedan');
+INSERT INTO `master_banjar` VALUES ('500201', '5105030014', 'Banjar Dinas Gingsir');
+INSERT INTO `master_banjar` VALUES ('500202', '5105030014', 'Banjar Dinas Gede');
+INSERT INTO `master_banjar` VALUES ('500203', '5105030014', 'Banjar Dinas Pekandelan');
+INSERT INTO `master_banjar` VALUES ('500204', '5105030014', 'Banjar Dinas Tengah');
+INSERT INTO `master_banjar` VALUES ('500205', '5105030014', 'Banjar Dinas Bungaya');
+INSERT INTO `master_banjar` VALUES ('500206', '5105030014', 'Banjar Dinas Sangging');
+INSERT INTO `master_banjar` VALUES ('500207', '5105030002', 'Banjar Dinas Mamoran');
+INSERT INTO `master_banjar` VALUES ('500208', '5105030002', 'Banjar Dinas Kaler');
+INSERT INTO `master_banjar` VALUES ('500209', '5105030002', 'Banjar Dinas Klod');
+INSERT INTO `master_banjar` VALUES ('500210', '5105030002', 'Banjar Dinas Kuribatu');
+INSERT INTO `master_banjar` VALUES ('500211', '5105030001', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500212', '5105030001', 'Banjar Dinas Kangin');
+INSERT INTO `master_banjar` VALUES ('500213', '5105030007', 'Banjar Dinas Sangging');
+INSERT INTO `master_banjar` VALUES ('500214', '5105030007', 'Banjar Dinas Tabanan');
+INSERT INTO `master_banjar` VALUES ('500215', '5105030007', 'Banjar Dinas Pande Mas');
+INSERT INTO `master_banjar` VALUES ('500216', '5105030007', 'Banjar Dinas Kacangdawa');
+INSERT INTO `master_banjar` VALUES ('500223', '5105030004', '-');
+INSERT INTO `master_banjar` VALUES ('500224', '5105030005', 'Banjar Dinas Kawan');
+INSERT INTO `master_banjar` VALUES ('500225', '5105030005', 'Banjar Dinas Kangin');
+INSERT INTO `master_banjar` VALUES ('500226', '5105030006', 'Banjar Dinas Peken');
+INSERT INTO `master_banjar` VALUES ('500227', '5105030006', 'Banjar Dinas Meranggen');
+INSERT INTO `master_banjar` VALUES ('500228', '5105030006', 'Banjar Dinas Tusan');
+INSERT INTO `master_banjar` VALUES ('500229', '5105030006', 'Banjar Dinas Ambengan');
 INSERT INTO `master_customer` VALUES ('000001', 'Bu Heru', 'Asri Io', '0812222666545', '', '1');
 INSERT INTO `master_customer` VALUES ('000002', 'Bu Sugeng', 'Wisma asri 2 blok DD', '085777738812', '', '1');
 INSERT INTO `master_customer` VALUES ('000003', 'Bu Asep', 'WISMA ASRI 2 BELAKANG ATM MANDIRI', '081280336505', '', '1');
@@ -2271,9 +2271,9 @@ INSERT INTO `master_komunitas` VALUES ('000001', 'K Pencinta Anjing Herder', 'Ba
 INSERT INTO `master_komunitas` VALUES ('000002', 'K Pecinta Kucing Angora', '', '5105030', '5105030007', 'Riyan D Masiv', '087778989156', '000001');
 INSERT INTO `master_komunitas` VALUES ('000003', 'KOmunitas Motor Harley Klungkung 008', 'Klungkung', '5105030', '5105030008', 'Komang Agung', '', '000002');
 INSERT INTO `master_komunitas` VALUES ('000004', 'Komunitas Mobil Jadul', 'Nusapenida', '5105010', '5105010007', 'Komang karet', '', '000003');
-INSERT INTO `master_ktp` VALUES ('3211', 'I Ketut w', 'Bali', '2018-09-22', '0', 'O', 'Bali', '9', '9', '5105010003', '5105010', '000140', '0', '1', '000002', '000003', '5', '2', '', 'uploads/foto/e92fbd8c-cf05-11e8-bbb4-782bcbdbdcb7.jpg', '0', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `master_ktp` VALUES ('7765', 'ninik', 'bali', '2018-10-08', '1', 'A', 'Bali', '9', '9', '5105010003', '5105010', '000140', '0', '1', '000004', '000002', '3', '1', '', 'uploads/foto/e690522c-cf05-11e8-bbb4-782bcbdbdcb7.jpg', '0', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `master_ktp` VALUES ('998654', 'Eko', 'Bali', '2018-10-13', '0', 'A', 'Bali', '9', '9', '5105010003', '5105010', '000140', '0', '0', '000005', '000003', '1', null, '', 'uploads/foto/ed1afcce-cf05-11e8-bbb4-782bcbdbdcb7.jpg', '0', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `master_ktp` VALUES ('3211', 'I Ketut w', 'Bali', '2018-09-22', '0', 'O', 'Bali', '9', '9', '5105010001', '5105010', '500137', '0', '1', '000002', '000003', '5', '3', '', null, '0', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `master_ktp` VALUES ('7765', 'ninik', 'bali', '2018-10-08', '1', 'A', 'Bali', '9', '9', '5105010001', '5105010', '500137', '0', '1', '000004', '000002', '3', '2', '', null, '0', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `master_ktp` VALUES ('998654', 'Eko', 'Bali', '2018-10-13', '0', 'A', 'Bali', '9', '9', '5105010001', '5105010', '500137', '0', '0', '000005', '000003', '1', '1', '', null, '0', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `master_layanan` VALUES ('1', 'Cuci Setrika Biasa');
 INSERT INTO `master_layanan` VALUES ('2', 'Cuci Setrika Express');
 INSERT INTO `master_layanan` VALUES ('3', 'Setrika Aja Biasa');
@@ -2710,10 +2710,10 @@ INSERT INTO `tbl_m_pekerjaan` VALUES ('000002', 'Karyawan');
 INSERT INTO `tbl_m_pekerjaan` VALUES ('000003', 'Tani');
 INSERT INTO `tbl_m_pekerjaan` VALUES ('000004', 'Pedagang');
 INSERT INTO `tbl_m_pekerjaan` VALUES ('000005', 'Belum Bekerja');
-INSERT INTO `tbl_m_rumah` VALUES ('15', '123456', 'uploads/foto/f03367f1-be71-11e8-b64e-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_rumah` VALUES ('16', '123456', 'uploads/foto/739bf00a-cf04-11e8-bbb4-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_rumah_temp` VALUES ('59', '123456', 'uploads/foto/f03367f1-be71-11e8-b64e-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `tbl_m_rumah_temp` VALUES ('60', '123456', 'uploads/foto/739bf00a-cf04-11e8-bbb4-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `tbl_m_rumah` VALUES ('18', '123456', 'uploads/foto/f03367f1-be71-11e8-b64e-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `tbl_m_rumah` VALUES ('19', '123456', 'uploads/foto/739bf00a-cf04-11e8-bbb4-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `tbl_m_rumah_temp` VALUES ('80', '123456', 'uploads/foto/f03367f1-be71-11e8-b64e-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `tbl_m_rumah_temp` VALUES ('81', '123456', 'uploads/foto/739bf00a-cf04-11e8-bbb4-782bcbdbdcb7.jpg', '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `tbl_r_hub_kel` VALUES ('1', 'KEPALA KELUARGA');
 INSERT INTO `tbl_r_hub_kel` VALUES ('2', 'ISTRI');
 INSERT INTO `tbl_r_hub_kel` VALUES ('3', 'ANAK');
@@ -2740,9 +2740,9 @@ INSERT INTO `tbl_t_anggota_komunitas` VALUES ('2', '000001', '7765', '74dad5ba-c
 INSERT INTO `tbl_t_anggota_komunitas_temp` VALUES ('5', '7765', '74dad5ba-ca6e-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `tbl_t_bantuan` VALUES ('21', '8b01a5b7-ca6e-11e8-b64e-782bcbdbdcb7', '2', '000001', '3211', '2018-10-31', 'Training dagang', 'tES 123', '40', '2018-10-08 21:21:20', null, null);
 INSERT INTO `tbl_t_bantuan` VALUES ('22', '8b01a5b7-ca6e-11e8-b64e-782bcbdbdcb7', '2', '000001', '7765', '2018-10-31', 'Training dagang', 'tES 123', '40', '2018-10-08 21:21:20', null, null);
-INSERT INTO `trans_kk` VALUES ('26', '123456', '3211', '0', '1', null, null, null, null, null, '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `trans_kk` VALUES ('27', '123456', '7765', '0', '2', null, null, null, null, null, '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
-INSERT INTO `trans_kk` VALUES ('28', '123456', '998654', '0', '3', null, null, null, null, null, '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `trans_kk` VALUES ('29', '123456', '3211', '0', '1', null, null, null, null, null, '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `trans_kk` VALUES ('30', '123456', '7765', '0', '2', null, null, null, null, null, '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
+INSERT INTO `trans_kk` VALUES ('31', '123456', '998654', '0', '3', null, null, null, null, null, '9346135d-be6f-11e8-b64e-782bcbdbdcb7');
 INSERT INTO `web_sysid` VALUES ('1', 'web_copyright_year', '2016');
 INSERT INTO `web_sysid` VALUES ('2', 'web_copyright_content', 'MRZ@ Solution');
 INSERT INTO `web_sysid` VALUES ('3', 'web_copyright_auth', 'ang');
