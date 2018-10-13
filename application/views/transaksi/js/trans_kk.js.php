@@ -502,7 +502,7 @@ function edit_temp(a){
         dataType: "json",
         data: {sKtp:a,sPID:iPID},
         success: function (e) {
-            // console.log(e);
+            console.log(e);
             $("#id_nik").val(e.ktp.id_ktp);
             $("#id_nama").val(e.ktp.nama_ktp);
             $("#id_tmpt_lahir").val(e.ktp.tempat_lahir);

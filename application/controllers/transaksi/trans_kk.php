@@ -485,7 +485,6 @@ class Trans_kk extends CI_Controller {
 
 
     function ajax_Tambah() {
-        // print_r($this->input->post('banjar'));die();
         if(trim($this->input->get('sPID'))==""){
             $iPid=$this->global_m->get_data('select uuid() as pid')[0]->pid;
         }else{
@@ -519,8 +518,8 @@ class Trans_kk extends CI_Controller {
                     'link_gambar' => $iUploadFoto[1],
                     'is_delete' => 0,
                     'id_master_kk' => $this->input->post('noKK'),
-                    'hub_keluarga' => $this->input->post('hub_kel')
-                    // 'rumah_path' => $iUploadFotoRumah[1]
+                    'hub_keluarga' => $this->input->post('hub_kel'),
+                    'id_kemiskinan' => $this->input->post('kemiskinan'),
                 );
                 $model = $this->global_m->simpan('master_ktp_kk_temp',$data);            
                 $itipePesan='success';
@@ -554,7 +553,9 @@ class Trans_kk extends CI_Controller {
                     'is_delete' => 0,
                     'id_master_kk' => $this->input->post('noKK'),
                     'hub_keluarga' => $this->input->post('hub_kel'),
+                    'id_kemiskinan' => $this->input->post('kemiskinan'),
                 );
+                
                 $model = $this->global_m->ubah('master_ktp_kk_temp', $data, 'id_ktp', $this->input->post('nik'));
                 $model=true;
                 $itipePesan='success';
