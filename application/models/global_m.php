@@ -28,8 +28,28 @@ class Global_m extends CI_Model {
             return false;
         }
     }
+    public function getRincianBanjar($idKel) {
+        $sql = "select * from master_banjar where id_kel = '$idKel' ";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() <> 0) {
+            
+            $rows['data_cpa'] = $query->result();
+            return $rows;
+        } else {
+            return false;
+        }
+    }
     public function getJmlKel($idKec) {
         $sql = "select * from master_kelurahan where id_kec = '$idKec' ";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() <> 0) {
+            return $query->num_rows();
+        } else {
+            return false;
+        }
+    }
+    public function getJmlBanjar($idKel) {
+        $sql = "select * from master_banjar where id_kel = '$idKel' ";
         $query = $this->db->query($sql);
         if ($query->num_rows() <> 0) {
             return $query->num_rows();

@@ -175,6 +175,7 @@ function getDetailKK(iSes){
             $("#id_rw_").val(e.rw);
             $("#id_kec_").select2('val',e.id_kec);
             getKelAll2(e.id_kec,e.id_kel);
+            getBanjarAll2(e.id_kel,e.id_banjar);
             $("#gambar_foto_rumah").attr('src','<?php echo base_url(); ?>'+ e.rumah_path);
         },
         complete:function(e){
@@ -435,7 +436,8 @@ function loadGridAnggotaKel(){
             {"data": "nama_pend"},
             {"data": "hub_keluarga"},
             {"data": "act"},
-            {"data": "idsession"},
+            {"data": "nama_kemiskinan"},
+            // {"data": "idsession"},
         ],
         // Internationalisation. For more info refer to http://datatables.net/manual/i18n
         "language": {
@@ -478,7 +480,7 @@ function loadGridAnggotaKel(){
                 "searchable": true,
                 'targets': [0]
             },
-            {"targets":[14],"visible":false,"searchable":false}
+            // {"targets":[15],"visible":false,"searchable":false}
             ],
         "order": [
             [0, "asc"]
@@ -513,6 +515,7 @@ function edit_temp(a){
             $("#id_difabel").select2('val',e.ktp.id_difabel);
             $("#id_pendidikan").select2('val',e.ktp.id_pend);
             $("#id_hub_kel").select2('val',e.ktp.hub_keluarga);
+            $("#id_kemiskinan").select2('val',e.ktp.id_kemiskinan);
             $("#gambar_foto_ktp").attr('src','<?php echo base_url(); ?>'+ e.ktp.link_gambar);
 
         },
@@ -614,6 +617,7 @@ function delAnggotaKK(iid,itr,iKTP){
             success: function (e) {
                 // console.log(e.data_cpa.length)
                 if (e.data_cpa.length > 0) {
+                    $('#id_kel_').empty();
                     for (i = 0; i < e.data_cpa.length; i++) {
                         var idKel = e.data_cpa[i].id_kel;
                         var namakel = e.data_cpa[i].nama_kel;
@@ -646,6 +650,58 @@ function delAnggotaKK(iid,itr,iKTP){
             },
             complete: function (e) {
             $("#id_kel_").select2('val',idKel_);
+            }
+        });
+    }
+
+    $("#id_kel_").change(function () {
+        var idKel = $(this).val();
+        getBanjarAll(idKel);
+    });
+    function getBanjarAll(idKel) {
+        $.ajax({
+            url: "<?php echo base_url("/globalc/getBanjarAll"); ?>", // json datasource
+            dataType: "JSON", // what to expect back from the PHP script, if anything
+            type: 'post',
+            cache: false,
+            data: {idKel: idKel},
+            success: function (e) {
+                // console.log("tes- ",e.data_cpa.length)
+                if (e.data_cpa.length > 0) {
+                    $('#id_banjar').empty();
+                    for (i = 0; i < e.data_cpa.length; i++) {
+                        var id = e.data_cpa[i].id_banjar;
+                        var nama = e.data_cpa[i].nama_banjar;
+                        opt = '<option value="' + id + '">' + nama + '</option>';
+                        $('#id_banjar').append(opt);
+                    }
+                }
+
+            },
+        });
+    }
+    function getBanjarAll2(idKel,idBanjar) {
+        $.ajax({
+            url: "<?php echo base_url("/globalc/getBanjarAll"); ?>", // json datasource
+            dataType: "JSON", // what to expect back from the PHP script, if anything
+            type: 'post',
+            cache: false,
+            data: {idKel: idKel},
+            success: function (e) {
+                // console.log(e.data_cpa.length)
+                if (e.data_cpa.length > 0) {
+                    $('#id_banjar').empty();
+                    for (i = 0; i < e.data_cpa.length; i++) {
+                        var id = e.data_cpa[i].id_banjar;
+                        var nama = e.data_cpa[i].nama_banjar;
+                        opt = '<option value="' + id + '">' + nama + '</option>';
+                        $('#id_banjar').append(opt);
+                    }
+                }
+
+            },
+            complete: function (e) {
+            $("#id_banjar").select2('val',idBanjar);
             }
         });
     }

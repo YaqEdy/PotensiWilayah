@@ -26,6 +26,19 @@ class Globalc extends CI_Controller {
         }
     }
     
+    function getBanjarAll() {
+        $this->CI = & get_instance();
+        $idKel = $this->input->post('idKel', TRUE);
+        $crows = $this->global_m->getJmlBanjar($idKel);
+        if ($crows <= 0) {
+            $array = array('baris' => 0);
+            $rows['data_cpa'] = $array;
+            $this->output->set_output(json_encode($rows));
+        } else {
+            $rows = $this->global_m->getRincianBanjar($idKel);
+            $this->output->set_output(json_encode($rows));
+        }
+    }
     
     
     

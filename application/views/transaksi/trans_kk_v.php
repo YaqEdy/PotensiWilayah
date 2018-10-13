@@ -149,7 +149,15 @@
 
                                             </div>
                                         </div>
+
+                                    <div class="form-group">
+                                        <label>Banjar</label>
+                                        <select name="banjar" id="id_banjar" class="form-control input-sm select2me "></select>
                                     </div>
+
+                                    </div>
+
+
                                     <!--end <div class="col-md-6"> 1 -->
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -185,6 +193,7 @@
                                             <h4>&nbsp;</h4> -->
                                         </div>
                                     </div>
+
                                 </div>
                                         
                                 <!-- HIDDEN INPUT -->
@@ -252,8 +261,11 @@
                                                     <th>
                                                         Act
                                                     </th>
+                                                    <!-- <th>
+                                                        Kemiskinan
+                                                    </th> -->
 
-                                                    <th hidden></th>
+                                                    <th></th>
 
                                                 </tr>
 
@@ -487,6 +499,20 @@
                                                     </span>
                                                 </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Kemiskinan</label>
+                                        <?php
+                                        $data = array();
+                                        $data[''] = '';
+                                        foreach ($kemiskinan as $row) :
+                                            $data[$row['id_kemiskinan']] = $row['nama_kemiskinan'];
+                                        endforeach;
+                                        echo form_dropdown('kemiskinan', $data, '', ' id="id_kemiskinan" class="form-control input-sm select2me "');
+                                        ?>
                                     </div>
                                 </div>
 

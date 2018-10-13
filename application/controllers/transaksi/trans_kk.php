@@ -50,6 +50,7 @@ class Trans_kk extends CI_Controller {
         $data['instansi'] = $this->global_m->getSelectOption('tbl_m_instansi','','','','','id_instansi');
         $data['pendidikan'] = $this->global_m->getSelectOption('tbl_r_pendidikan','','','','','id_pend');
         $data['agama'] = $this->global_m->getSelectOption('tbl_m_agama','','','','','id_agama');
+        $data['kemiskinan'] = $this->global_m->getSelectOption('tbl_r_kemiskinan','','','','','id_kemiskinan');
 
         // print_r($this->global_m->getSelectOption('tbl_r_hub_kel','','','','','id_hub_kel'));die();
         if (isset($_POST["btnSimpan"])) {
@@ -173,6 +174,7 @@ class Trans_kk extends CI_Controller {
                                 'rw' => $this->input->post('rw_'),
                                 'id_kel' => $this->input->post('kel_'),
                                 'id_kec' => $this->input->post('kec_'),
+                                'id_banjar' => $this->input->post('banjar'),
                                 'agama' => $this->input->post('agama_'.$i),
                                 'status_kawin' => $this->input->post('status_'.$i),
                                 'pekerjaan' => $this->input->post('pekerjaan_'.$i),
@@ -213,6 +215,7 @@ class Trans_kk extends CI_Controller {
                                 'rw' => $this->input->post('rw_'),
                                 'id_kel' => $this->input->post('kel_'),
                                 'id_kec' => $this->input->post('kec_'),
+                                'id_banjar' => $this->input->post('banjar'),
                                 'agama' => $this->input->post('agama_'.$i),
                                 'status_kawin' => $this->input->post('status_'.$i),
                                 'pekerjaan' => $this->input->post('pekerjaan_'.$i),
@@ -482,6 +485,7 @@ class Trans_kk extends CI_Controller {
 
 
     function ajax_Tambah() {
+        // print_r($this->input->post('banjar'));die();
         if(trim($this->input->get('sPID'))==""){
             $iPid=$this->global_m->get_data('select uuid() as pid')[0]->pid;
         }else{
@@ -506,6 +510,7 @@ class Trans_kk extends CI_Controller {
                     'rw' => $this->input->post('rw_'),
                     'id_kel' => $this->input->post('kel_'),
                     'id_kec' => $this->input->post('kec_'),
+                    'id_banjar' => $this->input->post('banjar'),
                     'agama' => $this->input->post('agama'),
                     'status_kawin' => $this->input->post('status'),
                     'pekerjaan' => $this->input->post('pekerjaan'),
@@ -539,6 +544,7 @@ class Trans_kk extends CI_Controller {
                     'rw' => $this->input->post('rw_'),
                     'id_kel' => $this->input->post('kel_'),
                     'id_kec' => $this->input->post('kec_'),
+                    'id_banjar' => $this->input->post('banjar'),
                     'agama' => $this->input->post('agama'),
                     'status_kawin' => $this->input->post('status'),
                     'pekerjaan' => $this->input->post('pekerjaan'),
@@ -604,6 +610,7 @@ class Trans_kk extends CI_Controller {
                 'nama_difabel' => trim($row->nama_difabel),
                 'nama_pend' => trim($row->nama_pend),
                 'hub_keluarga' => trim($row->nama_hub_kel),
+                'nama_kemiskinan' => trim($row->nama_kemiskinan),
 
                 'act' =>"<input type='button' onclick='edit_temp(".trim($row->id_ktp).")' class='btn btn-warning btn-sm' value='Edit'>
                         <input type='button' onclick='del_temp(".trim($row->id).",".trim($row->id_ktp).")' class='btn red btn-sm' value='Delete'>",
