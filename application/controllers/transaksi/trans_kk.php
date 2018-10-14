@@ -80,7 +80,8 @@ class Trans_kk extends CI_Controller {
                 'kel' => trim($row->nama_kel),
                 'rw' => trim($row->rw),
                 'rt' => trim($row->rt),
-                'jmlAgt' => trim($row->jml_anggota_keluarga)
+                'jmlAgt' => trim($row->jml_anggota_keluarga),
+                'id_kemiskinan' => trim($row->id_kemiskinan)
             );
             array_push($data['data'], $array);
             $no++;
@@ -661,6 +662,15 @@ class Trans_kk extends CI_Controller {
 
     public function ajax_Simpan(){
         $iPid = $this->input->post('sPID');
+        $this->global_m->query("UPDATE master_ktp_kk_temp 
+                                SET `alamat`= '".$this->input->post('sAlamat')."',
+                                    `rt`= '".$this->input->post('sRt')."',
+                                    `rw`= '".$this->input->post('sRw')."',
+                                    `id_kec`= '".$this->input->post('sIdKec')."',
+                                    `id_kel`= '".$this->input->post('sIdKel')."',
+                                    `id_banjar`= '".$this->input->post('sIdBanjar')."',
+                                    `id_kemiskinan`= '".$this->input->post('sIdKemiskinan')."'
+                                WHERE idsession='".$iPid."'");
 
         $result = $this->global_m->query("CALL zsp_simpan_kk('".$iPid."')");
 

@@ -43,7 +43,10 @@
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="<?php echo base_url('metronic/img/favicon.ico'); ?>" /> 
         
-        <style type="text/css">      
+        <style type="text/css">   
+            .removebrand a{
+                font-size: 0!important;
+            }
             .nomor {
                 text-align: right;
             }

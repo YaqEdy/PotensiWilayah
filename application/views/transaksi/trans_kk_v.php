@@ -81,6 +81,9 @@
                                                 <th>
                                                     Jml Anggota Keluarga
                                                 </th>
+                                                <th>
+                                                    kemiskinan
+                                                </th>
 
                                             </tr>
                                         </thead>
@@ -151,8 +154,23 @@
                                         </div>
 
                                     <div class="form-group">
-                                        <label>Banjar</label>
-                                        <select name="banjar" id="id_banjar" class="form-control input-sm select2me "></select>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Banjar</label>
+                                                <select name="banjar" id="id_banjar" class="form-control input-sm select2me "></select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Kemiskinan</label>
+                                                <?php
+                                                $data = array();
+                                                $data[''] = '';
+                                                foreach ($kemiskinan as $row) :
+                                                    $data[$row['id_kemiskinan']] = $row['nama_kemiskinan'];
+                                                endforeach;
+                                                echo form_dropdown('kemiskinan', $data, '', ' id="id_kemiskinan" class="form-control input-sm select2me "');
+                                                ?>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     </div>
@@ -502,7 +520,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Kemiskinan</label>
                                         <?php
@@ -514,7 +532,7 @@
                                         echo form_dropdown('kemiskinan', $data, '', ' id="id_kemiskinan" class="form-control input-sm select2me "');
                                         ?>
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>

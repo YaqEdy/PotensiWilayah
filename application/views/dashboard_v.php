@@ -105,6 +105,71 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-4">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet  light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart "></i>Pie Chart Kemiskinan
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                    <a href="javascript:;" class="fullscreen">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart_kemiskinan" class="chart removebrand">
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+    <div class="col-md-4">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet  light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart "></i>Pie Chart Pekerjaan
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                    <a href="javascript:;" class="fullscreen">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart_pekerjaan" class="chart removebrand">
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+    <div class="col-md-4">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet  light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart "></i>Pie Chart Difabel
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                    <a href="javascript:;" class="fullscreen">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart_difabel" class="chart removebrand" ><!-- style="height:525px; overflow: hidden; text-align: left;" -->
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<div class="row">
     <div class="col-md-6">
 
         <!-- BEGIN SAMPLE TABLE PORTLET-->
@@ -125,7 +190,7 @@
             </div>
             <div class="portlet-body">
                 <div class="table-toolbar">
-                    
+
                 </div>
 
                 <div class="table-toolbar">
@@ -237,7 +302,7 @@
             </div>
             <div class="portlet-body">
                 <div class="table-toolbar">
-                    
+
                 </div>
 
                 <div class="table-toolbar">
@@ -332,8 +397,8 @@
 </div>
 <!-- END ROW -->
 
-    <div class="row">
-        <div class="col-md-6">
+<div class="row">
+    <div class="col-md-6">
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="portlet light">
             <div class="portlet-title">
@@ -382,10 +447,10 @@
                 </div>
             </div>
         </div>
-        </div>
-        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+    <!-- END SAMPLE TABLE PORTLET-->
 
-        <div class="col-md-6">
+    <div class="col-md-6">
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="portlet light">
             <div class="portlet-title">
@@ -434,23 +499,23 @@
                 </div>
             </div>
         </div>
-        </div>
-        <!-- END SAMPLE TABLE PORTLET-->
-
     </div>
+    <!-- END SAMPLE TABLE PORTLET-->
+
+</div>
 <!-- END ROW -->
 
 
 
 
-    </div>
+</div>
 <!-- END PAGE CONTENT-->
 
 <!-- BEGIN CORE PLUGINS -->
 <?php $this->load->view('app.min.inc.php'); ?>
 <script>
     App.isAngularJsApp() === !1 && jQuery(document).ready(function () {
-        
+
         TableManaged.init();
     });
     var TableManaged = function () {
@@ -467,7 +532,6 @@
                     {"data": "jml_pria"},
                     {"data": "jml_wanita"},
                     {"data": "jml_penduduk"},
-
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -567,7 +631,6 @@
                     {"data": "jml_pria"},
                     {"data": "jml_wanita"},
                     {"data": "jml_penduduk"},
-
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -667,7 +730,6 @@
                     {"data": "jml_pria"},
                     {"data": "jml_wanita"},
                     {"data": "jml_penduduk"},
-
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -767,7 +829,6 @@
                     {"data": "jml_pria"},
                     {"data": "jml_wanita"},
                     {"data": "jml_penduduk"},
-
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -868,7 +929,6 @@
                     {"data": "jml_pria"},
                     {"data": "jml_wanita"},
                     {"data": "jml_penduduk"},
-
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -969,7 +1029,6 @@
                     {"data": "jml_pria"},
                     {"data": "jml_wanita"},
                     {"data": "jml_penduduk"},
-
                 ],
                 // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                 "language": {
@@ -1073,5 +1132,151 @@
             }
         };
     }();
-   //id_TabelBajangkaran
+    var ChartsAmcharts = function () {
+        m = function () {
+            var chart = AmCharts.makeChart("chart_kemiskinan", {
+                "type": "pie",
+                "theme": "light",
+                "fontFamily": 'Open Sans',
+                "color":    '#888',
+                "dataProvider": [
+                    <?php
+
+                        foreach($pie_kemiskinan as $row) :
+                            echo '{';
+                            echo '"nama_kemiskinan":'.'"'.$row['nama_kemiskinan'].'",';
+                            echo '"jumlah":'.'"'.$row['jml'].'",';
+                            echo '},';
+                           // echo $row['target'];
+                        endforeach;
+                    ?>
+                ],
+                "valueField": "jumlah",
+                "titleField": "nama_kemiskinan",
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                "angle": 30,
+                "exportConfig": {
+                    menuItems: [{
+                        icon: '/lib/3/images/export.png',
+                        format: 'png'
+                    }]
+                }
+            });
+
+            jQuery('.chart_kemiskinan_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+
+                target[property] = value;
+                chart.validateNow();
+            });
+
+            $('#chart_kemiskinan').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        };// end t = function()
+        t = function () {
+            var chart = AmCharts.makeChart("chart_pekerjaan", {
+                "type": "pie",
+                "theme": "light",
+                "fontFamily": 'Open Sans',
+                "color":    '#888',
+                "dataProvider": [
+                    <?php
+
+                        foreach($pie_pekerjaan as $row) :
+                            echo '{';
+                            echo '"nama_pekerjaan":'.'"'.$row['nm_pekerjaan'].'",';
+                            echo '"jumlah":'.'"'.$row['jml'].'",';
+                            echo '},';
+                           // echo $row['target'];
+                        endforeach;
+                    ?>
+                ],
+                "valueField": "jumlah",
+                "titleField": "nama_pekerjaan",
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                "angle": 30,
+                "exportConfig": {
+                    menuItems: [{
+                        icon: '/lib/3/images/export.png',
+                        format: 'png'
+                    }]
+                }
+            });
+
+            jQuery('.chart_pekerjaan_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+
+                target[property] = value;
+                chart.validateNow();
+            });
+
+            $('#chart_pekerjaan').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        };// end t = function()
+        u = function () {
+            var chart = AmCharts.makeChart("chart_difabel", {
+                "type": "pie",
+                "theme": "light",
+                "fontFamily": 'Open Sans',
+                "color":    '#888',
+                "dataProvider": [
+                    <?php
+
+                        foreach($pie_difabel as $row) :
+                            echo '{';
+                            echo '"nama_difabel":'.'"'.$row['nama_difabel'].'",';
+                            echo '"jumlah":'.'"'.$row['jml'].'",';
+                            echo '},';
+                           // echo $row['target'];
+                        endforeach;
+                    ?>
+                ],
+                "valueField": "jumlah",
+                "titleField": "nama_difabel",
+                
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                "exportConfig": {
+                    menuItems: [{
+                        icon: App.getGlobalPluginsPath() + "amcharts/amcharts/images/export.png",
+                        format: 'png'
+                    }]
+                }
+            });
+
+            
+            $('#chart_difabel').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        };// end t = function()
+        
+        return {
+            init: function () {
+                m(),t(),u()
+            }
+        }
+    }();
+    jQuery(document).ready(function () {
+        ChartsAmcharts.init()
+    });
+    //id_TabelBajangkaran
 </script>

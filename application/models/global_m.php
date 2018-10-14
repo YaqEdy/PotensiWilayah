@@ -61,6 +61,15 @@ class Global_m extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result();
     }
+    public function get_data_array($sql){
+        $rows = array(); //will hold all results
+        
+        $query = $this->db->query($sql);
+        foreach ($query->result_array() as $row) {
+            $rows[] = $row; //add the fetched result to the result array;
+        }
+        return $rows; // returning rows, not row
+    }
     public function simpan($tabel, $data) {
         $this->db->trans_begin();
         $model = $this->db->insert($tabel, $data);

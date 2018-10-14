@@ -14,6 +14,27 @@
 <script src="<?php echo base_url('metronic/global/plugins/bootbox/bootbox.min.js'); ?>" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amcharts/amcharts.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amcharts/serial.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amcharts/pie.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amcharts/radar.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amcharts/themes/light.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amcharts/themes/patterns.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amcharts/themes/chalk.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/ammap/ammap.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/ammap/maps/js/worldLow.js'); ?>"
+        type="text/javascript"></script>
+<script src="<?php echo base_url('metronic/global/plugins/amcharts/amstockcharts/amstock.js'); ?>"
+        type="text/javascript"></script>
+        
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/select2/js/select2.full.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/bootstrap-toastr/toastr.min.js'); ?>"></script>

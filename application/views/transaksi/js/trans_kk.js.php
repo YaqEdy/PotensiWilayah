@@ -51,7 +51,8 @@ var initTable1 = function () {
             {"data": "kel"},
             {"data": "rw"},
             {"data": "rt"},
-            {"data": "jmlAgt"}
+            {"data": "jmlAgt"},
+            {"data": "id_kemiskinan"}
 
         ],
         // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -91,7 +92,8 @@ var initTable1 = function () {
         "aaSorting": [[0, 'asc']/*, [5,'desc']*/],
         "columnDefs": [
             {"targets": [0],"orderable": true,"searchable": true},
-            {"targets":[1],"visible":false,"searchable":false}
+            {"targets":[1],"visible":false,"searchable":false},
+            {"targets":[10],"visible":false,"searchable":false}
  
             ],
         "order": [
@@ -174,6 +176,7 @@ function getDetailKK(iSes){
             $("#id_rt_").val(e.rt);
             $("#id_rw_").val(e.rw);
             $("#id_kec_").select2('val',e.id_kec);
+            $("#id_kemiskinan").select2('val',e.id_kemiskinan);
             getKelAll2(e.id_kec,e.id_kel);
             getBanjarAll2(e.id_kel,e.id_banjar);
             $("#gambar_foto_rumah").attr('src','<?php echo base_url(); ?>'+ e.rumah_path);
@@ -560,7 +563,14 @@ function save(){
         dataType: "JSON", // what to expect back from the PHP script, if anything
         type: 'post',
         cache: false,
-        data: {sPID: iPID},
+        data: {sPID: iPID,
+                sAlamat:$('#id_alamat_').val(),
+                sRt:$('#id_rt_').val(),
+                sRw:$('#id_rw_').val(),
+                sIdKec:$('#id_kec_').val(),
+                sIdKel:$('#id_kel_').val(),
+                sIdBanjar:$('#id_banjar').val(),
+                sIdKemiskinan:$('#id_kemiskinan').val() },
         success: function (e) {
             // console.log(e)
             if (e.istatus == true) {
