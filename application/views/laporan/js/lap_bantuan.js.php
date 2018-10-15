@@ -9,7 +9,13 @@
     readyToStart();
     
     function cetak() {
-        window.open("<?php echo base_url('laporan/lap_bantuan/cetak/'); ?>/" + $("#id_tgl_mulai").val()+"/"+ $("#id_tgl_selesai").val() , '_blank');//+ idAdvance + masterId        
+        var imulai=$("#id_tgl_mulai").val();
+        var iselesai=$("#id_tgl_selesai").val();
+        if(imulai!="" || iselesai!=""){
+            window.open("<?php echo base_url('laporan/lap_bantuan/cetak/'); ?>/" + imulai+"/"+ iselesai , '_blank');//+ idAdvance + masterId        
+        }else{
+            alert("Tanggal mulai dan selesai tidak boleh kosong.!");
+        }
     }
 
 
