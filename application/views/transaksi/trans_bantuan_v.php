@@ -47,6 +47,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
+                                    <br><br><br><br>
                                         
                                             <table class="table table-striped table-bordered table-hover text_kanan"
                                                    id="idTabelBantuan">

@@ -769,53 +769,53 @@ CREATE TABLE `web_sysid` (
 -- ----------------------------
 -- View structure for vw_anggota_kel_temp
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_anggota_kel_temp` AS select `a`.`id` AS `id`,`a`.`idsession` AS `idsession`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_ktp` AS `nama_ktp`,`a`.`tempat_lahir` AS `tempat_lahir`,date_format(`a`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`a`.`jekel` AS `jekel`,`a`.`gol_darah` AS `gol_darah`,`b`.`nama_agama` AS `nama_agama`,`c`.`nama_nikah` AS `nama_nikah`,`d`.`nama_pekerjaan` AS `nama_pekerjaan`,`e`.`nama_hub_kel` AS `nama_hub_kel`,`f`.`nama_difabel` AS `nama_difabel`,`g`.`nama_pend` AS `nama_pend`,`a`.`id_kemiskinan` AS `id_kemiskinan`,`h`.`nama_kemiskinan` AS `nama_kemiskinan` from (((((((`master_ktp_kk_temp` `a` join `tbl_m_agama` `b` on((`a`.`agama` = `b`.`id_agama`))) join `tbl_r_status_nikah` `c` on((`a`.`status_kawin` = `c`.`id_nikah`))) join `tbl_m_pekerjaan` `d` on((`a`.`pekerjaan` = `d`.`id_pekerjaan`))) join `tbl_r_hub_kel` `e` on((`a`.`hub_keluarga` = `e`.`id_hub_kel`))) left join `tbl_m_difabel` `f` on((`a`.`id_difabel` = `f`.`id_difabel`))) left join `tbl_r_pendidikan` `g` on((`a`.`id_pend` = `g`.`id_pend`))) left join `tbl_r_kemiskinan` `h` on((`a`.`id_kemiskinan` = `h`.`id_kemiskinan`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_anggota_kel_temp` AS select `a`.`id` AS `id`,`a`.`idsession` AS `idsession`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_ktp` AS `nama_ktp`,`a`.`tempat_lahir` AS `tempat_lahir`,date_format(`a`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`a`.`jekel` AS `jekel`,`a`.`gol_darah` AS `gol_darah`,`b`.`nama_agama` AS `nama_agama`,`c`.`nama_nikah` AS `nama_nikah`,`d`.`nama_pekerjaan` AS `nama_pekerjaan`,`e`.`nama_hub_kel` AS `nama_hub_kel`,`f`.`nama_difabel` AS `nama_difabel`,`g`.`nama_pend` AS `nama_pend`,`a`.`id_kemiskinan` AS `id_kemiskinan`,`h`.`nama_kemiskinan` AS `nama_kemiskinan` from (((((((`master_ktp_kk_temp` `a` join `tbl_m_agama` `b` on((`a`.`agama` = `b`.`id_agama`))) join `tbl_r_status_nikah` `c` on((`a`.`status_kawin` = `c`.`id_nikah`))) join `tbl_m_pekerjaan` `d` on((`a`.`pekerjaan` = `d`.`id_pekerjaan`))) join `tbl_r_hub_kel` `e` on((`a`.`hub_keluarga` = `e`.`id_hub_kel`))) left join `tbl_m_difabel` `f` on((`a`.`id_difabel` = `f`.`id_difabel`))) left join `tbl_r_pendidikan` `g` on((`a`.`id_pend` = `g`.`id_pend`))) left join `tbl_r_kemiskinan` `h` on((`a`.`id_kemiskinan` = `h`.`id_kemiskinan`)));
 
 -- ----------------------------
 -- View structure for vw_kk
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_kk` AS select `b`.`id_master_kk` AS `id_master_kk`,`b`.`id_ktp` AS `id_ktp`,`a`.`nama_ktp` AS `nama_ktp`,`c`.`nama_kec` AS `nama_kec`,`d`.`nama_kel` AS `nama_kel`,`a`.`rt` AS `rt`,`a`.`rw` AS `rw`,`a`.`id_kec` AS `id_kec`,`a`.`id_kel` AS `id_kel`,`a`.`id_banjar` AS `id_banjar`,`a`.`id_kemiskinan` AS `id_kemiskinan`,`a`.`alamat` AS `alamat`,`b`.`rumah_path` AS `rumah_path`,`b`.`hub_keluarga` AS `hub_keluarga`,`b`.`idsession` AS `idsession`,(select count(1) from (`trans_kk` `z` join `master_ktp` `x` on((`z`.`id_ktp` = `x`.`id_ktp`))) where ((`z`.`id_master_kk` = `b`.`id_master_kk`) and (`x`.`is_delete` = 0))) AS `jml_anggota_keluarga` from (((`master_ktp` `a` join `trans_kk` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `master_kecamatan` `c` on((`a`.`id_kec` = `c`.`id_kec`))) join `master_kelurahan` `d` on((`a`.`id_kel` = `d`.`id_kel`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_kk` AS select `b`.`id_master_kk` AS `id_master_kk`,`b`.`id_ktp` AS `id_ktp`,`a`.`nama_ktp` AS `nama_ktp`,`c`.`nama_kec` AS `nama_kec`,`d`.`nama_kel` AS `nama_kel`,`a`.`rt` AS `rt`,`a`.`rw` AS `rw`,`a`.`id_kec` AS `id_kec`,`a`.`id_kel` AS `id_kel`,`a`.`id_banjar` AS `id_banjar`,`a`.`id_kemiskinan` AS `id_kemiskinan`,`a`.`alamat` AS `alamat`,`b`.`rumah_path` AS `rumah_path`,`b`.`hub_keluarga` AS `hub_keluarga`,`b`.`idsession` AS `idsession`,(select count(1) from (`trans_kk` `z` join `master_ktp` `x` on((`z`.`id_ktp` = `x`.`id_ktp`))) where ((`z`.`id_master_kk` = `b`.`id_master_kk`) and (`x`.`is_delete` = 0))) AS `jml_anggota_keluarga` from (((`master_ktp` `a` join `trans_kk` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `master_kecamatan` `c` on((`a`.`id_kec` = `c`.`id_kec`))) join `master_kelurahan` `d` on((`a`.`id_kel` = `d`.`id_kel`)));
 
 -- ----------------------------
 -- View structure for vw_t_bantuan
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_bantuan` AS select `a`.`id_t_bantuan` AS `id_t_bantuan`,`a`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`a`.`id_m_instansi` AS `id_m_instansi`,`b`.`nama_instansi` AS `nama_instansi`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_bantuan` AS `nama_bantuan`,`a`.`ket` AS `ket`,date_format(`a`.`tgl_bantuan`,'%d-%m-%Y') AS `tgl_bantuan`,`a`.`tgl_bantuan` AS `tgl_bantuan_`,`a`.`idsession` AS `idsession`,`c`.`nama_ktp` AS `nama_ktp`,`c`.`tempat_lahir` AS `tempat_lahir`,`c`.`tanggal_lahir` AS `tanggal_lahir`,`c`.`jekel` AS `jekel`,`c`.`gol_darah` AS `gol_darah`,`c`.`alamat` AS `alamat`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`id_kel` AS `id_kel`,`c`.`id_kec` AS `id_kec`,`c`.`agama` AS `agama`,`c`.`status_kawin` AS `status_kawin`,`c`.`pekerjaan` AS `pekerjaan`,`c`.`warga_negara` AS `warga_negara`,`c`.`link_gambar` AS `link_gambar`,`c`.`is_delete` AS `is_delete` from (((`tbl_t_bantuan` `a` join `tbl_m_instansi` `b` on((`a`.`id_m_instansi` = `b`.`id_instansi`))) join `master_ktp` `c` on((`a`.`id_ktp` = `c`.`id_ktp`))) left join `tbl_r_jns_bantuan` `d` on((`a`.`id_jns_bantuan` = `d`.`id_jns_bantuan`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_t_bantuan` AS select `a`.`id_t_bantuan` AS `id_t_bantuan`,`a`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`a`.`id_m_instansi` AS `id_m_instansi`,`b`.`nama_instansi` AS `nama_instansi`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_bantuan` AS `nama_bantuan`,`a`.`ket` AS `ket`,date_format(`a`.`tgl_bantuan`,'%d-%m-%Y') AS `tgl_bantuan`,`a`.`tgl_bantuan` AS `tgl_bantuan_`,`a`.`idsession` AS `idsession`,`c`.`nama_ktp` AS `nama_ktp`,`c`.`tempat_lahir` AS `tempat_lahir`,`c`.`tanggal_lahir` AS `tanggal_lahir`,`c`.`jekel` AS `jekel`,`c`.`gol_darah` AS `gol_darah`,`c`.`alamat` AS `alamat`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`id_kel` AS `id_kel`,`c`.`id_kec` AS `id_kec`,`c`.`agama` AS `agama`,`c`.`status_kawin` AS `status_kawin`,`c`.`pekerjaan` AS `pekerjaan`,`c`.`warga_negara` AS `warga_negara`,`c`.`link_gambar` AS `link_gambar`,`c`.`is_delete` AS `is_delete` from (((`tbl_t_bantuan` `a` join `tbl_m_instansi` `b` on((`a`.`id_m_instansi` = `b`.`id_instansi`))) join `master_ktp` `c` on((`a`.`id_ktp` = `c`.`id_ktp`))) left join `tbl_r_jns_bantuan` `d` on((`a`.`id_jns_bantuan` = `d`.`id_jns_bantuan`)));
 
 -- ----------------------------
 -- View structure for vw_komunitas
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_komunitas` AS select `master_komunitas`.`id_komunitas` AS `id_komunitas`,`master_komunitas`.`nama_komunitas` AS `nama_komunitas`,`master_komunitas`.`alamat` AS `alamat`,`master_komunitas`.`id_kec` AS `id_kec`,`master_komunitas`.`id_kel` AS `id_kel`,`master_komunitas`.`nama_koordinator` AS `nama_koordinator`,`master_komunitas`.`no_telp` AS `no_telp`,`master_komunitas`.`id_jeniskomunitas` AS `id_jeniskomunitas`,`master_jeniskomunitas`.`nama_jeniskomunitas` AS `nama_jeniskomunitas`,`master_ktp`.`id_ktp` AS `id_ktp`,`master_ktp`.`nama_ktp` AS `nama_ktp` from (((`master_komunitas` join `tbl_t_anggota_komunitas` on((`master_komunitas`.`id_komunitas` = `tbl_t_anggota_komunitas`.`id_komunitas`))) join `master_ktp` on((`tbl_t_anggota_komunitas`.`id_ktp` = `master_ktp`.`id_ktp`))) join `master_jeniskomunitas` on((`master_komunitas`.`id_jeniskomunitas` = `master_jeniskomunitas`.`id_jeniskomunitas`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_komunitas` AS select `master_komunitas`.`id_komunitas` AS `id_komunitas`,`master_komunitas`.`nama_komunitas` AS `nama_komunitas`,`master_komunitas`.`alamat` AS `alamat`,`master_komunitas`.`id_kec` AS `id_kec`,`master_komunitas`.`id_kel` AS `id_kel`,`master_komunitas`.`nama_koordinator` AS `nama_koordinator`,`master_komunitas`.`no_telp` AS `no_telp`,`master_komunitas`.`id_jeniskomunitas` AS `id_jeniskomunitas`,`master_jeniskomunitas`.`nama_jeniskomunitas` AS `nama_jeniskomunitas`,`master_ktp`.`id_ktp` AS `id_ktp`,`master_ktp`.`nama_ktp` AS `nama_ktp` from (((`master_komunitas` join `tbl_t_anggota_komunitas` on((`master_komunitas`.`id_komunitas` = `tbl_t_anggota_komunitas`.`id_komunitas`))) join `master_ktp` on((`tbl_t_anggota_komunitas`.`id_ktp` = `master_ktp`.`id_ktp`))) join `master_jeniskomunitas` on((`master_komunitas`.`id_jeniskomunitas` = `master_jeniskomunitas`.`id_jeniskomunitas`)));
 
 -- ----------------------------
 -- View structure for vw_pend_non_formal
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pend_non_formal` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan` from (((`tbl_m_pend_non_formal` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_pend_non_formal` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan` from (((`tbl_m_pend_non_formal` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`)));
 
 -- ----------------------------
 -- View structure for vw_pend_non_formal_temp
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_pend_non_formal_temp` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`d`.`nama_instansi` AS `nama_instansi_bantuan`,`d`.`nama_bantuan` AS `nama_bantuan`,`d`.`tgl_bantuan` AS `tgl_bantuan`,`e`.`nama_pend` AS `nama_pend2`,`e`.`jenis_pend` AS `jenis_pend2`,`e`.`tahun` AS `tahun2`,`e`.`ket` AS `ket2`,`e`.`instansi` AS `instansi2` from ((((`tbl_m_pend_non_formal_temp` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`))) left join `vw_pend_non_formal` `e` on((`a`.`id_ktp` = `e`.`id_ktp`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_pend_non_formal_temp` AS select `a`.`id_pend_non_formal` AS `id_pend_non_formal`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_pend` AS `nama_pend`,`a`.`jenis_pend` AS `jenis_pend`,`a`.`tahun` AS `tahun`,`a`.`ket` AS `ket`,`a`.`instansi` AS `instansi`,`a`.`idsession` AS `idsession`,`b`.`nama_ktp` AS `nama_ktp`,`c`.`nama_instansi` AS `nama_instansi`,`b`.`jekel` AS `jekel`,`b`.`tanggal_lahir` AS `tanggal_lahir`,`d`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`d`.`nama_instansi` AS `nama_instansi_bantuan`,`d`.`nama_bantuan` AS `nama_bantuan`,`d`.`tgl_bantuan` AS `tgl_bantuan`,`e`.`nama_pend` AS `nama_pend2`,`e`.`jenis_pend` AS `jenis_pend2`,`e`.`tahun` AS `tahun2`,`e`.`ket` AS `ket2`,`e`.`instansi` AS `instansi2` from ((((`tbl_m_pend_non_formal_temp` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) join `tbl_m_instansi` `c` on((`a`.`instansi` = `c`.`id_instansi`))) left join `vw_t_bantuan` `d` on((`a`.`id_ktp` = `d`.`id_ktp`))) left join `vw_pend_non_formal` `e` on((`a`.`id_ktp` = `e`.`id_ktp`)));
 
 -- ----------------------------
 -- View structure for vw_t_anggota_komunitas_temp
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_anggota_komunitas_temp` AS select `a`.`id_anggota_komunitas_temp` AS `id_anggota_komunitas_temp`,`a`.`idsession` AS `idsession`,`a`.`id_ktp` AS `id_ktp`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,date_format(`b`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`b`.`id_kec` AS `id_kec`,`b`.`agama` AS `agama`,`b`.`status_kawin` AS `status_kawin`,`b`.`pekerjaan` AS `pekerjaan`,`b`.`warga_negara` AS `warga_negara`,`b`.`link_gambar` AS `link_gambar`,`b`.`is_delete` AS `is_delete` from (`tbl_t_anggota_komunitas_temp` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) where (`b`.`is_delete` = 0);
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_t_anggota_komunitas_temp` AS select `a`.`id_anggota_komunitas_temp` AS `id_anggota_komunitas_temp`,`a`.`idsession` AS `idsession`,`a`.`id_ktp` AS `id_ktp`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,date_format(`b`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`b`.`id_kec` AS `id_kec`,`b`.`agama` AS `agama`,`b`.`status_kawin` AS `status_kawin`,`b`.`pekerjaan` AS `pekerjaan`,`b`.`warga_negara` AS `warga_negara`,`b`.`link_gambar` AS `link_gambar`,`b`.`is_delete` AS `is_delete` from (`tbl_t_anggota_komunitas_temp` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) where (`b`.`is_delete` = 0);
 
 -- ----------------------------
 -- View structure for vw_t_bantuan_temp
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_bantuan_temp` AS select `a`.`id_t_bantuan` AS `id_t_bantuan`,`a`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`a`.`id_m_instansi` AS `id_m_instansi`,`b`.`nama_instansi` AS `nama_instansi`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_bantuan` AS `nama_bantuan`,`a`.`ket` AS `ket`,`a`.`tgl_bantuan` AS `tgl_bantuan`,`a`.`idsession` AS `idsession`,`c`.`nama_ktp` AS `nama_ktp`,`c`.`tempat_lahir` AS `tempat_lahir`,date_format(`c`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`c`.`jekel` AS `jekel`,`c`.`gol_darah` AS `gol_darah`,`c`.`alamat` AS `alamat`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`id_kel` AS `id_kel`,`c`.`id_kec` AS `id_kec`,`c`.`agama` AS `agama`,`c`.`status_kawin` AS `status_kawin`,`c`.`pekerjaan` AS `pekerjaan`,`c`.`warga_negara` AS `warga_negara`,`c`.`link_gambar` AS `link_gambar`,`c`.`is_delete` AS `is_delete` from (((`tbl_t_bantuan_temp` `a` join `tbl_m_instansi` `b` on((`a`.`id_m_instansi` = `b`.`id_instansi`))) join `master_ktp` `c` on((`a`.`id_ktp` = `c`.`id_ktp`))) left join `tbl_r_jns_bantuan` `d` on((`a`.`id_jns_bantuan` = `d`.`id_jns_bantuan`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_t_bantuan_temp` AS select `a`.`id_t_bantuan` AS `id_t_bantuan`,`a`.`id_jns_bantuan` AS `id_jns_bantuan`,`d`.`jns_bantuan` AS `jns_bantuan`,`a`.`id_m_instansi` AS `id_m_instansi`,`b`.`nama_instansi` AS `nama_instansi`,`a`.`id_ktp` AS `id_ktp`,`a`.`nama_bantuan` AS `nama_bantuan`,`a`.`ket` AS `ket`,`a`.`tgl_bantuan` AS `tgl_bantuan`,`a`.`idsession` AS `idsession`,`c`.`nama_ktp` AS `nama_ktp`,`c`.`tempat_lahir` AS `tempat_lahir`,date_format(`c`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`c`.`jekel` AS `jekel`,`c`.`gol_darah` AS `gol_darah`,`c`.`alamat` AS `alamat`,`c`.`rt` AS `rt`,`c`.`rw` AS `rw`,`c`.`id_kel` AS `id_kel`,`c`.`id_kec` AS `id_kec`,`c`.`agama` AS `agama`,`c`.`status_kawin` AS `status_kawin`,`c`.`pekerjaan` AS `pekerjaan`,`c`.`warga_negara` AS `warga_negara`,`c`.`link_gambar` AS `link_gambar`,`c`.`is_delete` AS `is_delete` from (((`tbl_t_bantuan_temp` `a` join `tbl_m_instansi` `b` on((`a`.`id_m_instansi` = `b`.`id_instansi`))) join `master_ktp` `c` on((`a`.`id_ktp` = `c`.`id_ktp`))) left join `tbl_r_jns_bantuan` `d` on((`a`.`id_jns_bantuan` = `d`.`id_jns_bantuan`)));
 
 -- ----------------------------
 -- View structure for vw_t_kk
 -- ----------------------------
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_t_kk` AS select `a`.`idtrans_kk` AS `idtrans_kk`,`a`.`id_master_kk` AS `id_master_kk`,`a`.`id_ktp` AS `id_ktp`,`a`.`pendidikan` AS `pendidikan`,`b`.`id_pend` AS `id_pend`,`k`.`nama_pend` AS `nama_pend`,`a`.`hub_keluarga` AS `hub_keluarga`,`f`.`nama_hub_kel` AS `nama_hub_kel`,`a`.`no_paspor` AS `no_paspor`,`a`.`no_kitap` AS `no_kitap`,`a`.`ayah` AS `ayah`,`a`.`ibu` AS `ibu`,`a`.`rumah_path` AS `rumah_path`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,date_format(`b`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,(case when (`b`.`jekel` = 0) then 'Pria' else 'Wanita' end) AS `nama_jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`g`.`nama_kel` AS `nama_kel`,`b`.`id_kec` AS `id_kec`,`h`.`nama_kec` AS `nama_kec`,`b`.`id_banjar` AS `id_banjar`,`c`.`nama_banjar` AS `nama_banjar`,`b`.`agama` AS `agama`,`i`.`nama_agama` AS `nama_agama`,`b`.`status_kawin` AS `status_kawin`,`j`.`nama_nikah` AS `nama_nikah`,`b`.`pekerjaan` AS `pekerjaan`,(case when (`b`.`warga_negara` = 0) then 'WNI' else 'WNA' end) AS `warga_negara`,`b`.`warga_negara` AS `warga_negara_`,`b`.`link_gambar` AS `link_gambar`,`b`.`is_delete` AS `is_delete`,(select count(1) from `trans_kk` `z` where (`z`.`id_master_kk` = `a`.`id_master_kk`)) AS `jml_anggota_keluarga`,`l`.`nama_pekerjaan` AS `nama_pekerjaan`,`b`.`id_difabel` AS `id_difabel`,`m`.`nama_difabel` AS `nama_difabel`,`b`.`id_kemiskinan` AS `id_kemiskinan`,`n`.`nama_kemiskinan` AS `nama_kemiskinan` from (((((((((((`trans_kk` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) left join `tbl_r_hub_kel` `f` on((`a`.`hub_keluarga` = `f`.`id_hub_kel`))) left join `master_kelurahan` `g` on((`b`.`id_kel` = `g`.`id_kel`))) left join `master_kecamatan` `h` on((`b`.`id_kec` = `h`.`id_kec`))) left join `master_banjar` `c` on((`b`.`id_banjar` = `c`.`id_banjar`))) left join `tbl_m_agama` `i` on((`b`.`agama` = `i`.`id_agama`))) left join `tbl_r_status_nikah` `j` on((`b`.`status_kawin` = `j`.`id_nikah`))) left join `tbl_r_pendidikan` `k` on((`b`.`id_pend` = `k`.`id_pend`))) left join `tbl_m_pekerjaan` `l` on((`b`.`pekerjaan` = `l`.`id_pekerjaan`))) left join `tbl_m_difabel` `m` on((`b`.`id_difabel` = `m`.`id_difabel`))) left join `tbl_r_kemiskinan` `n` on((`b`.`id_kemiskinan` = `n`.`id_kemiskinan`)));
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `vw_t_kk` AS select `a`.`idtrans_kk` AS `idtrans_kk`,`a`.`id_master_kk` AS `id_master_kk`,`a`.`id_ktp` AS `id_ktp`,`a`.`pendidikan` AS `pendidikan`,`b`.`id_pend` AS `id_pend`,`k`.`nama_pend` AS `nama_pend`,`a`.`hub_keluarga` AS `hub_keluarga`,`f`.`nama_hub_kel` AS `nama_hub_kel`,`a`.`no_paspor` AS `no_paspor`,`a`.`no_kitap` AS `no_kitap`,`a`.`ayah` AS `ayah`,`a`.`ibu` AS `ibu`,`a`.`rumah_path` AS `rumah_path`,`b`.`nama_ktp` AS `nama_ktp`,`b`.`tempat_lahir` AS `tempat_lahir`,date_format(`b`.`tanggal_lahir`,'%d-%m-%Y') AS `tanggal_lahir`,`b`.`jekel` AS `jekel`,(case when (`b`.`jekel` = 0) then 'Pria' else 'Wanita' end) AS `nama_jekel`,`b`.`gol_darah` AS `gol_darah`,`b`.`alamat` AS `alamat`,`b`.`rt` AS `rt`,`b`.`rw` AS `rw`,`b`.`id_kel` AS `id_kel`,`g`.`nama_kel` AS `nama_kel`,`b`.`id_kec` AS `id_kec`,`h`.`nama_kec` AS `nama_kec`,`b`.`id_banjar` AS `id_banjar`,`c`.`nama_banjar` AS `nama_banjar`,`b`.`agama` AS `agama`,`i`.`nama_agama` AS `nama_agama`,`b`.`status_kawin` AS `status_kawin`,`j`.`nama_nikah` AS `nama_nikah`,`b`.`pekerjaan` AS `pekerjaan`,(case when (`b`.`warga_negara` = 0) then 'WNI' else 'WNA' end) AS `warga_negara`,`b`.`warga_negara` AS `warga_negara_`,`b`.`link_gambar` AS `link_gambar`,`b`.`is_delete` AS `is_delete`,(select count(1) from `trans_kk` `z` where (`z`.`id_master_kk` = `a`.`id_master_kk`)) AS `jml_anggota_keluarga`,`l`.`nama_pekerjaan` AS `nama_pekerjaan`,`b`.`id_difabel` AS `id_difabel`,`m`.`nama_difabel` AS `nama_difabel`,`b`.`id_kemiskinan` AS `id_kemiskinan`,`n`.`nama_kemiskinan` AS `nama_kemiskinan` from (((((((((((`trans_kk` `a` join `master_ktp` `b` on((`a`.`id_ktp` = `b`.`id_ktp`))) left join `tbl_r_hub_kel` `f` on((`a`.`hub_keluarga` = `f`.`id_hub_kel`))) left join `master_kelurahan` `g` on((`b`.`id_kel` = `g`.`id_kel`))) left join `master_kecamatan` `h` on((`b`.`id_kec` = `h`.`id_kec`))) left join `master_banjar` `c` on((`b`.`id_banjar` = `c`.`id_banjar`))) left join `tbl_m_agama` `i` on((`b`.`agama` = `i`.`id_agama`))) left join `tbl_r_status_nikah` `j` on((`b`.`status_kawin` = `j`.`id_nikah`))) left join `tbl_r_pendidikan` `k` on((`b`.`id_pend` = `k`.`id_pend`))) left join `tbl_m_pekerjaan` `l` on((`b`.`pekerjaan` = `l`.`id_pekerjaan`))) left join `tbl_m_difabel` `m` on((`b`.`id_difabel` = `m`.`id_difabel`))) left join `tbl_r_kemiskinan` `n` on((`b`.`id_kemiskinan` = `n`.`id_kemiskinan`)));
 
 -- ----------------------------
 -- Procedure structure for zsp_detail_anggota_kom
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_detail_anggota_kom`(
+CREATE  PROCEDURE `zsp_detail_anggota_kom`(
 s_ses varchar(50)
 )
 BEGIN
@@ -837,7 +837,7 @@ DELIMITER ;
 -- Procedure structure for zsp_detail_bantuan
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_detail_bantuan`(
+CREATE  PROCEDURE `zsp_detail_bantuan`(
 s_user varchar(50),
 s_session varchar(50)
 )
@@ -858,7 +858,7 @@ DELIMITER ;
 -- Procedure structure for zsp_detail_kk
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_detail_kk`(
+CREATE  PROCEDURE `zsp_detail_kk`(
 s_session varchar(50)
 )
 BEGIN
@@ -1000,7 +1000,7 @@ DELIMITER ;
 -- Procedure structure for zsp_detail_pend_non_formal
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_detail_pend_non_formal`(
+CREATE  PROCEDURE `zsp_detail_pend_non_formal`(
 s_session varchar(50)
 )
 BEGIN
@@ -1020,7 +1020,7 @@ DELIMITER ;
 -- Procedure structure for zsp_simpan_anggota_kom
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_simpan_anggota_kom`(
+CREATE  PROCEDURE `zsp_simpan_anggota_kom`(
 s_session varchar(50),
 s_id_kom varchar(50)
 )
@@ -1046,7 +1046,7 @@ DELIMITER ;
 -- Procedure structure for zsp_simpan_bantuan
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_simpan_bantuan`(
+CREATE  PROCEDURE `zsp_simpan_bantuan`(
 s_user varchar(50),
 s_session varchar(50),
 s_jns_bantuan varchar(50),
@@ -1083,7 +1083,7 @@ DELIMITER ;
 -- Procedure structure for zsp_simpan_kk
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_simpan_kk`(
+CREATE  PROCEDURE `zsp_simpan_kk`(
 s_session varchar(50)
 )
 BEGIN
@@ -1242,7 +1242,7 @@ DELIMITER ;
 -- Procedure structure for zsp_simpan_pend_non_formal
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `zsp_simpan_pend_non_formal`(
+CREATE  PROCEDURE `zsp_simpan_pend_non_formal`(
 s_session varchar(50),
 s_pend varchar(50),
 s_jns_pend varchar(50),
@@ -1279,7 +1279,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_agama
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_agama`(
+CREATE  FUNCTION `xfn_jml_agama`(
 sjekel varchar(2),
 sid_kec varchar(10),
 sid_agama varchar(10)
@@ -1296,7 +1296,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_difabel
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_difabel`(
+CREATE  FUNCTION `xfn_jml_difabel`(
 sjekel varchar(2),
 sid_kec varchar(10),
 sid_difabel varchar(10)
@@ -1314,7 +1314,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_gol_darah
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_gol_darah`(
+CREATE  FUNCTION `xfn_jml_gol_darah`(
 sjekel varchar(2),
 sid_kec varchar(10),
 sgol_darah varchar(10)
@@ -1331,7 +1331,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_jekel
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_jekel`(
+CREATE  FUNCTION `xfn_jml_jekel`(
 sjekel varchar(2)
 ) RETURNS int(11)
 BEGIN
@@ -1346,7 +1346,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_jekel_kec
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_jekel_kec`(
+CREATE  FUNCTION `xfn_jml_jekel_kec`(
 sjekel varchar(2),
 sid_kec varchar(10)
 ) RETURNS int(11)
@@ -1362,7 +1362,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_kk
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_kk`() RETURNS int(11)
+CREATE  FUNCTION `xfn_jml_kk`() RETURNS int(11)
 BEGIN
 
 declare iReturn int default(SELECT count(*) FROM trans_kk where hub_keluarga=1);
@@ -1375,7 +1375,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_pekerjaan
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_pekerjaan`(
+CREATE  FUNCTION `xfn_jml_pekerjaan`(
 sjekel varchar(2),
 sid_kec varchar(10),
 sid_pekerjaan varchar(10)
@@ -1392,7 +1392,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_pend
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_pend`(
+CREATE  FUNCTION `xfn_jml_pend`(
 sjekel varchar(2),
 sid_kec varchar(10),
 sid_pend varchar(10)
@@ -1409,7 +1409,7 @@ DELIMITER ;
 -- Function structure for xfn_jml_penduduk
 -- ----------------------------
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `xfn_jml_penduduk`() RETURNS int(11)
+CREATE  FUNCTION `xfn_jml_penduduk`() RETURNS int(11)
 BEGIN
 
 declare iReturn int default(SELECT count(*) FROM master_ktp where is_delete=0);

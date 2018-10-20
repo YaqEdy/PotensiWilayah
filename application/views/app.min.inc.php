@@ -34,7 +34,7 @@
         type="text/javascript"></script>
 <script src="<?php echo base_url('metronic/global/plugins/amcharts/amstockcharts/amstock.js'); ?>"
         type="text/javascript"></script>
-        
+
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/select2/js/select2.full.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('metronic/global/plugins/bootstrap-toastr/toastr.min.js'); ?>"></script>
