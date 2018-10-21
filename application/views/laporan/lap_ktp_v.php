@@ -30,6 +30,37 @@
                 </div>
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Kecamatan</label>
+                                        <?php
+                                        $data = array();
+                                        $data[''] = '';
+                                        foreach ($kec as $row) :
+                                            $data[$row['id_kec']] = $row['nama_kec'];
+                                        endforeach;
+                                        echo form_dropdown('kec', $data, '', 'required id="id_kec" class="form-control input-sm select2me "');
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Kelurahan</label>
+                                        <select name="kel" id="id_kel" class="form-control input-sm select2me "></select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Banjar</label>
+                                        <select name="banjar" id="id_banjar" class="form-control input-sm select2me "></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                        <br><br><br><br><br>
                             <table class="table table-striped table-bordered table-hover text_kanan" id="idGridSelectPenerima">
                                 <thead>
                                     <tr>

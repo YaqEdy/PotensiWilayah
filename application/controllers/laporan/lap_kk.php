@@ -35,7 +35,7 @@ class Lap_kk extends CI_Controller {
         $this->auth->restrict($data['menu_id']);
         $this->auth->cek_menu($data['menu_id']);
 
-        $data['ktp'] = $this->global_m->getSelectOption('master_ktp','is_delete','0','','','id_ktp');
+        $data['kec'] = $this->global_m->getSelectOption('master_kecamatan','','','','','id_kec');
 
         // $data['suplier'] = $this->kedatangan_m->getSuplier();
         if (isset($_POST["btnSimpan"])) {
@@ -61,7 +61,15 @@ class Lap_kk extends CI_Controller {
 
     public function getKK() {
         $this->CI = & get_instance(); //and a.kcab_id<>'1100'
-        $rows = $this->trans_kk_m->getKKAll();
+        $kec = trim($this->input->post('sKec'));
+        $kel=trim($this->input->post('sKel'));
+        $banjar=trim($this->input->post('sBanjar'));
+        if($banjar==""){
+            $rows = $this->trans_kk_m->getKKAll();
+        }else{
+            $rows = $this->trans_kk_m->getKKAll_Rpt($kec,$kel,$banjar);
+        }
+
         // $rows = $this->global_m->get_data();
         $data['data'] = array();
         foreach ($rows as $row) {

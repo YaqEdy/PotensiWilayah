@@ -31,7 +31,7 @@ class Main extends CI_Controller {
             $data['jml_pria'] = $this->global_m->get_data("select xfn_jml_jekel(0) as jml")[0]->jml;
             $data['jml_wanita'] = $this->global_m->get_data("select xfn_jml_jekel(1) as jml")[0]->jml;
             $data['jml_kk'] = $this->global_m->get_data("select xfn_jml_kk() as jml")[0]->jml;
-            $data['pie_kemiskinan'] = $this->global_m->get_data_array("SELECT z.nama_kemiskinan,count(*) as jml FROM (SELECT distinct b.id_master_kk,c.nama_kemiskinan FROM db_pw.master_ktp as a inner join trans_kk as b on a.id_ktp=b.id_ktp left join tbl_r_kemiskinan as c on a.id_kemiskinan=c.id_kemiskinan)AS z group by z.id_master_kk");
+            $data['pie_kemiskinan'] = $this->global_m->get_data_array("SELECT z.nama_kemiskinan,count(*) as jml FROM (SELECT distinct b.id_master_kk,c.nama_kemiskinan FROM master_ktp as a inner join trans_kk as b on a.id_ktp=b.id_ktp left join tbl_r_kemiskinan as c on a.id_kemiskinan=c.id_kemiskinan)AS z group by z.id_master_kk");
             $data['pie_pekerjaan'] = $this->global_m->get_data_array("select p.nama_pekerjaan as nm_pekerjaan,count(k.pekerjaan) as jml from master_ktp k left join tbl_m_pekerjaan p on k.pekerjaan = p.id_pekerjaan group by k.pekerjaan");
             $data['pie_difabel'] = $this->global_m->get_data_array("select p.nama_difabel,count(k.id_difabel) as jml from master_ktp k left JOIN tbl_m_difabel p on k.id_difabel = p.id_difabel group by k.id_difabel");
             

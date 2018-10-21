@@ -9,7 +9,13 @@ class Trans_kk_m extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result(); // returning rows, not row
     }
-    
+
+    public function getKKAll_Rpt($kec,$kel,$banjar) {
+        $sql = "SELECT * from vw_kk where hub_keluarga=1 and id_kec=$kec and id_kel=$kel and id_banjar=$banjar";
+        $query = $this->db->query($sql);
+        return $query->result(); // returning rows, not row
+    }
+
 
     public function getProduk() {
         $rows = array(); //will hold all results

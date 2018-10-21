@@ -53,10 +53,8 @@
                                 </div>
                             </div>
                             <div class="row">
-
-                                 <div class="col-md-12">
-                                 <br><br><br><br>
-
+                                <div class="col-md-12">
+                                    <br><br><br><br><br>
                                     <table class="table table-striped table-bordered table-hover text_kanan"
                                            id="idTabelKel">
                                         <thead>
@@ -85,7 +83,7 @@
 
                                         </tfoot>
                                     </table>
-                                </div> 
+                                </div>
                                 <!-- end col-12 -->
                             </div>
                             <!-- END ROW-->

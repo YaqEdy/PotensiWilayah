@@ -52,67 +52,67 @@ var table;
                 },
                 "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
                 "dom": "<'rows' <'col-md-12'B> > <'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-                        "buttons": [
-                            {
-                                extend: "print",
-                                orientation: "landscape",
-                                pageSize: "A4",
-                                className: "btn dark btn-outline",
-                                exportOptions: {
-                                    columns: ':visible'
-                                },
-                                customize: function (win) {
-                                    $(win.document.body)
-                                            .css('font-size', '9pt');
-                                    $(win.document.body).find('table')
-                                            .addClass('compact')
-                                            //.addClass('styleDataTabel')
-                                            .css('font-size', 'inherit');
-                                },
-                                header: true,
-                                title: "<center><h4>Jadwal Pengiriman</h4></center> <center><h4>PT Sumber Kita Indah</h4></center>"
-                            },
-                            {
-                                extend: "copy",
-                                className: "btn red btn-outline",
-                                header: true,
-                                exportOptions: {
-                                    columns: ':visible'
-                                },
-                            },
-                            {
-                                extend: "pdf",
-                                orientation: "landscape",
-                                pageSize: "A4",
-                                className: "btn green btn-outline",
-                                title: "Laporan Piutang Agen \n Mega Jaya Laundry",
-                                customize: function (doc) {
-                                    doc.defaultStyle.fontSize = 11;
-                                    //<-- set fontsize to 16 instead of 10 
-                                }, exportOptions: {
-                                    columns: ':visible'
-                                },
-                            },
-                            {
-                                extend: "excel",
-                                className: "btn yellow btn-outline ",
-                                exportOptions: {
-                                    columns: ':visible'
-                                },
-                            },
-                            {
-                                extend: "csv",
-                                className: "btn purple btn-outline ",
-                                exportOptions: {
-                                    columns: ':visible'
-                                }
-                            },
-                            {
-                                extend: "colvis",
-                                className: "btn green btn-outline ",
-                                text: "Kolom"
-                            }
-                        ],
+                "buttons": [
+                    {
+                        extend: "print",
+                        orientation: "landscape",
+                        pageSize: "A4",
+                        className: "btn dark btn-outline",
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        customize: function (win) {
+                            $(win.document.body)
+                                    .css('font-size', '9pt');
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    //.addClass('styleDataTabel')
+                                    .css('font-size', 'inherit');
+                        },
+                        header: true,
+                        title: "<center><h4>Jadwal Pengiriman</h4></center> <center><h4>PT Sumber Kita Indah</h4></center>"
+                    },
+                    {
+                        extend: "copy",
+                        className: "btn red btn-outline",
+                        header: true,
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                    },
+                    {
+                        extend: "pdf",
+                        orientation: "landscape",
+                        pageSize: "A4",
+                        className: "btn green btn-outline",
+                        title: "Laporan Piutang Agen \n Mega Jaya Laundry",
+                        customize: function (doc) {
+                            doc.defaultStyle.fontSize = 11;
+                            //<-- set fontsize to 16 instead of 10 
+                        }, exportOptions: {
+                            columns: ':visible'
+                        },
+                    },
+                    {
+                        extend: "excel",
+                        className: "btn yellow btn-outline ",
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                    },
+                    {
+                        extend: "csv",
+                        className: "btn purple btn-outline ",
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: "colvis",
+                        className: "btn green btn-outline ",
+                        text: "Kolom"
+                    }
+                ],
 
 
                 "lengthMenu": [

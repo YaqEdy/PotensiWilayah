@@ -17,6 +17,13 @@ class Trans_bantuan_m extends CI_Model {
 		return $query->result(); // returning rows, not row
 	}
 
+	public function getKtpAll_Rpt($kec,$kel,$banjar)
+	{
+		$sql="SELECT id_ktp,nama_ktp,jekel,date_format(tanggal_lahir,'%d-%m-%Y') as tanggal_lahir,is_delete FROM master_ktp WHERE id_kec=$kec and id_kel=$kel and id_banjar=$banjar";
+		$query=$this->db->query($sql);
+		return $query->result(); // returning rows, not row
+	}
+
 	public function getIdBantuan(){
 		$sql= "select id_t_bantuan from tbl_t_bantuan";
 		$query = $this->db->query($sql);
