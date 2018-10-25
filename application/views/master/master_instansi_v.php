@@ -225,7 +225,7 @@
 
             // begin first table
             table.dataTable({
-                "ajax": "<?php echo base_url("/master/master_Instansi/getInstansiAll"); ?>",
+                "ajax": "<?php echo base_url("/master/master_instansi/getInstansiAll"); ?>",
                 "columns": [
                     {"data": "idInstansi"},
                     {"data": "namaInstansi"}
