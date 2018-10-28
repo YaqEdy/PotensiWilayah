@@ -11,7 +11,7 @@ class Trans_kk_m extends CI_Model {
     }
 
     public function getKKAll_Rpt($kec,$kel,$banjar) {
-        $sql = "SELECT * from vw_kk where hub_keluarga=1 and id_kec=$kec and id_kel=$kel and id_banjar=$banjar";
+        $sql = "SELECT * from vw_kk where hub_keluarga=1 and id_kec like "."'$kec'"." and id_kel like "."'$kel'"." and id_banjar like "."'$banjar'";
         $query = $this->db->query($sql);
         return $query->result(); // returning rows, not row
     }

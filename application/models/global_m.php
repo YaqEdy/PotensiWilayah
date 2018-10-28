@@ -18,7 +18,7 @@ class Global_m extends CI_Model {
         return $rows; // returning rows, not row
     }
     public function getRincianKel($idKec) {
-        $sql = "select * from master_kelurahan where id_kec = '$idKec' ";
+        $sql = "SELECT * from master_kelurahan where id_kec LIKE "."'$idKec'";
         $query = $this->db->query($sql);
         if ($query->num_rows() <> 0) {
             
@@ -29,7 +29,7 @@ class Global_m extends CI_Model {
         }
     }
     public function getRincianBanjar($idKel) {
-        $sql = "select * from master_banjar where id_kel = '$idKel' ";
+        $sql = "SELECT * from master_banjar where id_kel LIKE "."'$idKel'";
         $query = $this->db->query($sql);
         if ($query->num_rows() <> 0) {
             
@@ -40,7 +40,7 @@ class Global_m extends CI_Model {
         }
     }
     public function getJmlKel($idKec) {
-        $sql = "select * from master_kelurahan where id_kec = '$idKec' ";
+        $sql = "SELECT * from master_kelurahan where id_kec LIKE "."'$idKec'";
         $query = $this->db->query($sql);
         if ($query->num_rows() <> 0) {
             return $query->num_rows();
@@ -49,7 +49,7 @@ class Global_m extends CI_Model {
         }
     }
     public function getJmlBanjar($idKel) {
-        $sql = "select * from master_banjar where id_kel = '$idKel' ";
+        $sql = "SELECT * from master_banjar where id_kel LIKE "."'$idKel'";
         $query = $this->db->query($sql);
         if ($query->num_rows() <> 0) {
             return $query->num_rows();

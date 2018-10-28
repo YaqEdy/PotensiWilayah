@@ -19,9 +19,10 @@
     }
 
 //Filter
-var iKec="";
+var iKec="%";
 var iKel="";
 var iBanjar="";
+getKelAll();
 $("#id_kec").change(function () {
         iKec = $(this).val();
         getKelAll();
@@ -36,8 +37,12 @@ $("#id_kec").change(function () {
             success: function (e) {
                 // console.log(e.data_cpa.length)
                 if (e.data_cpa.length > 0) {
-                    $('#id_kel_').empty();
+                    $('#id_kel').empty();
                     for (i = 0; i < e.data_cpa.length; i++) {
+                        if(i==0){
+                            opt = '<option value="%">Select</option><option value="%">All</option>';
+                            $('#id_kel').append(opt);
+                        }
                         var idKel = e.data_cpa[i].id_kel;
                         var namakel = e.data_cpa[i].nama_kel;
                         opt = '<option value="' + idKel + '">' + namakel + '</option>';
@@ -62,8 +67,12 @@ $("#id_kec").change(function () {
             success: function (e) {
                 // console.log(e.data_cpa.length)
                 if (e.data_cpa.length > 0) {
-                    $('#id_kel_').empty();
+                    $('#id_banjar').empty();
                     for (i = 0; i < e.data_cpa.length; i++) {
+                        if(i==0){
+                            opt = '<option value="%">Select</option><option value="%">All</option>';
+                            $('#id_banjar').append(opt);
+                        }
                         var idBanjar = e.data_cpa[i].id_banjar;
                         var namaBanjar = e.data_cpa[i].nama_banjar;
                         opt = '<option value="' + idBanjar + '">' + namaBanjar + '</option>';
@@ -78,6 +87,7 @@ $("#id_kec").change(function () {
         iBanjar = $(this).val();
         $('#idGridSelectPenerima').DataTable().ajax.reload();
     });
+
 
 
 //Grid penerima bantuan

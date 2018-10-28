@@ -36,7 +36,7 @@
                                         <label>Kecamatan</label>
                                         <?php
                                         $data = array();
-                                        $data[''] = '';
+                                        $data['%'] = 'All';
                                         foreach ($kec as $row) :
                                             $data[$row['id_kec']] = $row['nama_kec'];
                                         endforeach;
